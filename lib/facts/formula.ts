@@ -15,6 +15,10 @@
  * Functions are the only way a formula reads the ledger:
  *   ledger_sum('base')          sum of award values, options excluded
  *   ledger_sum('with_options')  sum of award values plus unexercised options
+ *   ledger_category_sum('habitat')  sum of award values in one category, options
+ *     excluded. Arithmetic over an empty set is a first-class result: it is how
+ *     the zero rows are computed (data-model.md section 4), and the zero it
+ *     returns is the only number Burn Rate originates.
  *   days_since_max_ledger_date()  whole days from the latest ledger award date to today
  *
  * No eval(), no Function(). The parser accepts exactly the grammar above and
@@ -26,6 +30,7 @@ export interface FormulaContext {
   resolveId: (id: string) => number;
   /** Ledger reads. */
   ledgerSum: (mode: "base" | "with_options") => number;
+  ledgerCategorySum: (category: string) => number;
   daysSinceMaxLedgerDate: () => number;
 }
 
@@ -90,7 +95,7 @@ function tokenize(formula: string): Token[] {
 
 /** Every identifier a formula references, so validation can check derived_from. */
 export function referencedIds(formula: string): string[] {
-  const funcNames = new Set(["ledger_sum", "days_since_max_ledger_date"]);
+  const funcNames = new Set(["ledger_sum", "ledger_category_sum", "days_since_max_ledger_date"]);
   return tokenize(formula)
     .filter((t): t is Extract<Token, { type: "ident" }> => t.type === "ident")
     .map((t) => t.value)
@@ -173,6 +178,10 @@ function callFunction(
       if (arg !== "base" && arg !== "with_options")
         throw new Error(`ledger_sum requires 'base' or 'with_options' in formula: ${formula}`);
       return ctx.ledgerSum(arg);
+    case "ledger_category_sum":
+      if (!arg)
+        throw new Error(`ledger_category_sum requires a category in formula: ${formula}`);
+      return ctx.ledgerCategorySum(arg);
     case "days_since_max_ledger_date":
       return ctx.daysSinceMaxLedgerDate();
     default:

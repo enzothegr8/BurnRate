@@ -22,7 +22,26 @@ export interface Source {
   name: string;
   /** Must resolve. A fact without a URL is a rumor (editorial-standards.md section 8). */
   url: string;
+  /**
+   * Per claim, not per outlet (data-model.md section 2). The outlet ranking in
+   * editorial-standards.md section 4 is a default, not a verdict; an outlet's
+   * reputation does not transfer to a sentence where it did no work.
+   */
   tier: SourceTier;
+  /**
+   * Attestation that this source prints this value. A source that does not
+   * print the value is not a source for it and fails the build; it may be
+   * corroboration for something adjacent, and that belongs in notes.
+   */
+  states_value: boolean;
+  /**
+   * Id of the underlying event or utterance when the source is repeating
+   * rather than originating. Sources sharing a traces_to are one source, not
+   * two: agreement between reprints is correlated error, not verification.
+   */
+  traces_to: string | null;
+  /** Required when tier departs from the outlet's default rank. Say why. */
+  tier_note?: string;
   /** ISO date the source was retrieved. */
   retrieved_at: string;
 }

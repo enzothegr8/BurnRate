@@ -59,6 +59,23 @@ function validateSources(id: string, sources: unknown): asserts sources is Sourc
     if (typeof s.tier !== "number" || s.tier < 1 || s.tier > 5) {
       fail(id, `source '${s.name}' has an invalid tier`);
     }
+    // A source that does not state the record's claim is not a source for it
+    // (data-model.md section 2). There is no exemption: the zeros that once
+    // appeared to need one are derived facts with no sources array, computed
+    // by counting an empty ledger category. A solicitation row's claim is the
+    // solicitation itself, which sources do print.
+    if (s.states_value !== true) {
+      fail(
+        id,
+        `source '${s.name}' does not state the value; it is corroboration and belongs in notes`
+      );
+    }
+    if (s.traces_to !== null && typeof s.traces_to !== "string") {
+      fail(id, `source '${s.name}' is missing traces_to (an event id, or null when originating)`);
+    }
+    if ("tier_note" in s && (typeof s.tier_note !== "string" || s.tier_note.trim() === "")) {
+      fail(id, `source '${s.name}' has an empty tier_note; say why the tier departs`);
+    }
     if (!s.retrieved_at) fail(id, `source '${s.name}' is missing retrieved_at`);
   }
 }
@@ -156,6 +173,12 @@ function ledgerSum(mode: "base" | "with_options"): number {
   }, 0);
 }
 
+function ledgerCategorySum(category: string): number {
+  return ledgerAwards()
+    .filter((row) => row.category === category)
+    .reduce((total, row) => total + row.value, 0);
+}
+
 function daysSinceMaxLedgerDate(today: Date): number {
   const max = Math.max(...ledgerAwards().map((row) => new Date(row.date).getTime()));
   return Math.floor((today.getTime() - max) / SECONDS_PER_DAY_MS);
@@ -218,6 +241,17 @@ function resolveWithGuard(id: string, today: Date, visiting: Set<string>): Resol
       inputConfidences.push(lowestConfidence(rows.map((row) => row.confidence)));
       if (rows.some((row) => isStale(row.stale_after, today))) inputStale = true;
       return ledgerSum(mode);
+    },
+    ledgerCategorySum: (category) => {
+      const rows = ledgerAwards().filter((row) => row.category === category);
+      // An empty category contributes no input confidence: the sum over an
+      // empty set is Burn Rate's own count, and the resolved fact's default
+      // of 'derived' is exactly right for the only number this site originates.
+      if (rows.length > 0) {
+        inputConfidences.push(lowestConfidence(rows.map((row) => row.confidence)));
+        if (rows.some((row) => isStale(row.stale_after, today))) inputStale = true;
+      }
+      return ledgerCategorySum(category);
     },
     daysSinceMaxLedgerDate: () => daysSinceMaxLedgerDate(today),
   };

@@ -1,6 +1,6 @@
 # Burn Rate — Data Model & Sources
 
-**Doc** BR-DATA · **Rev** 03 · **Updated** 2026-07-17 · **Drawn** E. CARVALHO
+**Doc** BR-DATA · **Rev** 05 · **Updated** 2026-07-17 · **Drawn** E. CARVALHO
 
 ---
 
@@ -39,6 +39,8 @@ Three consequences, and they're the whole reason to build it this way:
       "name": "SpaceNews",
       "url": "https://...",
       "tier": 3,
+      "states_value": true,
+      "traces_to": null,
       "retrieved_at": "2026-07-17"
     }
   ],
@@ -59,7 +61,10 @@ Three consequences, and they're the whole reason to build it this way:
 | `as_of` | date | The date the figure describes, not the date it was fetched. |
 | `confidence` | enum | `confirmed` · `reported` · `derived`. Drives the underline. Nothing else does. |
 | `sources` | array | At least one. A record with zero sources is invalid and must not render. |
-| `sources[].tier` | 1–5 | Per the source hierarchy in `editorial-standards.md` §4. |
+| `sources[].tier` | 1–5 | **Per claim, not per outlet.** See below. |
+| `sources[].states_value` | bool | Does this source print this value? If false, the source does not belong in `sources`. Build fails. |
+| `sources[].traces_to` | string or null | Id of the underlying event or utterance, when the source is repeating rather than originating. See below. |
+| `sources[].tier_note` | string | Required when `tier` differs from the outlet's default rank. Say why. |
 | `notes` | string | Competing framings, ambiguities, denominator choices. Surfaces on hover and in the assumptions drawer. |
 | `stale_after` | date or null | See §5. |
 | `supersedes` | id or null | For revised figures. The old record is retained, never deleted. |
@@ -75,6 +80,28 @@ Three consequences, and they're the whole reason to build it this way:
 | `derived` | dotted 1.5px | `#A8823C` |
 
 **No component may override this.** If a number needs a different mark, its confidence is wrong; fix the record.
+
+### Tier is a property of the claim, not the outlet
+
+This is the correction that Rev 03 was missing, and it cost real money to learn.
+
+`editorial-standards.md` §4 ranks outlets. That ranking is a *default*, not a verdict. The Planetary Society is tier 2 because it does peer-reviewed budget work. On the $20B it did none: it repeated a remark from a podium and attributed it to documents on NASA's website that nobody has produced. A tier-2 badge on that record tells a reader the figure has institutional analysis behind it. It does not. **The outlet was tier 2. The claim was tier 4.**
+
+So `tier` is assessed per source *per claim*. When the assigned tier departs from the outlet's usual rank, `tier_note` says why, and it is required. An outlet's reputation is earned on the work it did, and it does not transfer to a sentence where it did none.
+
+### A source must state the value
+
+`states_value` is not documentation. It is a build-time check, and it exists because of a specific failure: NASA's Ignition deck sat in the `sources` array of `moonbase.program.total`, a tier-1 badge on a number NASA never printed. The record's own notes said the deck does not contain the figure. The array said it did. The array is what a reader sees.
+
+**If a source does not print the value, it is not a source for that value.** It may be excellent corroboration for something adjacent, the phase structure, the timeline, the program's existence, and it belongs in `notes` saying exactly what it supports. It does not belong in `sources`. A source cited for a number it does not state is laundering, and it does not matter whether an outlet does it or you do.
+
+### Two sources that repeat one sentence are one source
+
+`traces_to` records the underlying event or utterance when a source is relaying rather than originating.
+
+Spaceflight Now quotes Isaacman at Ignition. The Planetary Society prints the same figure. That reads as two independent sources across two tiers. It is not. It is one spoken sentence, printed twice, and the second printing invented a paper provenance for it. **Sources that share a `traces_to` are one source, and the record must count them as one.**
+
+`editorial-standards.md` §3 already names this failure inside the agent pipeline: agreement is not verification, it is correlated error. It turns out the press does it too, one tier up, and with more authority. The schema has to see it, because a reader counting sources cannot.
 
 ---
 
@@ -128,7 +155,17 @@ A derived fact is computed from other facts and is **dotted by construction**. I
 
 **The consequence, concretely:** if NASA restates the program as eight years, `moonbase.program.total` flags stale and `cost_per_person` would have gone on silently dividing by seven. A stale record next to a live wrong answer is worse than either alone.
 
-**Put in `notes`, because it is a real tension:** the phase dates and the spoken duration do not obviously reconcile. Phase 1 runs 2026 to 2028/29 and Phase 2 runs 2029 to 2031, which is roughly six years, not seven. It may be fiscal years, it may be inclusive counting, it may be loose speech. Do not resolve it and do not correct it. Record that it does not add up cleanly and let the note carry the disagreement, per `editorial-standards.md` §8.
+**What NASA's written record actually says.** From the *Building the Moon Base* fact sheet, nasa.gov, March 24, 2026, tier 1, opened 2026-07-17:
+
+- Phase 1 (Now–2029): Experiment, Learn
+- Phase 2 (2029–2032): Early Habitation
+- Phase 3 (2032 and beyond): Sustained Human Presence
+
+Rev 03 recorded a "six-year tension" using Phase 2 ending in 2031. That was wrong: it traced to the research brief, not to a source, and NASA prints 2032. Rev 03 also relied on an agent's page-by-page read of the deck reporting Phase 1 as 2026–2028 and Phase 3 as 2033–2036, which matches neither fact sheet. **That read was not verified and must not be used.** It is exactly the failure `editorial-standards.md` §3 exists to catch: an agent's report of a primary source standing in for the source.
+
+**The tension is real but it is not the one Rev 03 described.** NASA's fact sheets give phase dates and no duration. The seven is spoken only. Phases 1 and 2 span roughly 2026 to 2032, which is six elapsed years or seven counted inclusively, and the fiscal-versus-calendar question is unresolved because NASA does not say. Some trade coverage frames the window as FY2027–2033 instead. Record the disagreement. Do not pick a winner, per `editorial-standards.md` §8.
+
+**Open item, blocking promotion:** the 31MB *Building the Moon Base* presentation is the only NASA artifact that may print per-phase dollar figures. It has not been opened by Enzo. Until it is, no dollar figure on this site claims a NASA document as its source.
 
 ---
 
@@ -186,7 +223,32 @@ Base awards: **$1.292B**. With the Blue Origin option: **$1.573B**. Both `derive
 
 ### The zero rows
 
-Habitats and surface power are records too, with `value: 0` and `status: "solicitation"`. **The zero is the story.** NextSTEP-3 Appendix B opened its first directed call, on surface power, June 30, 2026. The day that award lands is the day the site's most important number changes, and Burn Rate should be first to know.
+Habitats and surface power carry `value: 0` and `status: "solicitation"`. **The zero is the story.** The day the first surface-power award lands is the day the site's most important number changes, and Burn Rate should be first to know.
+
+**The zero is derived, not reported.** This is the correction Rev 05 exists for, and it resolves a conflict Rev 04 created.
+
+No source prints "$0." Nobody publishes an absence as a numeral. `states_value` therefore appeared to invalidate the two rows that are the ledger's entire argument, and the tempting fix was an exemption in the validator. An exemption would have been wrong, and the reason is that the zero was miscategorized, not mis-validated.
+
+**Nobody reported this figure. Burn Rate computed it**, by assembling the award record and finding nothing in the category. That is arithmetic over an empty set, which is a derived fact by §3, dotted by construction, with no `sources` array to check. The invariant holds universally and needs no hole cut in it.
+
+```json
+{
+  "id": "moonbase.committed.habitat",
+  "derived_from": ["ledger"],
+  "formula": "sum(ledger where category = 'habitat' and status = 'award')",
+  "unit": "USD",
+  "label": "Committed to pressurized habitats",
+  "notes": "Evaluates to zero because no habitat award exists in the ledger as of the ledger's own as_of date. This is Burn Rate's count of the award record, not a figure NASA published. NASA does not publish absences."
+}
+```
+
+**Three consequences, and the third is the point:**
+
+1. **The mark is now correct by kind, not by degree** (`editorial-standards.md` §2). The zero renders dotted while funded rows render dashed. That is the honest relationship: no one told Burn Rate this, Burn Rate counted.
+2. **It maintains itself.** Add the surface-power award to the ledger and the zero stops being zero, everywhere it renders, in the same commit. A hand-maintained zero is a zero you will forget to change on the one day it matters.
+3. **It is the only number on this site for which Burn Rate is the primary source.** Every other figure here is someone else's, marked. This one exists because nobody else assembled the ledger. That is what §2's "owning one dataset completely" looks like once it reaches the schema.
+
+**The solicitation is a separate record, and it is reported.** "NextSTEP-3 Appendix B opened its first directed call, on surface power, June 30, 2026" is a claim a source does print, with a date and a URL. It passes `states_value` normally. Rev 04 jammed the absence and the solicitation into one record; they are different kinds of claim and each is expressible once separated.
 
 Render the zero rows at the same visual weight as the funded rows. They are not a footnote to the ledger; they are the argument the ledger is making.
 
@@ -194,7 +256,16 @@ Render the zero rows at the same visual weight as the funded rows. They are not 
 
 `moonbase.program.total` = $20B. It needs its own record because two formulas depend on it (§3), and because its provenance is more interesting than its value.
 
-**The $20B was spoken, not published.** It comes from Isaacman's remarks at the March 24, 2026 Ignition event. NASA's own deck states the phases separately: $10B, $10B, and "$10B+". No NASA document prints "$20 billion." The figure is therefore `reported`, and it stays `reported` even though every outlet on earth repeats it, because repetition is not publication.
+**The $20B was spoken, not published, and the written record is emptier than Rev 03 knew.** Two NASA fact sheets from March 24, 2026 were opened on 2026-07-17:
+
+| Document | Tier | Phases | Dollar figures |
+|---|---|---|---|
+| *Ignition* fact sheet | 1 | All three, named, no dates | **None** |
+| *Building the Moon Base* fact sheet | 1 | All three, with dates | **None** |
+
+Neither prints "$20 billion." Neither prints "$10 billion." **NASA's written record describes the Moon Base without ever pricing it.** The $20B traces to Isaacman's remarks at the event; the $10B-per-phase figures trace to trade coverage of those remarks and, possibly, to the presentation deck, which remains unopened.
+
+The figure is therefore `reported`, and it stays `reported` however many outlets repeat it, because repetition is not publication. Its sources are Spaceflight Now (quoting the remark) and The Planetary Society, and per §2 those are **one source, not two**: both trace to the same March 24 sentence, and TPS attributes it to NASA documents that have not been found. The Ignition deck does not belong in the `sources` array at all; it belongs in `notes` as corroboration of the phase structure, which is what it actually supports.
 
 **The hollow bar on the homepage draws this record, dashed, at $20B.** Not a tidier in-house sum of the phase figures. The gap module's subject *is* the headline number, and substituting a corrected total would quietly remove the very thing the module indicts. A dashed marquee figure is not a weakness to be engineered around. It is the notation working in public on the most-viewed number the site has, which is the best demonstration Burn Rate will ever get to make.
 
@@ -253,6 +324,8 @@ The live tier keeps the page alive. The vintage tier gives a stranger the scale.
 
 | Rev | Date | Change |
 |---|---|---|
+| 05 | 2026-07-17 | **The zero rows are derived, not reported.** Rev 04's `states_value` check appeared to invalidate them, since no source prints "$0," and the proposed fix was a validator exemption for solicitation rows. The zero was miscategorized, not mis-validated: nobody reported it, Burn Rate computed it by counting an empty category, which is a derived fact with no `sources` array and therefore nothing to exempt. The invariant now holds universally. The zero renders dotted, self-updates the day an award lands, and is the only figure on the site for which Burn Rate is the primary source. Split the solicitation (reported, sourced, `states_value` passes normally) from the absence (derived). |
+| 04 | 2026-07-17 | **Tier is now per claim, not per outlet**, with `tier_note` required when it departs from the outlet's default: The Planetary Society is a tier-2 outlet that did tier-4 work on the $20B. Added `states_value`, a build-time check that a source prints the value it is cited for; NASA's Ignition deck was carrying a tier-1 badge on a figure it does not contain. Added `traces_to`: sources repeating one utterance are one source, which is the press-side version of the correlated error §3 already names in the agent pipeline. Corrected §3's phase dates against NASA's *Building the Moon Base* fact sheet (Phase 1 Now–2029, Phase 2 2029–2032, Phase 3 2032 and beyond), opened 2026-07-17; Rev 03's six-year framing came from the research brief and its deck dates came from an unverified agent read, and both are withdrawn. Recorded that **neither NASA fact sheet prints any dollar figure for the Moon Base**. Flagged the 31MB presentation as the blocking open item for any NASA-sourced dollar claim. |
 | 03 | 2026-07-17 | Added `moonbase.program.duration_years` = 7 as a first-class `reported` record. Rev 02 gave the $20B a record and left the seven from the same spoken sentence as a literal in `cost_per_person`, marking one claim two ways. Sharpened the §1 corollary: definitional constants may live in formulas, world claims may not, and the test is whether the number could turn out to be wrong rather than whether it looks trivial. Logged the phase-date vs. seven-year tension in notes rather than resolving it. Added `population.us`, `moonbase.program.total`, and `moonbase.program.duration_years` to §3 as named supporting records. Added `verified` to the ledger schema. Added `years` to the unit enum. |
 | 02 | 2026-07-17 | Seed rows reset from `confirmed` to `reported`: Rev 01 asserted confidence with no source column, and the June 30 figures trace to trade press, not NASA. Added Primary source and Verified columns to §4, making the promotion rule a field. Added `status` to the ledger schema. Added `moonbase.program.total` with its spoken-not-published provenance and the hollow-bar decision. Added `moonbase.committed.base`. Formulas now reference records, never literals (§1 corollary). Defined the `stale_after` anchor as retrieved_at plus window. Corrected the Rev 01 claim that the Blue Origin award was irreducibly ambiguous. Required non-empty `notes` on derived records as a build-time check. |
 | 01 | 2026-07-15 | First issue. Fact schema, derived facts, ledger seed data, staleness, live sources. |

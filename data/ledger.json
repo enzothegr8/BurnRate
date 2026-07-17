@@ -16,6 +16,8 @@
         "name": "NASA press release, NASA Awards More Moon Base Science, Previews New Opportunities",
         "url": "https://www.nasa.gov/news-release/nasa-awards-more-moon-base-science-previews-new-opportunities/",
         "tier": 1,
+        "states_value": true,
+        "traces_to": null,
         "retrieved_at": "2026-07-17"
       }
     ],
@@ -40,16 +42,12 @@
         "name": "NASA press release, NASA Provides Update on Moon Base Rovers, Landers, Missions",
         "url": "https://www.nasa.gov/news-release/nasa-provides-update-on-moon-base-rovers-landers-missions/",
         "tier": 1,
-        "retrieved_at": "2026-07-17"
-      },
-      {
-        "name": "Lunar Outpost press release",
-        "url": "https://www.lunaroutpost.com/post/nasa-selects-lunar-outpost-to-deliver-next-gen-crewed-lunar-terrain-vehicle-for-artemis-astronauts-a",
-        "tier": 1,
+        "states_value": true,
+        "traces_to": null,
         "retrieved_at": "2026-07-17"
       }
     ],
-    "notes": "Pegasus is an evolution of the Eagle rover, with GM, Goodyear, and Leidos as partners. Spaceflight Now loosely framed both rover contracts as about $220M each; NASA states $220M and $219M. Primary URL fetch-verified by agent 2026-07-17; reported until Enzo opens it.",
+    "notes": "Pegasus is an evolution of the Eagle rover, with GM, Goodyear, and Leidos as partners. Spaceflight Now loosely framed both rover contracts as about $220M each; NASA states $220M and $219M. Corroboration, not a source for this value: Lunar Outpost's own release (lunaroutpost.com/post/nasa-selects-lunar-outpost-to-deliver-next-gen-crewed-lunar-terrain-vehicle-for-artemis-astronauts-a) was not fetched, so whether it prints the figure is unverified; it supports the selection only. Primary URL fetch-verified by agent 2026-07-17; reported until Enzo opens it.",
     "stale_after": "2026-08-16",
     "verified": null
   },
@@ -70,16 +68,20 @@
         "name": "NASA press release, NASA Provides Update on Moon Base Rovers, Landers, Missions",
         "url": "https://www.nasa.gov/news-release/nasa-provides-update-on-moon-base-rovers-landers-missions/",
         "tier": 1,
+        "states_value": true,
+        "traces_to": null,
         "retrieved_at": "2026-07-17"
       },
       {
-        "name": "SpaceNews, NASA selects four companies for initial Moon Base awards",
+        "name": "SpaceNews, NASA selects four companies for initial Moon Base awards, Jeff Foust, May 26, 2026",
         "url": "https://spacenews.com/nasa-selects-four-companies-for-initial-moon-base-awards/",
         "tier": 3,
+        "states_value": true,
+        "traces_to": "event.nasa-moonbase-update.2026-05-26",
         "retrieved_at": "2026-07-17"
       }
     ],
-    "notes": "Venturi Astrolab. Interlune is a subcontractor. Primary URL fetch-verified by agent 2026-07-17; reported until Enzo opens it.",
+    "notes": "Venturi Astrolab. Interlune is a subcontractor. SpaceNews traces to NASA's May 26 announcement and does not count as an independent second source. Primary URL fetch-verified by agent 2026-07-17; reported until Enzo opens it.",
     "stale_after": "2026-08-16",
     "verified": null
   },
@@ -100,34 +102,29 @@
         "name": "NASA press release, NASA Provides Update on Moon Base Rovers, Landers, Missions",
         "url": "https://www.nasa.gov/news-release/nasa-provides-update-on-moon-base-rovers-landers-missions/",
         "tier": 1,
+        "states_value": true,
+        "traces_to": null,
         "retrieved_at": "2026-07-17"
       },
       {
-        "name": "SpaceNews, NASA selects four companies for initial Moon Base awards",
-        "url": "https://spacenews.com/nasa-selects-four-companies-for-initial-moon-base-awards/",
-        "tier": 3,
-        "retrieved_at": "2026-07-17"
-      },
-      {
-        "name": "Spaceflight Now, NASA outlines nearly $1 billion investment into initial Moon Base missions",
-        "url": "https://spaceflightnow.com/2026/05/27/nasa-outlines-nearly-1-billion-investment-into-initial-moon-base-missions/",
-        "tier": 3,
-        "retrieved_at": "2026-07-17"
-      },
-      {
-        "name": "GeekWire, NASA taps Blue Origin to deliver lunar rovers for Moon Base initiative",
+        "name": "GeekWire, NASA taps Blue Origin to deliver lunar rovers for Moon Base initiative, Alan Boyle, May 26, 2026",
         "url": "https://www.geekwire.com/2026/nasa-taps-blue-origin-to-deliver-lunar-rovers-for-moon-base-initiative/",
         "tier": 3,
+        "states_value": true,
+        "traces_to": "event.nasa-moonbase-update.2026-05-26",
         "retrieved_at": "2026-07-17"
       },
       {
         "name": "Reuters via Yahoo News",
         "url": "https://www.yahoo.com/news/articles/nasa-picks-blue-origin-other-224151600.html",
         "tier": 3,
+        "states_value": true,
+        "traces_to": "event.nasa-moonbase-update.2026-05-26",
+        "tier_note": "Reuters named reporting syndicated on an aggregator host; tier follows the reporting, not the host. States the $188M base only, with no option mentioned.",
         "retrieved_at": "2026-07-17"
       }
     ],
-    "notes": "The award itself is not ambiguous: NASA's release states it plainly and once, $188M base with an option period worth $280.4M for two task orders (CX-2 task order under CLPS 1.0, Blue Moon Mark 1 delivering the LTVs). SpaceNews adds the structure: the base covers mission design and long-lead hardware, the options cover the lander missions themselves. What is ambiguous is every total the press built out of it: Spaceflight Now's $234M per LTV is their own division, (188 + 280.4) / 2, printed flat; 'up to $468M for two' appears in no source's text, it is 188 + 280.4; Reuters printed a flat $188M with no option mentioned, which is partial rather than wrong; and there is no single figure for the award, it is two numbers and a condition. Option exercise is contingent on performance and has not occurred. This is the easiest row on the table to promote once the NASA release is opened.",
+    "notes": "The award itself is not ambiguous: NASA's release states it plainly and once, $188M base with an option period worth $280.4M for two task orders (CX-2 task order under CLPS 1.0, Blue Moon Mark 1 delivering the LTVs). Both trade entries trace to that announcement; NASA is the one originating source. What is ambiguous is every total the press built out of it. Corroboration moved out of sources: SpaceNews (spacenews.com/nasa-selects-four-companies-for-initial-moon-base-awards/) adds the award structure, the base covers mission design and long-lead hardware while the options cover the lander missions, but was not verified to print this row's figures; Spaceflight Now (spaceflightnow.com/2026/05/27/nasa-outlines-nearly-1-billion-investment-into-initial-moon-base-missions/) prints $234M per LTV, which is their own division, (188 + 280.4) / 2, presented flat, and is a source for that framing only. 'Up to $468M for two' appears in no source's text, it is 188 + 280.4. There is no single figure for the award; it is two numbers and a condition. Option exercise is contingent on performance and has not occurred. This is the easiest row on the table to promote once the NASA release is opened.",
     "stale_after": "2026-08-16",
     "verified": null
   },
@@ -148,6 +145,8 @@
         "name": "NASA press release, NASA Awards More Moon Base Science, Previews New Opportunities",
         "url": "https://www.nasa.gov/news-release/nasa-awards-more-moon-base-science-previews-new-opportunities/",
         "tier": 1,
+        "states_value": true,
+        "traces_to": null,
         "retrieved_at": "2026-07-17"
       }
     ],
@@ -172,6 +171,8 @@
         "name": "NASA press release, NASA Awards More Moon Base Science, Previews New Opportunities",
         "url": "https://www.nasa.gov/news-release/nasa-awards-more-moon-base-science-previews-new-opportunities/",
         "tier": 1,
+        "states_value": true,
+        "traces_to": null,
         "retrieved_at": "2026-07-17"
       }
     ],
@@ -196,10 +197,12 @@
         "name": "Firefly Aerospace press release, Firefly Aerospace Wins $75 Million NASA JPL MoonFall Subcontract",
         "url": "https://fireflyspace.com/news/firefly-aerospace-wins-75-million-nasa-jpl-moonfall-subcontract-to-deliver-drones-to-the-moons-south-pole/",
         "tier": 1,
+        "states_value": true,
+        "traces_to": null,
         "retrieved_at": "2026-07-17"
       }
     ],
-    "notes": "A $75M subcontract from NASA JPL to deliver four drones to the Moon's south pole via Elytra, launch NET 2028. Excludes launch, which JPL acquires separately. NASA's May 26 release confirms the selection but does not state the $75M figure; the contractor release does. Primary URL fetch-verified by agent 2026-07-17; reported until Enzo opens it.",
+    "notes": "A $75M subcontract from NASA JPL to deliver four drones to the Moon's south pole via Elytra, launch NET 2028. Excludes launch, which JPL acquires separately (per SpacePolicyOnline). NASA's May 26 release confirms the selection but does not state the $75M figure; the contractor release does, and it is the originating party for its own award figure. Primary URL fetch-verified by agent 2026-07-17; reported until Enzo opens it.",
     "stale_after": "2026-08-16",
     "verified": null
   },
@@ -220,16 +223,20 @@
         "name": "NASA, NextSTEP-3 B: Moon Base Demonstrations",
         "url": "https://www.nasa.gov/general/nextstep-3-b-moon-base-demonstrations/",
         "tier": 1,
+        "states_value": true,
+        "traces_to": null,
         "retrieved_at": "2026-07-17"
       },
       {
         "name": "NASA, Moon Base Solicitations hub",
         "url": "https://www.nasa.gov/moonbase-solicitations/",
         "tier": 1,
+        "states_value": true,
+        "traces_to": null,
         "retrieved_at": "2026-07-17"
       }
     ],
-    "notes": "NextSTEP-3 Appendix B (Moon Base Demonstrations) opened its first directed topic call, on surface power, June 30, 2026. NASA anticipated posting the solicitation to SAM.gov in early July; no live SAM.gov notice for this appendix was verifiable as of July 17, 2026. No award has been made. Zero committed dollars is the current fact.",
+    "notes": "This row's claim is the solicitation, which the sources do print: NextSTEP-3 Appendix B (Moon Base Demonstrations) opened its first directed topic call, on surface power, June 30, 2026. That claim is reported and passes states_value normally. The dollar figure displayed on this row is a different record: moonbase.committed.power, derived, Burn Rate's own count of an empty award category. NASA anticipated posting the solicitation to SAM.gov in early July; no live SAM.gov notice for this appendix was verifiable as of July 17, 2026. No award has been made.",
     "stale_after": "2026-08-16",
     "verified": null
   },
@@ -250,16 +257,20 @@
         "name": "NASA, Moon Base Solicitations hub",
         "url": "https://www.nasa.gov/moonbase-solicitations/",
         "tier": 1,
+        "states_value": true,
+        "traces_to": null,
         "retrieved_at": "2026-07-17"
       },
       {
         "name": "NASA, NextSTEP-3 B: Moon Base Demonstrations",
         "url": "https://www.nasa.gov/general/nextstep-3-b-moon-base-demonstrations/",
         "tier": 1,
+        "states_value": true,
+        "traces_to": null,
         "retrieved_at": "2026-07-17"
       }
     ],
-    "notes": "No habitat solicitation is open. Habitation is listed by NASA as a follow-on directed topic under NextSTEP-3 Appendix B, after surface power. Zero committed dollars is the current fact, and the zero is the story.",
+    "notes": "This row's claim is what the sources print: no habitat solicitation is open, and habitation is listed by NASA as a follow-on directed topic under NextSTEP-3 Appendix B, after surface power. That claim is reported and passes states_value normally. The dollar figure displayed on this row is a different record: moonbase.committed.habitat, derived, Burn Rate's own count of an empty award category. The zero is the story.",
     "stale_after": "2026-08-16",
     "verified": null
   }
