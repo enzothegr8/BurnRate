@@ -1,0 +1,140 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/*
+ * Burn Rate surface. Light only, per brand-bible.md section 5. There is no
+ * dark mode, no theme toggle, and no dark variant block; do not add them.
+ * The vellum page background is the signature and is not negotiable.
+ * Never ship on #FFFFFF. Never use The Space Race's cream #F4EFE1,
+ * gold #E9B84C, or red #E5544C.
+ */
+
+@theme inline {
+  /* Brand tokens, usable as bg-vellum, text-ink, border-rule, text-orange, etc. */
+  --color-vellum: #eaebe5;
+  --color-rule: #d3d6ce;
+  --color-muted: #8c9198;
+  --color-secondary: #565a5f;
+  --color-ink: #16181b;
+  --color-orange: #e8410a;
+  --color-ochre: #a8823c;
+
+  /* Series palette, for charts with genuinely real categories only. */
+  --color-series-1: #e8410a;
+  --color-series-2: #37535f;
+  --color-series-3: #a8823c;
+  --color-series-4: #6e7f63;
+  --color-series-5: #8c9198;
+
+  /* shadcn semantic tokens, mapped onto the brand palette. */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Type. Instrument Serif for display, IBM Plex Sans for body and UI,
+     IBM Plex Mono for every number, label, timestamp, and source line. */
+  --font-sans: var(--font-plex-sans);
+  --font-mono: var(--font-plex-mono);
+  --font-display: var(--font-instrument-serif);
+  --font-heading: var(--font-plex-sans);
+
+  /* Hairlines and square corners. Technical documents do not have rounded
+     floating boxes; keep radii at zero. */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+  --radius-3xl: 0px;
+  --radius-4xl: 0px;
+}
+
+:root {
+  --background: #eaebe5;
+  --foreground: #16181b;
+  --card: #f5f6f2;
+  --card-foreground: #16181b;
+  --popover: #f5f6f2;
+  --popover-foreground: #16181b;
+  --primary: #16181b;
+  --primary-foreground: #eaebe5;
+  --secondary-foreground: #eaebe5;
+  --muted-foreground: #565a5f;
+  --accent: #f5f6f2;
+  --accent-foreground: #16181b;
+  --destructive: #b3261e;
+  --border: #d3d6ce;
+  --input: #d3d6ce;
+  --ring: #8c9198;
+  --chart-1: #e8410a;
+  --chart-2: #37535f;
+  --chart-3: #a8823c;
+  --chart-4: #6e7f63;
+  --chart-5: #8c9198;
+  --radius: 0px;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+
+  /*
+   * LINKS ARE NEVER UNDERLINED ANYWHERE ON THIS SITE.
+   *
+   * This is a consequence of the notation, not a taste call
+   * (brand-bible.md section 4). Solid, dashed, and dotted underlines mean
+   * confirmed, reported, and derived. The underline budget is spent on
+   * provenance; an underlined link would counterfeit the notation. Links are
+   * secondary #565A5F with no underline, and the !important is deliberate:
+   * it overrides Tailwind underline utilities and any shadcn component
+   * default, so a future component cannot reintroduce one by accident.
+   * If you are tempted to remove this, read brand-bible.md first.
+   */
+  a,
+  a:hover,
+  a:focus,
+  a:visited {
+    color: var(--color-secondary);
+    text-decoration: none !important;
+  }
+
+  /*
+   * Every number on the site is IBM Plex Mono with tabular numerals. This is
+   * the base rule on the mono utility itself, per brand-bible.md section 6,
+   * so no component ever has to remember it. Figures that do not align in a
+   * column are the mark of an amateur publication.
+   */
+  .font-mono,
+  code,
+  kbd,
+  samp,
+  pre {
+    font-variant-numeric: tabular-nums;
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "facts": [
+    {
+      "id": "economy.global.2024",
+      "value": 613000000000,
+      "unit": "USD",
+      "label": "Global space economy, calendar year 2024",
+      "as_of": "2024-12-31",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "Space Foundation, The Space Report 2025 Q2 press release, July 22, 2025",
+          "url": "https://www.spacefoundation.org/2025/07/22/the-space-report-2025-q2/",
+          "tier": 1,
+          "retrieved_at": "2026-07-17"
+        },
+        {
+          "name": "GlobeNewswire wire copy of the same Space Foundation release (issuer: Space Foundation)",
+          "url": "https://www.globenewswire.com/news-release/2025/07/22/3119463/0/en/the-space-report-2025-q2-highlights-record-613-billion-global-space-economy-for-2024-driven-by-strong-commercial-sector-growth.html",
+          "tier": 1,
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "Stated as $613 billion, no decimal, for calendar 2024, with 7.8% year-over-year growth and the first year above $600B. Same release: commercial sector 78% of the total, government 22% ($132B, of which US $77B). Space Foundation is the originating party. Their site blocks automated fetches; the wire copy carries identical text.",
+      "stale_after": "2027-08-21",
+      "supersedes": null
+    },
+    {
+      "id": "moonbase.program.total",
+      "value": 20000000000,
+      "unit": "USD",
+      "label": "NASA Moon Base planned investment, Phases 1 and 2, 2026 through 2032",
+      "as_of": "2026-03-24",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "NASA, Building the Moon Base presentation, Ignition event, March 24, 2026",
+          "url": "https://www.nasa.gov/wp-content/uploads/2026/03/2-building-the-moon-base.pdf",
+          "tier": 1,
+          "retrieved_at": "2026-07-17"
+        },
+        {
+          "name": "Spaceflight Now, NASA outlines ambitious $20 billion plan for moon base, William Harwood, March 25, 2026",
+          "url": "https://spaceflightnow.com/2026/03/25/nasa-outlines-ambitious-20-billion-plan-for-moon-base/",
+          "tier": 3,
+          "retrieved_at": "2026-07-17"
+        },
+        {
+          "name": "The Planetary Society, Ignition: A new series of NASA initiatives, March 24, 2026",
+          "url": "https://www.planetary.org/articles/ignition-new-nasa-initiatives",
+          "tier": 2,
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "The literal figure appears in no NASA written document found. It originates as Administrator Isaacman's spoken statement at the March 24, 2026 Ignition event: 'we will invest approximately $20 billion over the next seven years.' NASA's own deck states per-phase investment: Phase 1 (2026-2028) $10B, Phase 2 (2029-2032) $10B, Phase 3 (2033-2036) $10B+. Planned investment, not an appropriation; the FY2027 request has no $20B line item. Do not conflate with the $6B CLPS 2.0 cap or with roughly $30B three-phase framings.",
+      "stale_after": null,
+      "supersedes": null
+    }
+  ],
+  "derived": [
+    {
+      "id": "economy.burn_per_second",
+      "derived_from": ["economy.global.2024"],
+      "formula": "economy.global.2024 / 31536000",
+      "unit": "USD",
+      "label": "Global space spending per second, at 2024's rate",
+      "notes": "Rate visualization, not a measurement. 2024's annual estimate divided into 31,536,000 seconds (a 365-day year). The vintage is the choice: 2024 is the latest full year published."
+    },
+    {
+      "id": "moonbase.committed.total",
+      "derived_from": ["ledger"],
+      "formula": "ledger_sum('with_options')",
+      "unit": "USD",
+      "label": "Moon Base dollars committed to date, including options",
+      "notes": "Warning, and it travels with this number everywhere it renders: the total includes Blue Origin's $280.4M option period, which has not been exercised. The base total, options excluded, is $1.292B. Publishing the headline $1.6B without this note is the exact species of imprecision this publication exists to correct."
+    },
+    {
+      "id": "moonbase.committed.base",
+      "derived_from": ["ledger"],
+      "formula": "ledger_sum('base')",
+      "unit": "USD",
+      "label": "Moon Base dollars committed to date, options excluded",
+      "notes": "Base awards only. Excludes Blue Origin's unexercised $280.4M option period. The with-options figure is moonbase.committed.total."
+    },
+    {
+      "id": "moonbase.committed.share",
+      "derived_from": ["moonbase.committed.total", "moonbase.program.total"],
+      "formula": "moonbase.committed.total / moonbase.program.total * 100",
+      "unit": "percent",
+      "label": "Share of the planned Moon Base investment that is signed",
+      "notes": "Numerator includes Blue Origin's unexercised $280.4M option. Denominator is the approximately $20B planned Phase 1 and 2 investment, a spoken figure, not an appropriation. Both choices are named because both move the percentage."
+    },
+    {
+      "id": "moonbase.days_since_award",
+      "derived_from": ["ledger"],
+      "formula": "days_since_max_ledger_date()",
+      "unit": "days",
+      "label": "Days since the last Moon Base award",
+      "notes": "Computed at render time from the latest award date in the ledger. Live by definition."
+    },
+    {
+      "id": "moonbase.cost_per_person",
+      "derived_from": ["moonbase.program.total"],
+      "formula": "moonbase.program.total / 342e6 / 7",
+      "unit": "USD",
+      "label": "Moon Base cost per American per year",
+      "notes": "The denominator is a choice and it is contested: 342 million is the total US resident population, 2024 vintage. Tax returns or net positive taxpayers each give a different answer. Spread across the seven-year Phase 1 and 2 window. Roughly $8 per American per year."
+    }
+  ]
+}

@@ -1,0 +1,251 @@
+[
+  {
+    "id": "moonbase.award.astrobotic.2026-06-30",
+    "recipient": "Astrobotic",
+    "value": 297900000,
+    "option_value": null,
+    "date": "2026-06-30",
+    "category": "lander",
+    "phase": 1,
+    "vehicle": "Peregrine",
+    "payload": "Two CLPS deliveries (Peregrine landers 2 and 3)",
+    "status": "award",
+    "confidence": "confirmed",
+    "sources": [
+      {
+        "name": "NASA press release, NASA Awards More Moon Base Science, Previews New Opportunities",
+        "url": "https://www.nasa.gov/news-release/nasa-awards-more-moon-base-science-previews-new-opportunities/",
+        "tier": 1,
+        "retrieved_at": "2026-07-17"
+      }
+    ],
+    "notes": "$297.9M total for two deliveries under CLPS, announced June 30, 2026. Missions in late 2028. NASA described the three June 30 CLPS awards together as nearly $600M.",
+    "stale_after": "2026-08-16"
+  },
+  {
+    "id": "moonbase.award.lunar-outpost.2026-05-26",
+    "recipient": "Lunar Outpost",
+    "value": 220000000,
+    "option_value": null,
+    "date": "2026-05-26",
+    "category": "rover",
+    "phase": 1,
+    "vehicle": "Pegasus",
+    "payload": "Crewed Lunar Terrain Vehicle, LTV Services Phase 1",
+    "status": "award",
+    "confidence": "confirmed",
+    "sources": [
+      {
+        "name": "NASA press release, NASA Provides Update on Moon Base Rovers, Landers, Missions",
+        "url": "https://www.nasa.gov/news-release/nasa-provides-update-on-moon-base-rovers-landers-missions/",
+        "tier": 1,
+        "retrieved_at": "2026-07-17"
+      },
+      {
+        "name": "Lunar Outpost press release",
+        "url": "https://www.lunaroutpost.com/post/nasa-selects-lunar-outpost-to-deliver-next-gen-crewed-lunar-terrain-vehicle-for-artemis-astronauts-a",
+        "tier": 1,
+        "retrieved_at": "2026-07-17"
+      }
+    ],
+    "notes": "Pegasus is an evolution of the Eagle rover, with GM, Goodyear, and Leidos as partners. Spaceflight Now loosely framed both rover contracts as about $220M each; NASA states $220M and $219M.",
+    "stale_after": "2026-08-16"
+  },
+  {
+    "id": "moonbase.award.astrolab.2026-05-26",
+    "recipient": "Astrolab",
+    "value": 219000000,
+    "option_value": null,
+    "date": "2026-05-26",
+    "category": "rover",
+    "phase": 1,
+    "vehicle": "CLV-1",
+    "payload": "Crewed Lunar Terrain Vehicle, adapted from FLEX architecture",
+    "status": "award",
+    "confidence": "confirmed",
+    "sources": [
+      {
+        "name": "NASA press release, NASA Provides Update on Moon Base Rovers, Landers, Missions",
+        "url": "https://www.nasa.gov/news-release/nasa-provides-update-on-moon-base-rovers-landers-missions/",
+        "tier": 1,
+        "retrieved_at": "2026-07-17"
+      },
+      {
+        "name": "SpaceNews, NASA selects four companies for initial Moon Base awards",
+        "url": "https://spacenews.com/nasa-selects-four-companies-for-initial-moon-base-awards/",
+        "tier": 3,
+        "retrieved_at": "2026-07-17"
+      }
+    ],
+    "notes": "Venturi Astrolab. Interlune is a subcontractor.",
+    "stale_after": "2026-08-16"
+  },
+  {
+    "id": "moonbase.award.blue-origin.2026-05-26",
+    "recipient": "Blue Origin",
+    "value": 188000000,
+    "option_value": 280400000,
+    "date": "2026-05-26",
+    "category": "delivery",
+    "phase": 1,
+    "vehicle": "Blue Moon Mark 1",
+    "payload": "Delivery of the two Lunar Terrain Vehicles",
+    "status": "award",
+    "confidence": "reported",
+    "sources": [
+      {
+        "name": "NASA press release, NASA Provides Update on Moon Base Rovers, Landers, Missions",
+        "url": "https://www.nasa.gov/news-release/nasa-provides-update-on-moon-base-rovers-landers-missions/",
+        "tier": 1,
+        "retrieved_at": "2026-07-17"
+      },
+      {
+        "name": "Spaceflight Now, NASA outlines nearly $1 billion investment into initial Moon Base missions",
+        "url": "https://spaceflightnow.com/2026/05/27/nasa-outlines-nearly-1-billion-investment-into-initial-moon-base-missions/",
+        "tier": 3,
+        "retrieved_at": "2026-07-17"
+      },
+      {
+        "name": "GeekWire, NASA taps Blue Origin to deliver lunar rovers for Moon Base initiative",
+        "url": "https://www.geekwire.com/2026/nasa-taps-blue-origin-to-deliver-lunar-rovers-for-moon-base-initiative/",
+        "tier": 3,
+        "retrieved_at": "2026-07-17"
+      },
+      {
+        "name": "Reuters via Yahoo News",
+        "url": "https://www.yahoo.com/news/articles/nasa-picks-blue-origin-other-224151600.html",
+        "tier": 3,
+        "retrieved_at": "2026-07-17"
+      }
+    ],
+    "notes": "Competing framings of one award, none resolvable to a single confirmed number. NASA: $188M base with an option period worth $280.4M for two task orders (CX-2 task order under CLPS 1.0). Spaceflight Now: $234M for each LTV delivered, which equals (188 + 280.4) / 2. Reuters: flat $188M with no option mentioned. Washington Post syndication: at least $188M. The 'up to $468M for two missions' framing appears in no source's own text; it is arithmetic (188 + 280.4 = 468.4) and is a derived framing, not a reported one. Option exercise is contingent on performance and has not occurred.",
+    "stale_after": "2026-08-16"
+  },
+  {
+    "id": "moonbase.award.intuitive-machines.2026-06-30",
+    "recipient": "Intuitive Machines",
+    "value": 148300000,
+    "option_value": null,
+    "date": "2026-06-30",
+    "category": "lander",
+    "phase": 1,
+    "vehicle": "Nova-C",
+    "payload": "One CLPS delivery (IM-4)",
+    "status": "award",
+    "confidence": "confirmed",
+    "sources": [
+      {
+        "name": "NASA press release, NASA Awards More Moon Base Science, Previews New Opportunities",
+        "url": "https://www.nasa.gov/news-release/nasa-awards-more-moon-base-science-previews-new-opportunities/",
+        "tier": 1,
+        "retrieved_at": "2026-07-17"
+      }
+    ],
+    "notes": "One CLPS delivery, announced June 30, 2026, mission in late 2028.",
+    "stale_after": "2026-08-16"
+  },
+  {
+    "id": "moonbase.award.firefly.lander.2026-06-30",
+    "recipient": "Firefly Aerospace",
+    "value": 144200000,
+    "option_value": null,
+    "date": "2026-06-30",
+    "category": "lander",
+    "phase": 1,
+    "vehicle": "Blue Ghost variant",
+    "payload": "One CLPS delivery",
+    "status": "award",
+    "confidence": "confirmed",
+    "sources": [
+      {
+        "name": "NASA press release, NASA Awards More Moon Base Science, Previews New Opportunities",
+        "url": "https://www.nasa.gov/news-release/nasa-awards-more-moon-base-science-previews-new-opportunities/",
+        "tier": 1,
+        "retrieved_at": "2026-07-17"
+      }
+    ],
+    "notes": "Announced June 30, 2026. Distinct from Firefly's separate $75M MoonFall delivery subcontract of May 26, 2026. Do not merge these rows.",
+    "stale_after": "2026-08-16"
+  },
+  {
+    "id": "moonbase.award.firefly.moonfall.2026-05-26",
+    "recipient": "Firefly Aerospace",
+    "value": 75000000,
+    "option_value": null,
+    "date": "2026-05-26",
+    "category": "delivery",
+    "phase": 1,
+    "vehicle": "Elytra",
+    "payload": "JPL MoonFall drones",
+    "status": "award",
+    "confidence": "confirmed",
+    "sources": [
+      {
+        "name": "Firefly Aerospace press release, Firefly Aerospace Wins $75 Million NASA JPL MoonFall Subcontract",
+        "url": "https://fireflyspace.com/news/firefly-aerospace-wins-75-million-nasa-jpl-moonfall-subcontract-to-deliver-drones-to-the-moons-south-pole/",
+        "tier": 1,
+        "retrieved_at": "2026-07-17"
+      }
+    ],
+    "notes": "A $75M subcontract from NASA JPL to deliver four drones to the Moon's south pole via Elytra, launch NET 2028. Excludes launch, which JPL acquires separately. NASA's May 26 release confirms the selection but does not state the $75M figure; the contractor release does.",
+    "stale_after": "2026-08-16"
+  },
+  {
+    "id": "moonbase.solicitation.surface-power.2026-06-30",
+    "recipient": "Lunar surface power",
+    "value": 0,
+    "option_value": null,
+    "date": "2026-06-30",
+    "category": "power",
+    "phase": 1,
+    "vehicle": null,
+    "payload": null,
+    "status": "solicitation",
+    "confidence": "reported",
+    "sources": [
+      {
+        "name": "NASA, NextSTEP-3 B: Moon Base Demonstrations",
+        "url": "https://www.nasa.gov/general/nextstep-3-b-moon-base-demonstrations/",
+        "tier": 1,
+        "retrieved_at": "2026-07-17"
+      },
+      {
+        "name": "NASA, Moon Base Solicitations hub",
+        "url": "https://www.nasa.gov/moonbase-solicitations/",
+        "tier": 1,
+        "retrieved_at": "2026-07-17"
+      }
+    ],
+    "notes": "NextSTEP-3 Appendix B (Moon Base Demonstrations) opened its first directed topic call, on surface power, June 30, 2026. NASA anticipated posting the solicitation to SAM.gov in early July; no live SAM.gov notice for this appendix was verifiable as of July 17, 2026. No award has been made. Zero committed dollars is the current fact.",
+    "stale_after": "2026-08-16"
+  },
+  {
+    "id": "moonbase.solicitation.habitats.2026-06-30",
+    "recipient": "Lunar surface habitats",
+    "value": 0,
+    "option_value": null,
+    "date": "2026-06-30",
+    "category": "habitat",
+    "phase": 1,
+    "vehicle": null,
+    "payload": null,
+    "status": "solicitation",
+    "confidence": "reported",
+    "sources": [
+      {
+        "name": "NASA, Moon Base Solicitations hub",
+        "url": "https://www.nasa.gov/moonbase-solicitations/",
+        "tier": 1,
+        "retrieved_at": "2026-07-17"
+      },
+      {
+        "name": "NASA, NextSTEP-3 B: Moon Base Demonstrations",
+        "url": "https://www.nasa.gov/general/nextstep-3-b-moon-base-demonstrations/",
+        "tier": 1,
+        "retrieved_at": "2026-07-17"
+      }
+    ],
+    "notes": "No habitat solicitation is open. Habitation is listed by NASA as a follow-on directed topic under NextSTEP-3 Appendix B, after surface power. Zero committed dollars is the current fact, and the zero is the story.",
+    "stale_after": "2026-08-16"
+  }
+]
