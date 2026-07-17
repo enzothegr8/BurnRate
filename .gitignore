@@ -39,3 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# python artifacts (a background agent once wrote a venv into the repo root;
+# never ignore "Lib/" here: git on Windows matches case-insensitively and it
+# would swallow the real lib/ source tree)
+venv/
+.venv/
+__pycache__/
+*.pyc
+pyvenv.cfg
+site-packages/

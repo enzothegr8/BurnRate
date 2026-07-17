@@ -10,7 +10,7 @@
     "vehicle": "Peregrine",
     "payload": "Two CLPS deliveries (Peregrine landers 2 and 3)",
     "status": "award",
-    "confidence": "confirmed",
+    "confidence": "reported",
     "sources": [
       {
         "name": "NASA press release, NASA Awards More Moon Base Science, Previews New Opportunities",
@@ -19,8 +19,9 @@
         "retrieved_at": "2026-07-17"
       }
     ],
-    "notes": "$297.9M total for two deliveries under CLPS, announced June 30, 2026. Missions in late 2028. NASA described the three June 30 CLPS awards together as nearly $600M.",
-    "stale_after": "2026-08-16"
+    "notes": "$297.9M total for two deliveries under CLPS, announced June 30, 2026. Missions in late 2028. NASA described the three June 30 CLPS awards together as nearly $600M. Primary URL fetch-verified by agent 2026-07-17; reported until Enzo opens it.",
+    "stale_after": "2026-08-16",
+    "verified": null
   },
   {
     "id": "moonbase.award.lunar-outpost.2026-05-26",
@@ -33,7 +34,7 @@
     "vehicle": "Pegasus",
     "payload": "Crewed Lunar Terrain Vehicle, LTV Services Phase 1",
     "status": "award",
-    "confidence": "confirmed",
+    "confidence": "reported",
     "sources": [
       {
         "name": "NASA press release, NASA Provides Update on Moon Base Rovers, Landers, Missions",
@@ -48,8 +49,9 @@
         "retrieved_at": "2026-07-17"
       }
     ],
-    "notes": "Pegasus is an evolution of the Eagle rover, with GM, Goodyear, and Leidos as partners. Spaceflight Now loosely framed both rover contracts as about $220M each; NASA states $220M and $219M.",
-    "stale_after": "2026-08-16"
+    "notes": "Pegasus is an evolution of the Eagle rover, with GM, Goodyear, and Leidos as partners. Spaceflight Now loosely framed both rover contracts as about $220M each; NASA states $220M and $219M. Primary URL fetch-verified by agent 2026-07-17; reported until Enzo opens it.",
+    "stale_after": "2026-08-16",
+    "verified": null
   },
   {
     "id": "moonbase.award.astrolab.2026-05-26",
@@ -62,7 +64,7 @@
     "vehicle": "CLV-1",
     "payload": "Crewed Lunar Terrain Vehicle, adapted from FLEX architecture",
     "status": "award",
-    "confidence": "confirmed",
+    "confidence": "reported",
     "sources": [
       {
         "name": "NASA press release, NASA Provides Update on Moon Base Rovers, Landers, Missions",
@@ -77,8 +79,9 @@
         "retrieved_at": "2026-07-17"
       }
     ],
-    "notes": "Venturi Astrolab. Interlune is a subcontractor.",
-    "stale_after": "2026-08-16"
+    "notes": "Venturi Astrolab. Interlune is a subcontractor. Primary URL fetch-verified by agent 2026-07-17; reported until Enzo opens it.",
+    "stale_after": "2026-08-16",
+    "verified": null
   },
   {
     "id": "moonbase.award.blue-origin.2026-05-26",
@@ -100,6 +103,12 @@
         "retrieved_at": "2026-07-17"
       },
       {
+        "name": "SpaceNews, NASA selects four companies for initial Moon Base awards",
+        "url": "https://spacenews.com/nasa-selects-four-companies-for-initial-moon-base-awards/",
+        "tier": 3,
+        "retrieved_at": "2026-07-17"
+      },
+      {
         "name": "Spaceflight Now, NASA outlines nearly $1 billion investment into initial Moon Base missions",
         "url": "https://spaceflightnow.com/2026/05/27/nasa-outlines-nearly-1-billion-investment-into-initial-moon-base-missions/",
         "tier": 3,
@@ -118,8 +127,9 @@
         "retrieved_at": "2026-07-17"
       }
     ],
-    "notes": "Competing framings of one award, none resolvable to a single confirmed number. NASA: $188M base with an option period worth $280.4M for two task orders (CX-2 task order under CLPS 1.0). Spaceflight Now: $234M for each LTV delivered, which equals (188 + 280.4) / 2. Reuters: flat $188M with no option mentioned. Washington Post syndication: at least $188M. The 'up to $468M for two missions' framing appears in no source's own text; it is arithmetic (188 + 280.4 = 468.4) and is a derived framing, not a reported one. Option exercise is contingent on performance and has not occurred.",
-    "stale_after": "2026-08-16"
+    "notes": "The award itself is not ambiguous: NASA's release states it plainly and once, $188M base with an option period worth $280.4M for two task orders (CX-2 task order under CLPS 1.0, Blue Moon Mark 1 delivering the LTVs). SpaceNews adds the structure: the base covers mission design and long-lead hardware, the options cover the lander missions themselves. What is ambiguous is every total the press built out of it: Spaceflight Now's $234M per LTV is their own division, (188 + 280.4) / 2, printed flat; 'up to $468M for two' appears in no source's text, it is 188 + 280.4; Reuters printed a flat $188M with no option mentioned, which is partial rather than wrong; and there is no single figure for the award, it is two numbers and a condition. Option exercise is contingent on performance and has not occurred. This is the easiest row on the table to promote once the NASA release is opened.",
+    "stale_after": "2026-08-16",
+    "verified": null
   },
   {
     "id": "moonbase.award.intuitive-machines.2026-06-30",
@@ -132,7 +142,7 @@
     "vehicle": "Nova-C",
     "payload": "One CLPS delivery (IM-4)",
     "status": "award",
-    "confidence": "confirmed",
+    "confidence": "reported",
     "sources": [
       {
         "name": "NASA press release, NASA Awards More Moon Base Science, Previews New Opportunities",
@@ -141,8 +151,9 @@
         "retrieved_at": "2026-07-17"
       }
     ],
-    "notes": "One CLPS delivery, announced June 30, 2026, mission in late 2028.",
-    "stale_after": "2026-08-16"
+    "notes": "One CLPS delivery, announced June 30, 2026, mission in late 2028. Primary URL fetch-verified by agent 2026-07-17; reported until Enzo opens it.",
+    "stale_after": "2026-08-16",
+    "verified": null
   },
   {
     "id": "moonbase.award.firefly.lander.2026-06-30",
@@ -155,7 +166,7 @@
     "vehicle": "Blue Ghost variant",
     "payload": "One CLPS delivery",
     "status": "award",
-    "confidence": "confirmed",
+    "confidence": "reported",
     "sources": [
       {
         "name": "NASA press release, NASA Awards More Moon Base Science, Previews New Opportunities",
@@ -164,8 +175,9 @@
         "retrieved_at": "2026-07-17"
       }
     ],
-    "notes": "Announced June 30, 2026. Distinct from Firefly's separate $75M MoonFall delivery subcontract of May 26, 2026. Do not merge these rows.",
-    "stale_after": "2026-08-16"
+    "notes": "Announced June 30, 2026. Distinct from Firefly's separate $75M MoonFall delivery subcontract of May 26, 2026. Do not merge these rows. Primary URL fetch-verified by agent 2026-07-17; reported until Enzo opens it.",
+    "stale_after": "2026-08-16",
+    "verified": null
   },
   {
     "id": "moonbase.award.firefly.moonfall.2026-05-26",
@@ -178,7 +190,7 @@
     "vehicle": "Elytra",
     "payload": "JPL MoonFall drones",
     "status": "award",
-    "confidence": "confirmed",
+    "confidence": "reported",
     "sources": [
       {
         "name": "Firefly Aerospace press release, Firefly Aerospace Wins $75 Million NASA JPL MoonFall Subcontract",
@@ -187,8 +199,9 @@
         "retrieved_at": "2026-07-17"
       }
     ],
-    "notes": "A $75M subcontract from NASA JPL to deliver four drones to the Moon's south pole via Elytra, launch NET 2028. Excludes launch, which JPL acquires separately. NASA's May 26 release confirms the selection but does not state the $75M figure; the contractor release does.",
-    "stale_after": "2026-08-16"
+    "notes": "A $75M subcontract from NASA JPL to deliver four drones to the Moon's south pole via Elytra, launch NET 2028. Excludes launch, which JPL acquires separately. NASA's May 26 release confirms the selection but does not state the $75M figure; the contractor release does. Primary URL fetch-verified by agent 2026-07-17; reported until Enzo opens it.",
+    "stale_after": "2026-08-16",
+    "verified": null
   },
   {
     "id": "moonbase.solicitation.surface-power.2026-06-30",
@@ -217,7 +230,8 @@
       }
     ],
     "notes": "NextSTEP-3 Appendix B (Moon Base Demonstrations) opened its first directed topic call, on surface power, June 30, 2026. NASA anticipated posting the solicitation to SAM.gov in early July; no live SAM.gov notice for this appendix was verifiable as of July 17, 2026. No award has been made. Zero committed dollars is the current fact.",
-    "stale_after": "2026-08-16"
+    "stale_after": "2026-08-16",
+    "verified": null
   },
   {
     "id": "moonbase.solicitation.habitats.2026-06-30",
@@ -246,6 +260,7 @@
       }
     ],
     "notes": "No habitat solicitation is open. Habitation is listed by NASA as a follow-on directed topic under NextSTEP-3 Appendix B, after surface power. Zero committed dollars is the current fact, and the zero is the story.",
-    "stale_after": "2026-08-16"
+    "stale_after": "2026-08-16",
+    "verified": null
   }
 ]

@@ -52,8 +52,58 @@
           "retrieved_at": "2026-07-17"
         }
       ],
-      "notes": "The literal figure appears in no NASA written document found. It originates as Administrator Isaacman's spoken statement at the March 24, 2026 Ignition event: 'we will invest approximately $20 billion over the next seven years.' NASA's own deck states per-phase investment: Phase 1 (2026-2028) $10B, Phase 2 (2029-2032) $10B, Phase 3 (2033-2036) $10B+. Planned investment, not an appropriation; the FY2027 request has no $20B line item. Do not conflate with the $6B CLPS 2.0 cap or with roughly $30B three-phase framings.",
+      "notes": "The literal figure appears in no NASA written document found. It originates as Administrator Isaacman's spoken statement at the March 24, 2026 Ignition event: 'we will invest approximately $20 billion over the next seven years.' NASA's own deck states per-phase investment: Phase 1 (2026-2028) $10B, Phase 2 (2029-2032) $10B, Phase 3 (2033-2036) $10B+. Planned investment, not an appropriation; the FY2027 request has no $20B line item. Do not conflate with the $6B CLPS 2.0 cap or with roughly $30B three-phase framings. The 'seven years' from the same sentence has its own record, moonbase.program.duration_years, and the phase dates and the seven do not obviously reconcile; the tension is carried there.",
       "stale_after": null,
+      "supersedes": null
+    },
+    {
+      "id": "moonbase.program.duration_years",
+      "value": 7,
+      "unit": "years",
+      "label": "NASA Moon Base planned investment window, as spoken",
+      "as_of": "2026-03-24",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "NASA, Building the Moon Base presentation, Ignition event, March 24, 2026",
+          "url": "https://www.nasa.gov/wp-content/uploads/2026/03/2-building-the-moon-base.pdf",
+          "tier": 1,
+          "retrieved_at": "2026-07-17"
+        },
+        {
+          "name": "Spaceflight Now, NASA outlines ambitious $20 billion plan for moon base, William Harwood, March 25, 2026",
+          "url": "https://spaceflightnow.com/2026/03/25/nasa-outlines-ambitious-20-billion-plan-for-moon-base/",
+          "tier": 3,
+          "retrieved_at": "2026-07-17"
+        },
+        {
+          "name": "The Planetary Society, Ignition: A new series of NASA initiatives, March 24, 2026",
+          "url": "https://www.planetary.org/articles/ignition-new-nasa-initiatives",
+          "tier": 2,
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "Spoken, not published, and from the same sentence as the $20B: 'we will invest approximately $20 billion over the next seven years,' Isaacman, Ignition event, March 24, 2026. One spoken claim, two numbers, same provenance, same mark. Tension, recorded and not resolved: the phase dates do not obviously add to seven. NASA's deck labels Phase 1 as 2026-2028 and Phase 2 as 2029-2032; other program framings run Phase 1 into 2029 and end Phase 2 in 2031, which is roughly six years. It may be fiscal years, it may be inclusive counting, it may be loose speech. If NASA restates the window, this record changes and every figure derived from it moves with it.",
+      "stale_after": null,
+      "supersedes": null
+    },
+    {
+      "id": "population.us",
+      "value": 341800000,
+      "unit": "count",
+      "label": "US resident population, July 1, 2025",
+      "as_of": "2025-07-01",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "US Census Bureau press release, U.S. Population Growth Slows Due to Historic Decline in Net International Migration, January 27, 2026",
+          "url": "https://www.census.gov/newsroom/press-releases/2026/population-growth-slows.html",
+          "tier": 1,
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "Vintage 2025 estimate, stated in the release as 341.8 million as of July 1, 2025. The detailed table (NST-EST2025-POP) carries full precision; the printed figure is used here. Rev 01 of the data model used 342e6 as a literal; this record replaces it, and the difference moves the per-person figure by about 4 cents. The denominator choice itself (resident population vs tax returns vs net positive payers) is contested and is named on every fact derived from this one.",
+      "stale_after": "2027-08-21",
       "supersedes": null
     }
   ],
@@ -85,10 +135,10 @@
     {
       "id": "moonbase.committed.share",
       "derived_from": ["moonbase.committed.total", "moonbase.program.total"],
-      "formula": "moonbase.committed.total / moonbase.program.total * 100",
+      "formula": "moonbase.committed.total / moonbase.program.total",
       "unit": "percent",
       "label": "Share of the planned Moon Base investment that is signed",
-      "notes": "Numerator includes Blue Origin's unexercised $280.4M option. Denominator is the approximately $20B planned Phase 1 and 2 investment, a spoken figure, not an appropriation. Both choices are named because both move the percentage."
+      "notes": "Numerator includes Blue Origin's unexercised $280.4M option. Denominator is the approximately $20B planned Phase 1 and 2 investment, a spoken figure, not an appropriation. Both choices are named because both move the percentage. Stored as a fraction; the percent unit converts at render."
     },
     {
       "id": "moonbase.days_since_award",
@@ -100,11 +150,11 @@
     },
     {
       "id": "moonbase.cost_per_person",
-      "derived_from": ["moonbase.program.total"],
-      "formula": "moonbase.program.total / 342e6 / 7",
+      "derived_from": ["moonbase.program.total", "population.us", "moonbase.program.duration_years"],
+      "formula": "moonbase.program.total / population.us / moonbase.program.duration_years",
       "unit": "USD",
       "label": "Moon Base cost per American per year",
-      "notes": "The denominator is a choice and it is contested: 342 million is the total US resident population, 2024 vintage. Tax returns or net positive taxpayers each give a different answer. Spread across the seven-year Phase 1 and 2 window. Roughly $8 per American per year."
+      "notes": "The denominator is a choice and it is contested: population.us is the total US resident population, Census Vintage 2025 estimate, 341.8 million as of July 1, 2025. Tax returns or net positive taxpayers each give a different answer. The window is the spoken seven years, moonbase.program.duration_years, which carries its own phase-date tension. Roughly $8.36 per American per year."
     }
   ]
 }

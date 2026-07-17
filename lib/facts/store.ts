@@ -107,6 +107,11 @@ function validateLedgerRow(row: LedgerRow): void {
   if (row.status === "solicitation" && row.value !== 0) {
     fail(row.id, "a solicitation row must have value 0; the zero is the story");
   }
+  // The Verified column is the promotion rule as a field. Confidence cannot
+  // read confirmed unless Enzo has recorded opening the primary source.
+  if (row.confidence === "confirmed" && (!row.verified || row.verified.trim() === "")) {
+    fail(row.id, "a confirmed row with an empty verified field is a bug in the ledger");
+  }
   validateSources(row.id, row.sources);
 }
 
@@ -240,7 +245,10 @@ export function getLedger(): LedgerRow[] {
 }
 
 /** Resolve a ledger row into the shape Figure renders. Same rules, same marks. */
-export function resolveLedgerRow(id: string, today: Date = new Date()): ResolvedFact {
+export function resolveLedgerRow(
+  id: string,
+  today: Date = new Date()
+): Extract<ResolvedFact, { kind: "fact" }> {
   const row = ledger.find((r) => r.id === id);
   if (!row) throw new Error(`[fact store] Unknown ledger row '${id}'`);
   return {

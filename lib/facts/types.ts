@@ -27,7 +27,7 @@ export interface Source {
   retrieved_at: string;
 }
 
-export type Unit = "USD" | "USD_per_kg" | "count" | "percent" | "days" | "kg";
+export type Unit = "USD" | "USD_per_kg" | "count" | "percent" | "days" | "kg" | "years";
 
 /** A stored fact. Raw value, provenance attached. Formatting is a render concern. */
 export interface Fact {
@@ -103,6 +103,13 @@ export interface LedgerRow {
   sources: Source[];
   notes: string;
   stale_after: string | null;
+  /**
+   * The promotion rule made into a field (data-model.md section 4). The date
+   * Enzo opened the primary source and saw the figure. Only Enzo fills it.
+   * A confirmed row with an empty verified field is invalid and fails the
+   * build; agents always leave this null.
+   */
+  verified: string | null;
 }
 
 /**

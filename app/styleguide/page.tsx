@@ -58,17 +58,27 @@ export default function Styleguide() {
         <dl className="space-y-6">
           <div className="flex items-baseline justify-between gap-6 border-b border-rule pb-4">
             <dt className="font-sans text-sm text-secondary">
-              Confirmed. Primary source, verifiable, unambiguous. Astrobotic, two lander
-              missions, June 30, 2026.
+              Confirmed. Primary source, verifiable, unambiguous, and E. Carvalho has
+              opened the URL. No record on the site currently qualifies: every seed row
+              awaits promotion via its Verified field. The mark below is a specimen
+              rendered for this styleguide, not a live record.
             </dt>
             <dd className="font-mono text-2xl text-ink">
-              <Figure fact={astrobotic} />
+              <Figure
+                fact={{
+                  ...astrobotic,
+                  confidence: "confirmed",
+                  notes:
+                    "Specimen for the styleguide only. The stored Astrobotic record is reported until promoted.",
+                }}
+              />
             </dd>
           </div>
           <div className="flex items-baseline justify-between gap-6 border-b border-rule pb-4">
             <dt className="font-sans text-sm text-secondary">
-              Reported. Credible but not verifiable to a single primary framing. Blue
-              Origin&apos;s LTV delivery award, stated four ways across credible sources.
+              Reported. Credible but awaiting primary verification. Blue Origin&apos;s LTV
+              delivery award: the award itself is stated plainly by NASA, but the press
+              totals built from it are not, and the row awaits promotion.
             </dt>
             <dd className="font-mono text-2xl text-ink">
               <Figure fact={blueOrigin} />

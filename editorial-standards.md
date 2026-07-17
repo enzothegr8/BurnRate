@@ -1,6 +1,6 @@
 # Burn Rate — Editorial Standards & the Provenance Protocol
 
-**Doc** BR-EDIT · **Rev** 01 · **Updated** 2026-07-15 · **Drawn** E. CARVALHO
+**Doc** BR-EDIT · **Rev** 02 · **Updated** 2026-07-17 · **Drawn** E. CARVALHO
 
 The brand bible says what Burn Rate looks like. This says what it is allowed to claim. It governs humans and agents identically.
 
@@ -27,7 +27,9 @@ The day the notation lies, Burn Rate is worth *less* than a plain blog, because 
 3. A URL exists and resolves.
 4. Enzo has personally opened that URL and seen the number.
 
-**Example:** Astrobotic's `$297.9M` for two lander missions, June 30, 2026. NASA release, single unambiguous figure, no competing framings.
+**Example:** NASA's May 26, 2026 release stating Blue Origin's award as `$188M` with an option period worth `$280.4M`. Originating party, single unambiguous figures, plainly stated.
+
+**A figure cited to trade press is not confirmed, however reliable the outlet.** SpaceNews is tier 3. If SpaceNews reports a NASA award, the number is `reported` until the NASA release itself is opened. This is not a slight against SpaceNews. It is the difference between knowing a number and knowing where a number came from.
 
 ### Dashed — Reported
 
@@ -39,8 +41,23 @@ The day the notation lies, Burn Rate is worth *less* than a plain blog, because 
 - The figure varies by framing across otherwise credible sources.
 - The primary source is paraphrased rather than published.
 - It is a forward-looking figure someone else projected.
+- **It was spoken, not published.** A number said aloud at a press event and never printed in an agency document is reported, no matter how often it is repeated afterward. See the `$20B` case below.
 
-**Example:** Blue Origin's LTV delivery award. Reported as `$188M` base, `$280.4M` option, "up to `$468M` for two missions," and "`$234M` per LTV." These are consistent framings of one award, but the site cannot state any single number as confirmed. **This is the most important worked example in this document.** Competitors state one of these flatly. Burn Rate dashes it.
+**Example, and it is the most important one in this document:** the Blue Origin LTV delivery award. The instructive part is not the one you would expect.
+
+**The award itself is not ambiguous.** NASA's release states it plainly and once: `$188M` base, option period worth `$280.4M` for two task orders. SpaceNews adds the structure, that the base covers mission design and long-lead hardware while the options cover the lander missions themselves. Nothing about that is unclear.
+
+What is ambiguous is every **total** the press built out of it:
+
+| Figure | Where it came from | Mark |
+|---|---|---|
+| `$188M` base | NASA release. Primary, plain. | Solid, once Enzo opens it |
+| `$280.4M` option | NASA release. Primary, plain. | Solid, once Enzo opens it |
+| `$234M` per LTV | Spaceflight Now. **They divided and printed the result flat.** | Dashed |
+| "up to `$468M` for two" | **No source prints this.** It is 188 + 280.4. | Dotted, or absent |
+| Any single figure for "the award" | There isn't one. It is two numbers and a condition. | Dotted |
+
+**The lesson: the trade press routinely publishes its own arithmetic without marking it.** Spaceflight Now did division and presented the output as reporting. That is not dishonesty; they have no notation, so they have no way to say it. Burn Rate does. Which means Burn Rate's job is not only to mark its own derivations but to notice when a "reported" figure is somebody else's derivation wearing a reporting costume. The laundering is usually upstream.
 
 ### Dotted — Derived or estimated
 
@@ -52,8 +69,17 @@ The day the notation lies, Burn Rate is worth *less* than a plain blog, because 
 - Any per-capita, per-taxpayer, or per-unit figure, because the denominator is a choice.
 - Any inflation adjustment, and the method must be stated.
 - Any projection, including other people's, when restated in Burn Rate's own framing.
+- Any total assembled from separately reported components, including the Moon Base committed total.
 
 **Example:** `$8` per American per year for the Moon Base. Arithmetic is trivial; the denominator is contested (total population vs. tax returns vs. net positive payers each give a different answer). Dotted, always, with the denominator named.
+
+### The marks are kinds, not degrees
+
+This is the failure the levels above do not obviously prevent, so it is stated separately.
+
+**The notation is not a dial where lower is safer.** Each mark is a claim about *how a number came to exist*, not about how nervous you feel. Dotted asserts that Burn Rate did the arithmetic. If Burn Rate did not, dotted is a lie, just a self-deprecating one. Marking a reported figure as derived is as wrong as the reverse; it is simply wrong in a direction that feels humble.
+
+When in doubt, ask what *kind* of thing the number is, not how much you trust it.
 
 ---
 
@@ -65,7 +91,11 @@ This is not a preference. The specific failure mode of a research-and-verify age
 
 Promotion to solid requires that Enzo has opened the primary source and seen the figure. Not a summary of it. The figure.
 
+**An agent's recollection is not a source.** Neither is a previous session's output, a research brief, or a prior article, however carefully it was written. If an agent reports that it believes a figure was sourced, that belief has no standing. The chain must terminate in a URL that Enzo opened.
+
 Dashed and dotted may be set by agents, because both are honest admissions. Only the claim of certainty requires a human.
+
+There is no deadline on promotion. An unpromoted figure is not an emergency; it is a dashed figure, which is a publishable state. The only rule is that it may not render solid before the source is opened.
 
 ---
 
@@ -88,6 +118,7 @@ Ranked. Always cite the highest available.
 - **Never invent a figure to fill a gap.** If it isn't known, say it isn't known. The ILRS total budget does not exist in open sources. Do not estimate it. Do not imply it.
 - **Never state a range as a point.** If sources disagree, the disagreement is the story.
 - **Never launder a derived number as a reported one.** Doing your own math and citing the source of the inputs does not make the output confirmed.
+- **Never mark a figure lower than its kind.** See §2. Under-marking is not caution, it is a different false claim.
 - **Never publish an unmarked number.** There is no neutral state. Unmarked reads as asserted.
 - **Never let an agent's output reach the page unreviewed.**
 - **Never reproduce source text.** Paraphrase. Quotes under 15 words, one per source, only where exact wording carries meaning that paraphrase would lose (testimony, contract language, direct statements).
@@ -105,6 +136,8 @@ Articles are living documents. The beat moves fast enough that a piece goes stal
 - The revision log at the foot of the piece states what changed, in one line, per revision. Readers who came back deserve to know what moved.
 - Confidence levels can move in both directions. A dashed figure becoming confirmed is a revision worth logging, and it is quietly the best advertisement the notation has.
 
+**This applies to the spec documents themselves.** They exist in two places, this repo and Enzo's working project, and they do not sync. The Rev number is what catches a stale copy. Bump it as part of the edit, not afterward.
+
 ---
 
 ## 7. Corrections
@@ -119,7 +152,21 @@ Articles are living documents. The beat moves fast enough that a piece goes stal
 
 Every research agent's output must return facts in the shape defined by `data-model.md`. Prose without records is unusable.
 
-**Every agent returns, per figure:**
+### Agents build. Agents do not assert.
+
+An agent must never stop work because a figure is weak. **The notation exists so that uncertainty ships marked rather than not shipping at all.** A publication with no way to say "we are not sure" has exactly two options, assert or drop. Burn Rate has a third, and it cost three documents to buy. An agent that drops a weakly-sourced figure is throwing away the only thing that makes this publication different, and doing it out of a caution that looks like rigor and isn't.
+
+Three cases, and only one of them stops:
+
+**A figure exists but is weak, conflicting, or secondary.** Build it. Mark it to its kind at the lowest defensible level. Put every competing framing in `notes`. Tell Enzo what you think and why, as a second opinion, not as a request for permission. Then proceed. Do not wait for a ruling.
+
+**No figure exists.** Do not invent one. Build the structure with the slot empty, and render the emptiness visibly rather than hiding the component. An absent number is a fact about the world and it is frequently the most interesting thing on the page. The habitat and surface power rows are worth more at zero than most publications' figures are at any value. Tell Enzo. Then proceed.
+
+**The instructions themselves are missing or contradictory.** Stop and ask. This is the only case that blocks. An agent guessing at spec is not producing weak output, it is producing fiction, and fiction cannot be marked because it has no kind.
+
+Editorial judgment is Enzo's. Execution is the agent's. An agent that stops to ask permission to build is failing at its job. An agent that marks something confirmed is failing at something worse.
+
+### Every agent returns, per figure
 
 - `value`
 - `unit`
@@ -130,11 +177,13 @@ Every research agent's output must return facts in the shape defined by `data-mo
 - `proposed_confidence` (`reported` or `derived` only, never `confirmed`)
 - `notes` — competing framings, ambiguities, anything that would make Enzo hesitate
 
-**An agent that cannot supply a URL has not found a fact.** It has found a rumor. Return it as a rumor or not at all.
+**An agent that cannot supply a URL has not found a fact.** It has found a rumor. Return it as a rumor, marked as one, and keep going. Do not return it as a fact and do not silently drop it.
 
 **Agents must surface disagreement, not resolve it.** If two sources conflict, both go in `notes`. The pipeline's job is to bring Enzo the conflict, not to pick a winner.
 
 **Agents may not write claim sentences.** The read is the product and the read is Enzo's. Agents supply the raw material and, at most, propose. Voice is not delegable, and a page of agent-written claims is a costume.
+
+**Agents may not fit constants to close a gap.** If a model disagrees with reality, that is a finding to report, not an error to tune away. A fitted constant is a fabricated number wearing a lab coat.
 
 ---
 
@@ -152,4 +201,5 @@ If not, it isn't ready.
 
 | Rev | Date | Change |
 |---|---|---|
+| 02 | 2026-07-17 | Corrected the Blue Origin worked example in §2: the award is unambiguous, the press totals are not, and `$468M` appears in no source. Added spoken-not-published trigger. Added "the marks are kinds, not degrees" and the matching prohibition on under-marking. Added the no-recollection-as-source rule and the no-deadline note to §3. Rewrote §8 around build-vs-assert: agents proceed on weak figures and stop only on missing spec. Added the fitted-constant prohibition. Noted in §6 that spec docs carry Rev numbers for the same reason articles do. |
 | 01 | 2026-07-15 | First issue. Confidence levels, promotion rule, source hierarchy, agent contract established. |

@@ -40,8 +40,11 @@ export function formatValue(
     case "USD_per_kg":
       return `${compactUsd(value)}/kg`;
     case "percent":
-      return `${value.toFixed(1)}%`;
+      // Percent facts are stored as fractions (a formula may not contain a
+      // conversion literal, data-model.md section 1); the unit converts here.
+      return `${(value * 100).toFixed(1)}%`;
     case "days":
+    case "years":
       return `${Math.round(value).toLocaleString("en-US")}`;
     case "kg":
       return `${Math.round(value).toLocaleString("en-US")} kg`;
