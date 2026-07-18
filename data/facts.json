@@ -110,9 +110,844 @@
       "notes": "Vintage 2025 estimate, stated in the release as 341.8 million as of July 1, 2025. The detailed table (NST-EST2025-POP) carries full precision; the printed figure is used here. Rev 01 of the data model used 342e6 as a literal; this record replaces it, and the difference moves the per-person figure by about 4 cents. The denominator choice itself (resident population vs tax returns vs net positive payers) is contested and is named on every fact derived from this one.",
       "stale_after": "2027-08-21",
       "supersedes": null
+    },
+    {
+      "id": "dv.leo-insertion",
+      "value": 9500,
+      "unit": "m_per_s",
+      "label": "Delta-v, Earth surface to low Earth orbit, typical budget",
+      "as_of": "2020-09-03",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "Dresia et al. (DLR Institute of Space Propulsion), Multidisciplinary Design Optimization of Reusable Launch Vehicles for Different Propellants and Objectives, arXiv:2009.01664, 2020, Table 2",
+          "url": "https://arxiv.org/pdf/2009.01664",
+          "tier": 2,
+          "states_value": true,
+          "traces_to": null,
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "Assumes a 200 km circular LEO: ideal delta-v about 8,030 m/s plus gravity losses 1,000-1,500 m/s, drag 100-150 m/s, maneuvers, small margins, and an Earth-rotation credit (Kourou). The budget varies with trajectory and orbit: Stanford AA284a course notes (web.stanford.edu, fetched 2026-07-17) give 10,440 m/s for a polar launch to 400 km with no rotation credit and a 2.2 km/s gravity-loss allowance; a NASA-JSC delta-v network chart shows about 10,000 m/s. The oft-quoted 9.3-9.4 km/s lives mainly in aggregators, which are not sources. In the engine this leg is executed by the launch vehicle and priced by capacity; the figure is displayed, not solved.",
+      "stale_after": null,
+      "supersedes": null
+    },
+    {
+      "id": "dv.tli",
+      "value": 3134,
+      "unit": "m_per_s",
+      "label": "Delta-v, trans-lunar injection from low Earth orbit",
+      "as_of": "2013-07-01",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "Parker and Anderson, Low-Energy Lunar Trajectory Design, JPL DESCANSO Series Vol. 12, 2013, Chapter 4, Fig. 4-3",
+          "url": "https://descanso.jpl.nasa.gov/monograph/series12/LunarTraj--05Chapter4TransferstoLowLunarOrbits.pdf",
+          "tier": 1,
+          "states_value": true,
+          "traces_to": null,
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "The 4.5-day near-Hohmann direct transfer from a 185 km circular Earth orbit to a 100 km prograde lunar orbit; the same table spans 3,138-3,831 m/s as transfer time shortens from 6 days to 1 day. NASA-JSC (Connolly, LEAG 2012, lpi.usra.edu, fetched 2026-07-17) gives 3,127-3,276 m/s depending on parking orbit, with a 5 percent flight performance reserve included. Ballistic, impulsive, no reserves in the chosen figure; the engine adds none silently. Caveat from retrieval: the PDF table extracted column-by-column and row association was reconstructed.",
+      "stale_after": null,
+      "supersedes": null
+    },
+    {
+      "id": "dv.loi",
+      "value": 813,
+      "unit": "m_per_s",
+      "label": "Delta-v, lunar orbit insertion to 100 km low lunar orbit",
+      "as_of": "2013-07-01",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "Parker and Anderson, Low-Energy Lunar Trajectory Design, JPL DESCANSO Series Vol. 12, 2013, Chapter 4",
+          "url": "https://descanso.jpl.nasa.gov/monograph/series12/LunarTraj--05Chapter4TransferstoLowLunarOrbits.pdf",
+          "tier": 1,
+          "states_value": true,
+          "traces_to": null,
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "Stated in prose as the minimum for direct (2-6 day) transfers into a 100 km circular lunar orbit; 4.5-day transfer per Fig. 4-3, rising to 893 m/s (3-day) and 1,248 m/s (2-day). Most simple direct transfers need 845 m/s or more, per the same chapter. Low-energy 70-120 day transfers need only about 640-669 m/s. NASA-JSC (Connolly, LEAG 2012) gives 846-952 m/s with a 5 percent reserve. Ballistic minimum chosen; the engine adds no reserve silently.",
+      "stale_after": null,
+      "supersedes": null
+    },
+    {
+      "id": "dv.descent",
+      "value": 2081,
+      "unit": "m_per_s",
+      "label": "Delta-v, lunar powered descent to touchdown",
+      "as_of": "1970-01-19",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "Floyd V. Bennett, Apollo Lunar Descent and Ascent Trajectories, NASA TM X-58040, January 1970 (NTRS 19700024568)",
+          "url": "https://ntrs.nasa.gov/api/citations/19700024568/downloads/19700024568.pdf",
+          "tier": 1,
+          "states_value": true,
+          "traces_to": null,
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "6,827 ft/s converted at the definitional 0.3048 m per ft. Apollo 11 powered-descent requirement from about 50,000 ft perilune to touchdown, including landing-phase allowances; the flown value was 6,775 ft/s, and the separate descent orbit insertion burn (about 75 ft/s) is excluded, so full low-lunar-orbit-to-surface is nearer 2,103 m/s depending on where the phase boundary is drawn. NASA-JSC (Connolly, LEAG 2012) gives 2,074-2,180 m/s for modern lander concepts with a 5 percent reserve, and a network chart shows about 1,870 m/s without reserves. Where the boundary sits moves this figure by roughly 25 m/s; the record picks the Apollo requirement and names the alternatives.",
+      "stale_after": null,
+      "supersedes": null
+    },
+    {
+      "id": "stage.s-ivb.isp",
+      "value": 424,
+      "unit": "s",
+      "label": "J-2 engine vacuum specific impulse (S-IVB stage)",
+      "as_of": "1968-12-01",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "Saturn V News Reference, J-2 Engine Fact Sheet, changed December 1968 (NASA/MSFC and contractors)",
+          "url": "http://www.apolloexplorer.co.uk/pdf/saturnv/J-2%20Engine.pdf",
+          "tier": 1,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "NASA-era primary document, but the fetched copy is an enthusiast-site scan (apolloexplorer.co.uk); document identity is clear from the scanned header. Tier follows the document, the hosting caveat is named here.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "Altitude Isp at the 5.5:1 mixture ratio; the same sheet prints 427 s at 5:1. Competing values: 421 s appears in J-2 qualification-era NASA material, 426 s is sometimes cited for the uprated 230k engine. Single-number citation of a mixture-ratio-dependent quantity is inherently lossy; the engine uses this one and says so.",
+      "stale_after": null,
+      "supersedes": null
+    },
+    {
+      "id": "stage.s-ivb.dry-mass",
+      "value": 11273,
+      "unit": "kg",
+      "label": "S-IVB stage dry mass, Apollo 11 actual",
+      "as_of": "1969-07-16",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "NASA SP-2000-4029, Apollo by the Numbers (Orloff), Ground Ignition Weights table, print capture of history.nasa.gov/SP-4029",
+          "url": "http://m.16streets.com/39-B/PDF%20files/Apollo%20Saturn%20V%20and%201B%20Ground%20Ignition%20Weights.pdf",
+          "tier": 1,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "Content is the NASA History Office SP-4029 table verbatim (header shows the history.nasa.gov URL), fetched via a mirror because NASA's own copy now redirects to a PDF too large to fetch. Tier follows the document; the mirror caveat is named here.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "24,852 lb converted at the definitional 0.45359237 kg per lb. Apollo 11 actual at ground ignition, from Saturn flight evaluation reports; varies by mission (25,926 lb on Apollo 8) and excludes the 1,656 lb 'S-IVB stage, other' service items. Aggregators cite about 13,300 kg for S-IVB-500, likely a different accounting; the disagreement is recorded, not resolved.",
+      "stale_after": null,
+      "supersedes": null
+    },
+    {
+      "id": "stage.s-ivb.propellant",
+      "value": 107095,
+      "unit": "kg",
+      "label": "S-IVB propellant loading, Apollo 11 actual",
+      "as_of": "1969-07-16",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "NASA SP-2000-4029, Apollo by the Numbers (Orloff), Ground Ignition Weights table, print capture of history.nasa.gov/SP-4029",
+          "url": "http://m.16streets.com/39-B/PDF%20files/Apollo%20Saturn%20V%20and%201B%20Ground%20Ignition%20Weights.pdf",
+          "tier": 1,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "Same mirror caveat as the dry mass record, plus: the value is the sum of two printed line items (192,497 lb LOX + 43,608 lb LH2 = 236,105 lb), not a single printed total.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "Flight loading at ground ignition, not rated capacity; nominal capacity is commonly cited as 230,000 lb (104,326 kg) in secondary sources, and loadings ranged about 233,000-239,400 lb across Apollo 7-17. Used by the engine as the stage propellant constraint, which is therefore an as-loaded ceiling, not a design one.",
+      "stale_after": null,
+      "supersedes": null
+    },
+    {
+      "id": "stage.falcon-upper.isp",
+      "value": 348,
+      "unit": "s",
+      "label": "Merlin Vacuum specific impulse (Falcon second stage, Block 5)",
+      "as_of": "2021-03-15",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "Space Launch Report (Ed Kyle), SpaceX Falcon 9 v1.2 Data Sheet, archived March 15, 2021",
+          "url": "https://web.archive.org/web/20210315012632/https://www.spacelaunchreport.com/falcon9ft.html",
+          "tier": 5,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "Aggregator/enthusiast reference, and the value is printed as '348 s?' with the question mark marking it as Kyle's estimate. SpaceX publishes no current MVac Isp; this is the best fetchable figure and it is weak.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "Merlin 1D Vacuum, Full Thrust/Block 5, as estimated by Space Launch Report. Competing values: SpaceX's 2009 release demonstrated 342 s for the original Merlin 1C-based Merlin Vacuum; SLR lists 340 s for v1.1 and 336 s for Block 1. SpaceX's site prints thrust and burn time only. Same stage flies on Falcon Heavy.",
+      "stale_after": "2027-08-21",
+      "supersedes": null
+    },
+    {
+      "id": "stage.falcon-upper.dry-mass",
+      "value": 4500,
+      "unit": "kg",
+      "label": "Falcon second stage dry mass, estimate",
+      "as_of": "2021-03-15",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "Space Launch Report (Ed Kyle), SpaceX Falcon 9 v1.2 Data Sheet, archived March 15, 2021",
+          "url": "https://web.archive.org/web/20210315012632/https://www.spacelaunchreport.com/falcon9ft.html",
+          "tier": 5,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "Explicitly an estimate: printed with a tilde and a question mark, labeled 'burnout' mass, which may include residuals above true dry mass. SpaceX has never published this figure.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "SpaceX has never published second stage dry mass; every figure in circulation is an estimate. SLR lists roughly 4-4.5 t for v1.1 and about 4.5 t for v1.2/Block 5. 'Burnout' accounting may sit slightly above dry.",
+      "stale_after": "2027-08-21",
+      "supersedes": null
+    },
+    {
+      "id": "stage.falcon-upper.propellant",
+      "value": 111500,
+      "unit": "kg",
+      "label": "Falcon second stage propellant, estimate",
+      "as_of": "2021-03-15",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "Space Launch Report (Ed Kyle), SpaceX Falcon 9 v1.2 Data Sheet, archived March 15, 2021",
+          "url": "https://web.archive.org/web/20210315012632/https://www.spacelaunchreport.com/falcon9ft.html",
+          "tier": 5,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "Explicitly an estimate: printed with a tilde and a question mark, labeled 'used' (consumed propellant on a reference flight), not rated capacity.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "Densified subcooled LOX/RP-1. Other aggregators cite about 107.5 t; SLR lists about 93 t for v1.1. SpaceX publishes no figure. Used by the engine as the stage propellant constraint, so the constraint inherits every caveat on this record.",
+      "stale_after": "2027-08-21",
+      "supersedes": null
+    },
+    {
+      "id": "stage.starship.isp",
+      "value": 378,
+      "unit": "s",
+      "label": "Raptor Vacuum specific impulse, as stated by Musk, 2021",
+      "as_of": "2021-08-11",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "Everyday Astronaut, Starbase Tour and Interview with Elon Musk, August 11, 2021",
+          "url": "https://everydayastronaut.com/starbase-tour-and-interview-with-elon-musk/",
+          "tier": 4,
+          "states_value": true,
+          "traces_to": "event.musk-starbase-interview.2021-08-11",
+          "tier_note": "A founder statement relayed in an enthusiast-media interview, not a measured published spec. Tier follows the claim, not the outlet's care in transcribing it.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "2021-era Raptor Vacuum at expansion ratio about 80; the same interview hoped for 380 s at ratio 90. Competing Musk numbers: about 350 s sea level (2019), 382 s production goal (2016). Raptor 3-era performance is not published. Sea-level Raptor Isp (about 330-350 s) is frequently confused with RVac in secondary sources.",
+      "stale_after": "2027-08-21",
+      "supersedes": null
+    },
+    {
+      "id": "stage.starship.dry-mass",
+      "value": 100000,
+      "unit": "kg",
+      "label": "Starship (ship) dry mass, Musk aspiration for Ship 20, 2021",
+      "as_of": "2021-08-11",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "Everyday Astronaut, Starbase Tour and Interview with Elon Musk, August 11, 2021",
+          "url": "https://everydayastronaut.com/starbase-tour-and-interview-with-elon-musk/",
+          "tier": 4,
+          "states_value": true,
+          "traces_to": "event.musk-starbase-interview.2021-08-11",
+          "tier_note": "An aspirational statement about one 2021 vehicle ('hopefully not be much more than 100 tonnes'), not a measurement. Tier follows the claim.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "Version-specific and aspirational: Ship 20, 2021. Earlier Musk statements put Mk1 at about 120 t with an 85 t aspiration. SpaceX publishes no dry mass for current V2/V3 ships, which are longer and widely believed heavier. Every Starship result downstream of this record inherits that softness, and the notation shows it.",
+      "stale_after": "2027-08-21",
+      "supersedes": null
+    },
+    {
+      "id": "stage.starship.propellant",
+      "value": 1600000,
+      "unit": "kg",
+      "label": "Starship (ship) propellant capacity, current design",
+      "as_of": "2026-07-17",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "SpaceX, Starship vehicle page, retrieved July 17, 2026",
+          "url": "https://www.spacex.com/vehicles/starship/",
+          "tier": 1,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "Originating company page, marketing context; design capacity for the current V3-generation ship, not a flown loading.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "1,600 t design capacity for the V3-generation ship. The same page printed 1,200 t for earlier versions (2021-2024), and 1,200 t is still the figure for the ships that have flown most missions. Version matters; the disagreement is recorded, not resolved.",
+      "stale_after": "2027-08-21",
+      "supersedes": null
+    },
+    {
+      "id": "vehicle.saturn-v.leo-capacity",
+      "value": 118000,
+      "unit": "kg",
+      "label": "Saturn V payload to low Earth orbit",
+      "as_of": "1973-05-14",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "NASA, What Was the Saturn V? (Grades 5-8), NASA Knows series",
+          "url": "https://www.nasa.gov/learning-resources/for-kids-and-students/what-was-the-saturn-v-grades-5-8/",
+          "tier": 1,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "Originating agency, but an educational page with a rounded 'about' figure, not an engineering document.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "NASA prints 'about 118,000 kilograms'. The same page prints about 43,500 kg to the Moon. A 140,000 kg Skylab-configuration figure circulates in secondary sources but appeared in nothing fetched, so it is not recorded. Note the mismatch the engine inherits: this capacity likely counts the spacecraft atop a fueled S-IVB, while the model treats the S-IVB as cargo; the README states it.",
+      "stale_after": null,
+      "supersedes": null
+    },
+    {
+      "id": "vehicle.saturn-v.price.1971",
+      "value": 185000000,
+      "unit": "USD",
+      "label": "Saturn V vehicle cost for Apollo 11, 1971 dollars",
+      "as_of": "1971-01-01",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "Forbes, Alex Knapp, Apollo 11's 50th Anniversary: The Facts And Figures Behind The $152 Billion Moon Landing, July 20, 2019",
+          "url": "https://www.forbes.com/sites/alexknapp/2019/07/20/apollo-11-facts-figures-business/",
+          "tier": 3,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "News outlet relaying NASA mission-cost figures; the article credits NASA generically, and the underlying NASA table was not fetched.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "The Saturn V for Apollo 11 specifically, in contemporary 1971 dollars, not a fleet-average per-launch price. The strongly preferred source, Casey Dreier's Apollo cost project at The Planetary Society, prints only a program total for the Saturn V: $6.6B actual, $80B adjusted via the NASA New Start Index (vehicle.saturn-v.program-total). No fetchable Dreier page prints a per-launch figure. The 2026-dollar figure the engine uses is vehicle.saturn-v.price.2026, derived from this record by CPI.",
+      "stale_after": null,
+      "supersedes": null
+    },
+    {
+      "id": "vehicle.saturn-v.program-total",
+      "value": 80000000000,
+      "unit": "USD",
+      "label": "Saturn V program total, adjusted, per The Planetary Society",
+      "as_of": "2025-01-01",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "The Planetary Society, How much did the Apollo program cost? (Casey Dreier's Apollo cost project; analysis published in Space Policy, 2022)",
+          "url": "https://www.planetary.org/space-policy/cost-of-apollo",
+          "tier": 2,
+          "states_value": true,
+          "traces_to": null,
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "$6.6 billion actual (1960-1973), $80 billion adjusted, for the Saturn V line. Adjustment uses the NASA New Start Index, an aerospace inflation index, NOT CPI; a CPI conversion will not reproduce it. Vintage ambiguity on the page itself: headline and sources section say 2025 NASA New Start Index, one body sentence still says 2020 dollars. Program total, not per-launch; thirteen vehicles flew, but no fetched source prints that count alongside a division, so any per-launch figure from this total would be a derivation.",
+      "stale_after": "2027-08-21",
+      "supersedes": null
+    },
+    {
+      "id": "vehicle.falcon-heavy.leo-capacity",
+      "value": 63800,
+      "unit": "kg",
+      "label": "Falcon Heavy payload to LEO, expendable",
+      "as_of": "2026-07-17",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "SpaceX, Falcon Heavy vehicle page",
+          "url": "https://www.spacex.com/vehicles/falcon-heavy/",
+          "tier": 1,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "Originating party; marketing claim on the company site, configuration unstated on the page.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "The page does not state configuration; SpaceX's own 2016 statements (Musk via SpaceNews: subtract 30-40 percent for reusable booster payload) indicate 63,800 kg is fully expendable. The list price record (vehicle.falcon-heavy.price) is generally understood to cover the booster-recovery profile, so pairing that price with this capacity overstates the bargain; both records say so.",
+      "stale_after": "2027-08-21",
+      "supersedes": null
+    },
+    {
+      "id": "vehicle.falcon-heavy.price",
+      "value": 97000000,
+      "unit": "USD",
+      "label": "Falcon Heavy list price, March 2022",
+      "as_of": "2022-03-23",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "SpaceNews, Jeff Foust, Blaming inflation, SpaceX raises Starlink and launch prices, March 23, 2022",
+          "url": "https://spacenews.com/blaming-inflation-spacex-raises-starlink-and-launch-prices/",
+          "tier": 2,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "Trade press, but the claim is SpaceX's own published price sheet quoted directly, not an estimate; tier reflects the claim's provenance.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "2022 nominal list price, raised from $90M in March 2022, with SpaceX warning of inflation adjustments for missions beyond 2023. Unadjusted to 2026 dollars: no CPI record for 2022 was gathered, and the engine states this vintage limitation rather than hiding it. List price covers the standard booster-recovery profile; expended missions are negotiated higher, and the capacity record this price is paired with is expendable performance. Musk claimed a fully expendable marginal cost of at most $150M in 2018 (unfetched, not a source).",
+      "stale_after": "2027-08-21",
+      "supersedes": null
+    },
+    {
+      "id": "vehicle.starship.leo-capacity",
+      "value": 100000,
+      "unit": "kg",
+      "label": "Starship payload to LEO, design target",
+      "as_of": "2026-07-17",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "SpaceX, Starship vehicle page",
+          "url": "https://www.spacex.com/vehicles/starship/",
+          "tier": 1,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "Originating party; an explicit design target ('designed to carry more than 100 metric tonnes') for a vehicle still in flight test, not demonstrated payload.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "Printed as '100+ t'. SpaceX previously advertised 100-150 t; Musk (April 2024, SpaceNews) said an upgraded version would lift more than 100 t and a future version more than 200 t fully reusable. No Starship has flown a commercial payload of this class. The record takes the printed floor.",
+      "stale_after": "2027-08-21",
+      "supersedes": null
+    },
+    {
+      "id": "vehicle.starship.price",
+      "value": 2000000,
+      "unit": "USD",
+      "label": "Starship per-launch cost, Musk aspiration for a future variant",
+      "as_of": "2024-04-06",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "SpaceNews, Jeff Foust, Musk outlines plans to increase Starship launch rate and performance, April 6, 2024",
+          "url": "https://spacenews.com/musk-outlines-plans-to-increase-starship-launch-rate-and-performance/",
+          "tier": 4,
+          "states_value": true,
+          "traces_to": "event.musk-starship3-remarks.2024-04",
+          "tier_note": "Reputable trade outlet, but the claim is a quoted Musk aspiration for a future vehicle version, not a price or an audited cost. Tier is per claim.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "READ BEFORE USING THE OUTPUT: this is the low end of an 'as low as $2 million to $3 million' aspiration for a future Starship 3, described by Musk as 'unthinkable numbers'. It is a marginal-cost hope, not a list price; no per-launch LEO price for Starship exists anywhere fetchable. SpaceX's own page prints only a $100M-per-metric-ton Moon/Mars cargo rate (not a per-launch LEO price), and an unfetched Payload Research estimate puts current build-and-launch cost near $90M. Every Starship mission cost downstream of this record is priced at an aspiration and the module must say so.",
+      "stale_after": "2027-08-21",
+      "supersedes": null
+    },
+    {
+      "id": "vehicle.new-glenn.leo-capacity",
+      "value": 45000,
+      "unit": "kg",
+      "label": "New Glenn payload to LEO",
+      "as_of": "2026-07-17",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "Blue Origin, New Glenn vehicle page",
+          "url": "https://www.blueorigin.com/new-glenn",
+          "tier": 1,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "Originating party; marketing claim on the company site.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "Printed flat as '45 metric tons to LEO' (the 'more than' in the same sentence attaches to the 13 t GTO figure). The page promotes a larger future 9x4 variant with no printed capacity.",
+      "stale_after": "2027-08-21",
+      "supersedes": null
+    },
+    {
+      "id": "vehicle.new-glenn.price",
+      "value": 68000000,
+      "unit": "USD",
+      "label": "New Glenn per-launch price, third-party estimate",
+      "as_of": "2025-01-25",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "The Motley Fool, Rich Smith, With New Glenn in Its Pocket, Can Blue Origin Compete With SpaceX and Starship?, January 25, 2025",
+          "url": "https://www.fool.com/investing/2025/01/25/can-blue-origin-new-glenn-compete-with-spacex/",
+          "tier": 4,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "Retail-investing outlet relaying an estimate attributed to an unnamed rival space company; the weakest kind of price evidence, and marked accordingly.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "Blue Origin advertises no price; blueorigin.com prints none. The recorded figure is an unnamed rival's estimate. Spread of published guesses: The Space Review (Oler, December 2025, fetched) assumes $200M per launch for the larger future 9x4 variant; unfetched snippets range $55-100M. The disagreement is recorded, not resolved.",
+      "stale_after": "2027-08-21",
+      "supersedes": null
+    },
+    {
+      "id": "cpi.us.1971",
+      "value": 40.5,
+      "unit": "index",
+      "label": "US CPI-U annual average, 1971",
+      "as_of": "1971-12-31",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "Federal Reserve Bank of Minneapolis, Consumer Price Index 1913-, annual-average CPI-U table (1982-84=100)",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-",
+          "tier": 2,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "Federal Reserve Bank republication of BLS data; bls.gov itself blocked automated fetching of the annual-average tables. Official-institution mirror, and the departure is named.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "Vintage year of the Forbes Saturn V figure. Conversion method as printed on the page: Year2 price = Year1 price times (Year2 CPI over Year1 CPI). CPI cannot reproduce The Planetary Society's adjusted Apollo figures, which use the NASA New Start Index; any CPI-converted Apollo number will disagree with Dreier's and both are labeled with their method.",
+      "stale_after": null,
+      "supersedes": null
+    },
+    {
+      "id": "cpi.us.2020",
+      "value": 258.8,
+      "unit": "index",
+      "label": "US CPI-U annual average, 2020",
+      "as_of": "2020-12-31",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "Federal Reserve Bank of Minneapolis, Consumer Price Index 1913-, annual-average CPI-U table (1982-84=100)",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-",
+          "tier": 2,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "Same BLS-mirror caveat as cpi.us.1971. BLS's official annual figure is 258.811, consistent with the printed 258.8.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "Carried because one sentence on The Planetary Society's Apollo cost page still says 2020 dollars while its headline says 2025; holding both vintages lets either reading be converted with the method named.",
+      "stale_after": null,
+      "supersedes": null
+    },
+    {
+      "id": "cpi.us.2025",
+      "value": 321.9,
+      "unit": "index",
+      "label": "US CPI-U annual average, 2025",
+      "as_of": "2025-12-31",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "Federal Reserve Bank of Minneapolis, Consumer Price Index 1913-, annual-average CPI-U table (1982-84=100)",
+          "url": "https://www.minneapolisfed.org/about-us/monetary-policy/inflation-calculator/consumer-price-index-1913-",
+          "tier": 2,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "Same BLS-mirror caveat, plus a 2025-specific weakness: October 2025 CPI was not published (lapse in appropriations), so the annual average rests on eleven months.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "The most recent full year available; 2026 is in progress and the table's 2026 value is an asterisked estimate, not used. The engine's '2026 dollars' are therefore 2025 CPI-U dollars, stated wherever the conversion renders.",
+      "stale_after": "2027-08-21",
+      "supersedes": null
+    },
+    {
+      "id": "lander.apollo-lm.dry-mass",
+      "value": 4212.5,
+      "unit": "kg",
+      "label": "Apollo Lunar Module dry mass, ascent plus descent stages, Apollo 11",
+      "as_of": "1969-07-16",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "Richard W. Orloff, Apollo by the Numbers: A Statistical Reference, NASA SP-2000-4029, 2000, Launch Vehicle/Spacecraft Key Facts table",
+          "url": "https://www.nasa.gov/wp-content/uploads/2023/04/sp-4029.pdf",
+          "tier": 1,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "The source prints pounds (descent stage 4,483 lb, ascent 4,804 lb, total 9,287 lb); the kg value is a conversion at the definitional 0.45359237 kg per lb. The claim's kind is unchanged by an exact-definition unit conversion; the conversion is named here.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "Apollo 11 (LM-5) as-flown, dry: excludes crew, propellant, and stowed equipment. Other sources print larger dry figures that fold in non-propellant fluids. The engine treats the whole LM (both stages) as the lander flown down, which matches how the LM actually descended. NSSDCA, which prints kg directly, was unreachable on 2026-07-17 (host redirects to a NASA landing page).",
+      "stale_after": null,
+      "supersedes": null
+    },
+    {
+      "id": "lander.apollo-lm.propellant-descent",
+      "value": 8248,
+      "unit": "kg",
+      "label": "Apollo LM descent stage propellant loading, Apollo 11",
+      "as_of": "1969-07-16",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "Richard W. Orloff, Apollo by the Numbers: A Statistical Reference, NASA SP-2000-4029, 2000, LM Descent Stage Propellant Status table",
+          "url": "https://www.nasa.gov/wp-content/uploads/2023/04/sp-4029.pdf",
+          "tier": 1,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "The source prints 18,184 lbm loaded (fuel 6,975 + oxidizer 11,209), a sum of two printed line items, converted at the definitional 0.45359237 kg per lb.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "As-flown loading, not rated capacity, compiled from mission reports. The ascent stage carried a further 5,238 lbm (2,376 kg) the model does not burn; the engine's descent-propellant constraint uses this descent loading only, so the constraint is an as-loaded ceiling.",
+      "stale_after": null,
+      "supersedes": null
+    },
+    {
+      "id": "lander.apollo-lm.descent-isp",
+      "value": 305,
+      "unit": "s",
+      "label": "Apollo LM descent engine specific impulse, design requirement",
+      "as_of": "1973-03-01",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "Apollo Experience Report: Descent Propulsion System, NASA TN D-7143, March 1973",
+          "url": "https://ntrs.nasa.gov/api/citations/19730011150/downloads/19730011150.pdf",
+          "tier": 1,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "A design requirement at end of duty cycle, not a flight-measured vacuum Isp. Tier follows the document; the kind of claim is named here.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "Corroborated by TRW acceptance-test data (Boeing D2-117060-2 via NTRS, poor OCR) at roughly 303-305 s full throttle, falling to about 294-301 s at partial throttle. The popular 311 s vacuum figure was not found plainly printed in any fetched tier-1 text and is not recorded. Throttle dependence makes a single number lossy; the engine uses this one and says so.",
+      "stale_after": null,
+      "supersedes": null
+    },
+    {
+      "id": "lander.apollo-lm.program-total",
+      "value": 2400000000,
+      "unit": "USD",
+      "label": "Apollo Lunar Module program cost, real-year dollars",
+      "as_of": "1973-12-31",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "The Planetary Society, How much did the Apollo program cost? (Casey Dreier's Apollo cost project)",
+          "url": "https://www.planetary.org/space-policy/cost-of-apollo",
+          "tier": 2,
+          "states_value": true,
+          "traces_to": null,
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "$2.4 billion as spent 1960-1973 on the whole LM line, about $28B in 2025 dollars per the same page (NASA New Start Index, not CPI). A program cost, not a per-unit price; no credible per-unit LM figure was found, so the engine's Apollo lander cost slot is empty and points here for scale.",
+      "stale_after": "2027-08-21",
+      "supersedes": null
+    },
+    {
+      "id": "lander.blue-ghost.max-payload",
+      "value": 150,
+      "unit": "kg",
+      "label": "Blue Ghost payload to the lunar surface, Mk1",
+      "as_of": "2021-05-20",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "Firefly Aerospace release, Firefly Awards Contract to SpaceX to Launch Blue Ghost Mission to Moon in 2023, May 20, 2021",
+          "url": "https://fireflyspace.com/news/firefly-aerospace-awards-contract-to-spacex-to-launch-blue-ghost-mission-to-moon-in-2023/",
+          "tier": 2,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "Vendor first-party claim about its own product; originating party for the capability, marketing context.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "Printed as 'more than 150 kg' for a Falcon 9 TLI launch, Mk1/BGM1 era. Firefly's own framings disagree: the condensed payload user's guide (Feb 2021, vendor PDF on a third-party mirror) prints 155 kg to surface on a TLI launch, and Firefly's current site prints 'Up to 240 kg', likely a post-BGM1 upgraded configuration. The record takes the plainly printed floor and names the spread.",
+      "stale_after": "2027-08-21",
+      "supersedes": null
+    },
+    {
+      "id": "lander.blue-ghost.wet-mass",
+      "value": 1517,
+      "unit": "kg",
+      "label": "Blue Ghost fully fueled mass, Mission 1",
+      "as_of": "2025-03-02",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "Astronomy.com, Firefly's Blue Ghost lander nails lunar mission, March 2025",
+          "url": "https://www.astronomy.com/space-exploration/fireflys-blue-ghost-lander-nails-lunar-mission/",
+          "tier": 3,
+          "states_value": true,
+          "traces_to": null,
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "Fully fueled (wet) mass, 3,344 lb as printed with the kg conversion in the same sentence. Recorded because dry mass and propellant load are unpublished (Firefly prints neither on its site, in the NASA press kit, nor in the payload user's guide); the engine's Blue Ghost physics slots are therefore empty and its missions return a missing-input result naming them. This record exists to give the absence scale.",
+      "stale_after": "2027-08-21",
+      "supersedes": null
+    },
+    {
+      "id": "asflown.apollo11.tli-mass",
+      "value": 43893,
+      "unit": "kg",
+      "label": "Apollo 11 CSM/LM mass after TLI, at transposition and docking",
+      "as_of": "1969-07-16",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "Richard W. Orloff, Apollo by the Numbers: A Statistical Reference, NASA SP-2000-4029, 2000, Selected Mission Weights table",
+          "url": "https://www.nasa.gov/wp-content/uploads/2023/04/sp-4029.pdf",
+          "tier": 1,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "Printed as 96,767.5 lb; converted at the definitional 0.45359237 kg per lb.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "Framing matters and rides with this record: the spacecraft (CSM+LM) just after TLI, excluding the spent S-IVB and Instrument Unit. The model's post-TLI mass keeps its transfer stage attached through LOI, so part of any model-vs-actual delta on this field is structural, not error. The full stack at TLI is not printed in SP-4029.",
+      "stale_after": null,
+      "supersedes": null
+    },
+    {
+      "id": "asflown.apollo11.leo-mass",
+      "value": 45702,
+      "unit": "kg",
+      "label": "Apollo 11 CSM/LM mass at Earth orbit insertion",
+      "as_of": "1969-07-16",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "Richard W. Orloff, Apollo by the Numbers: A Statistical Reference, NASA SP-2000-4029, 2000, Selected Mission Weights table",
+          "url": "https://www.nasa.gov/wp-content/uploads/2023/04/sp-4029.pdf",
+          "tier": 1,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "Printed as 100,756.4 lb; converted at the definitional 0.45359237 kg per lb.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "Framing caveat, load-bearing: this is the spacecraft stack only (apparently including the SLA adapter) at Earth orbit insertion. It EXCLUDES the S-IVB and Instrument Unit, so it is far below the roughly 135 t the full stack massed in parking orbit, a figure that lives only in Saturn V flight evaluation reports not fetched. The model's IMLEO includes its transfer stage, so the comparison against this record is structurally apples-to-oranges in a known direction; the delta is published with that stated.",
+      "stale_after": null,
+      "supersedes": null
+    },
+    {
+      "id": "asflown.apollo11.mission-cost",
+      "value": 355000000,
+      "unit": "USD",
+      "label": "Apollo 11 direct mission cost, then-year dollars",
+      "as_of": "1970-01-01",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "The Planetary Society, Apollo 11 mission page (Casey Dreier cost reconstruction)",
+          "url": "https://www.planetary.org/space-missions/apollo-11",
+          "tier": 2,
+          "states_value": true,
+          "traces_to": null,
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "NASA's direct-cost estimate as reported to Congress: CSM, LM, Saturn V, EASEP, and operations, excluding program development. Then-year (circa 1969-70) dollars; the page prints roughly $3B adjusted, vintage not cleanly stated in the fetched text. The engine's model cost is in 2025 CPI dollars, so the published cost delta carries a vintage mismatch on its face; converting this record cleanly would need a CPI record for its exact vintage year, which was not gathered.",
+      "stale_after": "2027-08-21",
+      "supersedes": null
+    },
+    {
+      "id": "asflown.apollo17.tli-mass",
+      "value": 46796,
+      "unit": "kg",
+      "label": "Apollo 17 CSM/LM mass after TLI, at transposition and docking",
+      "as_of": "1972-12-07",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "Richard W. Orloff, Apollo by the Numbers: A Statistical Reference, NASA SP-2000-4029, 2000, Selected Mission Weights table",
+          "url": "https://www.nasa.gov/wp-content/uploads/2023/04/sp-4029.pdf",
+          "tier": 1,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "Printed as 103,167 lb; converted at the definitional 0.45359237 kg per lb.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "Same framing as the Apollo 11 record: spacecraft only, after TLI, excluding the spent S-IVB. The J-mission LM was heavier than Apollo 11's; the engine's Apollo LM records are Apollo 11 as-flown, so part of the Apollo 17 delta is configuration drift the model does not carry.",
+      "stale_after": null,
+      "supersedes": null
+    },
+    {
+      "id": "asflown.apollo17.leo-mass",
+      "value": 48607,
+      "unit": "kg",
+      "label": "Apollo 17 CSM/LM mass at Earth orbit insertion",
+      "as_of": "1972-12-07",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "Richard W. Orloff, Apollo by the Numbers: A Statistical Reference, NASA SP-2000-4029, 2000, Selected Mission Weights table",
+          "url": "https://www.nasa.gov/wp-content/uploads/2023/04/sp-4029.pdf",
+          "tier": 1,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "Printed as 107,161 lb; converted at the definitional 0.45359237 kg per lb.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "Same framing caveat as the Apollo 11 record: spacecraft stack only at Earth orbit insertion, excluding S-IVB and Instrument Unit. No per-mission cost record exists for Apollo 17 in any fetched page (widely repeated ~$450M figures trace to search snippets only), so the preset's cost slot is empty.",
+      "stale_after": null,
+      "supersedes": null
+    },
+    {
+      "id": "asflown.bgm1.payload-mass",
+      "value": 94,
+      "unit": "kg",
+      "label": "Blue Ghost Mission 1 NASA payload mass, award-time expectation",
+      "as_of": "2021-02-04",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "NASA release, NASA Selects Firefly Aerospace for Artemis Commercial Moon Delivery in 2023, February 4, 2021",
+          "url": "https://www.nasa.gov/news-release/nasa-selects-firefly-aerospace-for-artemis-commercial-moon-delivery-in-2023/",
+          "tier": 1,
+          "states_value": true,
+          "traces_to": null,
+          "tier_note": "NASA press release; the figure is an award-time expectation ('collectively expected to total 207 pounds (94 kg)'), not an as-landed measurement, which was never published.",
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "Ten NASA payloads, all confirmed delivered by NASA's landing release (March 2, 2025, Mare Crisium). The as-landed mass was never published, so the expectation is the record. The mission launched on a SpaceX Falcon 9 (NASA CLPS press kit), a vehicle outside this engine's set; the preset notes carry that mismatch.",
+      "stale_after": null,
+      "supersedes": null
+    },
+    {
+      "id": "asflown.bgm1.price",
+      "value": 101500000,
+      "unit": "USD",
+      "label": "Blue Ghost Mission 1 CLPS task order value, as modified",
+      "as_of": "2025-02-25",
+      "confidence": "reported",
+      "sources": [
+        {
+          "name": "NASA release, NASA Sets Coverage of Firefly's First Robotic Commercial Moon Landing, February 25, 2025",
+          "url": "https://www.nasa.gov/news-release/nasa-sets-coverage-of-fireflys-first-robotic-commercial-moon-landing/",
+          "tier": 1,
+          "states_value": true,
+          "traces_to": null,
+          "retrieved_at": "2026-07-17"
+        }
+      ],
+      "notes": "Task order 19D: approximately $93.3M at the February 2021 award, modified to $101.5M, both printed in the same NASA sentence. An end-to-end delivery-service price covering launch, lander, and operations; NOT a lander unit cost, which is why the engine's Blue Ghost cost slot is empty rather than pointing here.",
+      "stale_after": "2027-08-21",
+      "supersedes": null
     }
   ],
   "derived": [
+    {
+      "id": "vehicle.saturn-v.price.2026",
+      "derived_from": ["vehicle.saturn-v.price.1971", "cpi.us.1971", "cpi.us.2025"],
+      "formula": "vehicle.saturn-v.price.1971 * (cpi.us.2025 / cpi.us.1971)",
+      "unit": "USD",
+      "label": "Saturn V vehicle cost for Apollo 11, converted to 2025 CPI dollars",
+      "notes": "The method is the judgment and it is named: CPI-U annual averages (Minneapolis Fed republication of BLS), 1971 to 2025, the latest full year, standing in for 2026 dollars. Roughly $1.47B. This is a CPI conversion of a single mission's vehicle cost, not a fleet average and not an aerospace-index adjustment; The Planetary Society's NASA New Start Index treatment of the whole Saturn V program gives $80B for the line (vehicle.saturn-v.program-total), and the two methods do not and should not agree."
+    },
     {
       "id": "economy.burn_per_second",
       "derived_from": ["economy.global.2024"],

@@ -50,5 +50,11 @@ export function formatValue(
       return `${Math.round(value).toLocaleString("en-US")} kg`;
     case "count":
       return Math.round(value).toLocaleString("en-US");
+    case "m_per_s":
+      return `${Math.round(value).toLocaleString("en-US")} m/s`;
+    case "s":
+      return `${Math.round(value).toLocaleString("en-US")} s`;
+    case "index":
+      return value.toLocaleString("en-US", { maximumFractionDigits: 1 });
   }
 }

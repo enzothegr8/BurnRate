@@ -46,7 +46,21 @@ export interface Source {
   retrieved_at: string;
 }
 
-export type Unit = "USD" | "USD_per_kg" | "count" | "percent" | "days" | "kg" | "years";
+export type Unit =
+  | "USD"
+  | "USD_per_kg"
+  | "count"
+  | "percent"
+  | "days"
+  | "kg"
+  | "years"
+  /** Delta-v. Added for the lunar cost engine's leg records. */
+  | "m_per_s"
+  /** Seconds; specific impulse. Added for the lunar cost engine. */
+  | "s"
+  /** Dimensionless index value (CPI-U annual averages). Added for the lunar
+   * cost engine's inflation records; the method is named on every use. */
+  | "index";
 
 /** A stored fact. Raw value, provenance attached. Formatting is a render concern. */
 export interface Fact {
