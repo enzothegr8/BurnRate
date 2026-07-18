@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Counter } from "@/components/counter";
 import { GapModule } from "@/components/gap-module";
 import { Ledger } from "@/components/ledger";
@@ -48,6 +49,9 @@ export default function Home() {
         <p className="mt-3 font-mono text-[0.65rem] uppercase tracking-widest text-muted">
           Figures as of July 17, 2026
         </p>
+        <nav className="mt-4 font-mono text-[0.65rem] uppercase tracking-widest">
+          <Link href="/articles">Articles</Link>
+        </nav>
       </header>
 
       <section className="border-b border-rule py-20">

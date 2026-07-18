@@ -1,6 +1,6 @@
 import { useId } from "react";
 import { formatValue, type FigureFormat } from "@/lib/facts/format";
-import { resolveFact } from "@/lib/facts/store";
+import { resolveFactOrLedgerRow } from "@/lib/facts/store";
 import { markFor, type ResolvedFact, type UnderlineMark } from "@/lib/facts/types";
 
 /**
@@ -24,7 +24,7 @@ const UNDERLINE_CLASS: Record<UnderlineMark, string> = {
 };
 
 interface FigureProps {
-  /** Resolve from the store by id. */
+  /** Resolve from the store by id. Facts, derived facts, and ledger rows all resolve; a ledger row is a record with provenance like any other. */
   factId?: string;
   /** Or pass an already resolved fact, e.g. one whose confidence is changing at runtime. */
   fact?: ResolvedFact;
@@ -36,7 +36,7 @@ interface FigureProps {
 export function Figure({ factId, fact, format = "compact", suffix }: FigureProps) {
   const noteId = useId();
 
-  const resolved = fact ?? (factId ? resolveFact(factId) : null);
+  const resolved = fact ?? (factId ? resolveFactOrLedgerRow(factId) : null);
   if (!resolved) {
     throw new Error("<Figure /> requires a factId or a resolved fact");
   }

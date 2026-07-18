@@ -300,6 +300,45 @@ export function resolveLedgerRow(
   };
 }
 
+/** Resolve the unexercised option period on a ledger row as its own figure. */
+export function resolveLedgerOption(
+  id: string,
+  today: Date = new Date()
+): Extract<ResolvedFact, { kind: "fact" }> {
+  const row = ledger.find((r) => r.id === id);
+  if (!row) throw new Error(`[fact store] Unknown ledger row '${id}'`);
+  if (!row.option_value) {
+    throw new Error(`[fact store] Ledger row '${id}' carries no option value`);
+  }
+  return {
+    kind: "fact",
+    id: `${row.id}.option`,
+    value: row.option_value,
+    unit: "USD",
+    label: `${row.recipient}, option period`,
+    as_of: row.date,
+    confidence: row.confidence,
+    sources: row.sources,
+    notes: row.notes,
+    stale: isStale(row.stale_after, today),
+    stale_after: row.stale_after,
+  };
+}
+
+/**
+ * Resolve an id from either table. A ledger row is a record with provenance
+ * exactly like a stored fact; body copy referencing an award should not need
+ * to know which file it lives in. Same rules, same marks.
+ */
+export function resolveFactOrLedgerRow(id: string, today: Date = new Date()): ResolvedFact {
+  if (factById.has(id) || derivedById.has(id)) return resolveFact(id, today);
+  return resolveLedgerRow(id, today);
+}
+
 export function getFactIds(): string[] {
   return [...factById.keys(), ...derivedById.keys()];
+}
+
+export function getLedgerRowIds(): string[] {
+  return ledger.map((row) => row.id);
 }

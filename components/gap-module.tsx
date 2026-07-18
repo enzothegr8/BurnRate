@@ -1,6 +1,6 @@
 import { GapBars } from "@/components/ui/gap-chart";
 import { Figure } from "@/components/ui/figure";
-import { resolveFact } from "@/lib/facts/store";
+import { resolveFact, resolveLedgerOption } from "@/lib/facts/store";
 
 /**
  * The gap module (brand-bible.md section 9), the page's workhorse. In order:
@@ -16,6 +16,7 @@ export function GapModule() {
   const pledged = resolveFact("moonbase.program.total");
   const signed = resolveFact("moonbase.committed.total");
   const share = resolveFact("moonbase.committed.share");
+  const option = resolveLedgerOption("moonbase.award.blue-origin.2026-05-26");
 
   return (
     <div>
@@ -46,12 +47,15 @@ export function GapModule() {
         </p>
       </div>
 
-      {/* TODO(Enzo): the paragraph of voice goes here and stays empty until
-          you write it. Proposal, assembled around your reference sentences:
-          "Twenty billion is the number NASA says. $1.6 billion is the number
-          the contracts say, and $280 million of that is an option nobody has
-          exercised. The money so far grades the road. The building has not
-          been ordered." */}
+      {/* TODO(Enzo): placeholder voice paragraph, agent-proposed so the page
+          reads complete. Rewrite before anything publishes; voice is not
+          delegable. Every figure resolves from the store and keeps its mark. */}
+      <p className="mt-8 max-w-2xl font-sans text-base leading-relaxed text-ink">
+        <Figure fact={pledged} /> is the number NASA says. <Figure fact={signed} /> is
+        the number the contracts say, and <Figure fact={option} /> of that is an
+        option nobody has exercised. The money so far grades the road. The
+        building has not been ordered.
+      </p>
 
       <p className="mt-8 font-sans text-sm text-secondary">
         <a href="#ledger">Every dollar of the signed figure, itemized in the ledger below.</a>

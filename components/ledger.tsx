@@ -1,5 +1,5 @@
 import { Figure } from "@/components/ui/figure";
-import { getLedger, resolveFact, resolveLedgerRow } from "@/lib/facts/store";
+import { getLedger, resolveFact, resolveLedgerOption, resolveLedgerRow } from "@/lib/facts/store";
 import type { LedgerRow, ResolvedFact } from "@/lib/facts/types";
 
 /**
@@ -45,19 +45,7 @@ function valueFactFor(row: LedgerRow): ResolvedFact {
 
 function optionFact(row: LedgerRow): ResolvedFact | null {
   if (!row.option_value) return null;
-  return {
-    kind: "fact",
-    id: `${row.id}.option`,
-    value: row.option_value,
-    unit: "USD",
-    label: `${row.recipient}, option period`,
-    as_of: row.date,
-    confidence: row.confidence,
-    sources: row.sources,
-    notes: row.notes,
-    stale: false,
-    stale_after: row.stale_after,
-  };
+  return resolveLedgerOption(row.id);
 }
 
 export function Ledger() {
@@ -73,9 +61,13 @@ export function Ledger() {
       <p className="font-mono text-xs uppercase tracking-widest text-muted">
         The Moon Base ledger · every award, every zero
       </p>
-      {/* TODO(Enzo): claim sentence slot for the ledger. Proposal: "Seven
-          awards, two zeros, and the zeros are the ones to watch." Slot stays
-          empty until you write or approve one. */}
+      {/* TODO(Enzo): placeholder claim sentence, agent-proposed so the page
+          reads complete. Rewrite before anything publishes. The counts are
+          spelled out, not typed as numerals, and go stale the day an award
+          lands; that is one more reason this line is yours to replace. */}
+      <h2 className="mt-3 max-w-3xl font-display text-3xl leading-tight text-ink sm:text-4xl">
+        Seven awards, two zeros, and the zeros are the ones to watch.
+      </h2>
       <ul className="mt-6 border-t border-rule">
         {ordered.map((row) => {
           const option = optionFact(row);

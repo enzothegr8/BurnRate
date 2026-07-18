@@ -49,3 +49,9 @@ __pycache__/
 *.pyc
 pyvenv.cfg
 site-packages/
+
+# Stray Python venv artifacts (a subagent once created a venv in the repo root;
+# it case-merges with lib/ on Windows and must never be committed)
+/Scripts/
+/lib/site-packages/
+pyvenv.cfg

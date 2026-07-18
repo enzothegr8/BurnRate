@@ -69,10 +69,13 @@ export function Counter({ rate, source }: CounterProps) {
 
   return (
     <div>
-      {/* TODO(Enzo): claim sentence slot for the counter. Proposal: "$613
-          billion a year only looks abstract until you watch it move." Slot
-          stays empty until you write or approve one; voice is not delegable. */}
-      <div className="font-mono text-6xl text-ink sm:text-7xl md:text-8xl">
+      {/* TODO(Enzo): placeholder claim sentence, agent-proposed so the page
+          reads complete. Rewrite before anything publishes; voice is not
+          delegable. The figure resolves from the store and keeps its mark. */}
+      <h2 className="max-w-3xl font-display text-3xl leading-tight text-ink sm:text-4xl">
+        <Figure fact={source} /> a year only looks abstract until you watch it move.
+      </h2>
+      <div className="mt-8 font-mono text-6xl text-ink sm:text-7xl md:text-8xl">
         {ticking ? (
           <Figure fact={accumulated} format="full" />
         ) : (
