@@ -49,8 +49,9 @@ export default function Home() {
         <p className="mt-3 font-mono text-[0.65rem] uppercase tracking-widest text-muted">
           Figures as of July 17, 2026
         </p>
-        <nav className="mt-4 font-mono text-[0.65rem] uppercase tracking-widest">
+        <nav className="mt-4 space-x-4 font-mono text-[0.65rem] uppercase tracking-widest">
           <Link href="/articles">Articles</Link>
+          <Link href="/modules">Modules</Link>
         </nav>
       </header>
 
@@ -63,7 +64,19 @@ export default function Home() {
       </section>
 
       <section className="py-20">
-        <Ledger />
+        <p className="font-mono text-xs uppercase tracking-widest text-muted">
+          The Moon Base ledger · every award, every zero
+        </p>
+        {/* TODO(Enzo): placeholder claim sentence, agent-proposed so the page
+            reads complete. Rewrite before anything publishes. The counts are
+            spelled out, not typed as numerals, and go stale the day an award
+            lands; that is one more reason this line is yours to replace. */}
+        <h2 className="mt-3 max-w-3xl font-display text-3xl leading-tight text-ink sm:text-4xl">
+          Seven awards, two zeros, and the zeros are the ones to watch.
+        </h2>
+        <div className="mt-6">
+          <Ledger />
+        </div>
       </section>
 
       <TitleBlock

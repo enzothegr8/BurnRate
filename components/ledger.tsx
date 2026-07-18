@@ -56,19 +56,12 @@ export function Ledger() {
   const solicitations = rows.filter((r) => r.status === "solicitation");
   const ordered = [...awards, ...solicitations];
 
+  // The ledger is the instrument only. Kickers and claim sentences belong to
+  // the page that mounts it; /modules supplies its own header from the
+  // registry, and the home page supplies its own voice.
   return (
     <div id="ledger">
-      <p className="font-mono text-xs uppercase tracking-widest text-muted">
-        The Moon Base ledger · every award, every zero
-      </p>
-      {/* TODO(Enzo): placeholder claim sentence, agent-proposed so the page
-          reads complete. Rewrite before anything publishes. The counts are
-          spelled out, not typed as numerals, and go stale the day an award
-          lands; that is one more reason this line is yours to replace. */}
-      <h2 className="mt-3 max-w-3xl font-display text-3xl leading-tight text-ink sm:text-4xl">
-        Seven awards, two zeros, and the zeros are the ones to watch.
-      </h2>
-      <ul className="mt-6 border-t border-rule">
+      <ul className="border-t border-rule">
         {ordered.map((row) => {
           const option = optionFact(row);
           return (
