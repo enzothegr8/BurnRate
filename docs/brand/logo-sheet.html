@@ -49,11 +49,10 @@
   .sm .word{font-size:22px} .sm .row{margin-top:7px;gap:7px}
   .sm .seg{width:19px;border-bottom-width:1.5px} .sm .tl{font-size:7px;letter-spacing:.15em}
 
-  .dark .lk .word .b{color:#5B8CFF}
-  .dark .lk .word .r{color:#E4586E}
-  .dark .seg{border-bottom-color:#FBFBFC}
-  .dark .lk .tl{color:#8FA3D6}
-  .dark .lk .tl b{color:#E4586E}
+  /* Rev 04 · monochrome on jet. A lifted color is a new color and the palette is closed. */
+  .dark .lk .word .b,.dark .lk .word .r{color:var(--page)}
+  .dark .seg{border-bottom-color:var(--page)}
+  .dark .lk .tl,.dark .lk .tl b{color:var(--page)}
 
   /* monogram · settled: medium overlap, B in front */
   .mg{font-family:var(--serif);line-height:1;display:inline-block;isolation:isolate;white-space:nowrap}
@@ -66,7 +65,7 @@
 
   .tile{width:112px;height:112px;border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;background:var(--page)}
   .tile.dk{background:var(--ink);border-color:var(--ink)}
-  .tile.dk .mg .b{color:#5B8CFF} .tile.dk .mg .r{color:#E4586E;mix-blend-mode:screen}
+  .tile.dk .mg .b,.tile.dk .mg .r{color:var(--page)} .tile.dk .mg .r{mix-blend-mode:normal}
   .row3{display:flex;gap:22px;align-items:flex-end;flex-wrap:wrap;justify-content:center}
 
   table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13.5px;background:var(--panel)}
@@ -88,8 +87,8 @@
 
 <header>
   <h1>Burn Rate — Logo Specification</h1>
-  <p class="sub">Settled. Burn in bright blue, Rate in crimson, all three rule segments in jet, the line in deep blue. Monogram is medium overlap with B in front. Built in live type so it scales and recolors.</p>
-  <p class="doc">Doc BR-LOGO · Rev <b>03</b> · Updated 2026-07-31 · Drawn E. Carvalho</p>
+  <p class="sub">Settled. Burn in bright blue, Rate in crimson, all three rule segments in jet, the line in deep blue. Monogram is medium overlap with B in front. Built in live type so it scales and recolors. On jet the lockup is monochrome page white; the lifted colors in Rev 03 were not in the closed palette and are withdrawn. The masthead is the md lockup.</p>
+  <p class="doc">Doc BR-LOGO · Rev <b>04</b> · Updated 2026-08-01 · Drawn E. Carvalho</p>
 </header>
 
 <h2>Primary lockup</h2>
@@ -138,7 +137,7 @@
   <div class="lk md"><span class="word"><span class="b">Burn</span> <span class="r">Rate</span></span>
     <span class="row"><span class="seg seg-s"></span><span class="seg seg-d"></span><span class="seg seg-t"></span><span class="tl">[Truth in numbers]<b>.</b></span></span></div>
 </div>
-<p class="caps c">On jet · all four colors lifted, rules invert to white. Social cards and video only, never the site.</p>
+<p class="caps c">On jet · monochrome page white, the whole lockup. Social cards and video only, never the site.</p>
 
 <h2>The monogram</h2>
 <p class="lead">Medium overlap, B in front, multiply blend at the seam. Where the two letters cross, blue multiplied by crimson lands on <code>#160726</code>, which is a hair off the site's ink. The intersection is the darkest part of the mark, which is the thesis rendered as geometry.</p>
@@ -167,6 +166,8 @@
 <div class="box">
   <p><strong>The segment order never changes.</strong> Solid, dashed, dotted, left to right, is the confidence notation in order. It is not a decorative rhythm and it may not be rearranged for balance.</p>
   <p><strong>The wordmark carries the color; the rule does not.</strong> All three segments are jet, so the marks are distinguished by line style alone.</p>
+  <p><strong>On jet the lockup is monochrome.</strong> Page white throughout, including the tagline and the period. The domain colors are not lifted to survive the surface, because a lifted color is a new color and the palette is closed. Same class of decision as the jet-only favicon.</p>
+  <p><strong>The masthead is md.</strong> The three named sizes are the three sizes. A bespoke size in a component is a fourth one nobody approved.</p>
   <p><strong>Below the small size shown above, drop the tagline rather than shrinking it.</strong> The wordmark and rule can go smaller. The line cannot.</p>
   <p><strong>The tagline belongs to the mark, not to the writing.</strong> It does not appear in body copy, headlines, or social captions as a phrase.</p>
   <p><strong>Two colors only in the monogram.</strong> The overlap value is a product, not a choice, and must never be set by hand or substituted.</p>
