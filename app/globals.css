@@ -1,17 +1,21 @@
 /* ---------------------------------------------------------------------------
-   THE PALETTE IS CLOSED.
+   THE PALETTE, THE TYPE SCALE, AND THE SPACE SCALE ARE ALL CLOSED.
 
-   Every color Burn Rate is allowed to use is defined in this file and nowhere
-   else. A new color is a revision to docs/brand-foundation.md, not a decision
-   made inside a component. If a design needs a value that is not here, that is
-   a conversation with Enzo and an entry in the revision log, not a hex literal
-   typed into a className.
+   Every color, type size, and space value Burn Rate is allowed to use is
+   defined in this file and nowhere else. A new value in any of the three is a
+   revision to docs/brand-foundation.md, not a decision made inside a
+   component. If a design needs a value that is not here, that is a
+   conversation with Enzo and an entry in the revision log, not a hex literal,
+   a px size, or a spacing value typed into a className or a style prop.
 
-   Values are transcribed exactly from section 3, Color, of the foundation doc,
-   which carries the full specification as BR-COLOR Rev 02. No approximations,
-   no additions, no tints computed on the fly.
+   Color values are transcribed exactly from section 3, Color, of the
+   foundation doc, which carries the full specification as BR-COLOR Rev 02.
+   Type and space values are transcribed exactly from the Type and Space
+   subsections of section 3, which carry the full specification as BR-TYPE
+   Rev 02. No approximations, no additions, no tints or steps computed on the
+   fly.
 
-   Two rules that get broken by default habits:
+   Rules that get broken by default habits:
 
    White is the page and grey is the panel, not the reverse. Panels always carry
    a hairline border, because the panel tint alone is 1.11 contrast against the
@@ -19,6 +23,8 @@
 
    Blue bright is the tightest value in the system at 4.85 on panel. It is for
    links and derived marks only. Never long copy, never below 12px.
+
+   Body text never moves on mobile. Only the display steps compress, at 760px.
 
    The site is light. Dark mode is not under consideration, so there is no
    prefers-color-scheme block here and there should never be one.
@@ -33,15 +39,16 @@
   --color-panel: #efeff1;
   /* Hairlines. Never text. */
   --color-rule: #d8d8dc;
-  /* Metadata and the reported mark. */
+  /* Metadata. Confidence marks carry no color of their own; see the numbers
+     standard in section 4. */
   --color-muted: #67676e;
   /* Running copy. */
   --color-body: #35353b;
-  /* Headlines, the confirmed mark, Robotics. */
+  /* Headlines, Robotics. The confidence rule is jet in all three styles. */
   --color-jet: #08080a;
   /* Structure, chart outlines, Space. */
   --color-blue-deep: #101f52;
-  /* Links, the derived mark, AI. */
+  /* Links, AI. */
   --color-blue-bright: #1f5fe0;
   /* Emphasis, kickers, revision numbers, Energy. */
   --color-crimson: #b3122b;
@@ -55,6 +62,128 @@
   --color-chart-3: #b3122b;
   --color-chart-4: #08080a;
   --color-chart-5: #67676e;
+}
+
+/* ---------------------------------------------------------------------------
+   THE TYPE SCALE. Fourteen steps, transcribed exactly from the Type
+   subsection of section 3, full spec BR-TYPE Rev 02. Each step carries size,
+   line height, weight, and tracking. Serif is 400 at every size; sans carries
+   400 and 600; mono carries 400, with 600 reserved for labels and tags. No
+   other weight is in the system. `figure` sets size in em because it scales
+   with whatever body copy it sits inside, and its line height is inherit for
+   the same reason.
+   --------------------------------------------------------------------------- */
+@theme {
+  --text-display-size: 56px;
+  --text-display-line: 1.04;
+  --text-display-weight: 400;
+  --text-display-tracking: -0.020em;
+
+  --text-title-size: 40px;
+  --text-title-line: 1.10;
+  --text-title-weight: 400;
+  --text-title-tracking: -0.018em;
+
+  --text-head-size: 28px;
+  --text-head-line: 1.20;
+  --text-head-weight: 400;
+  --text-head-tracking: -0.010em;
+
+  --text-subhead-size: 21px;
+  --text-subhead-line: 1.30;
+  --text-subhead-weight: 400;
+  --text-subhead-tracking: 0em;
+
+  --text-standfirst-size: 20px;
+  --text-standfirst-line: 1.50;
+  --text-standfirst-weight: 400;
+  --text-standfirst-tracking: 0em;
+
+  --text-body-size: 17px;
+  --text-body-line: 1.65;
+  --text-body-weight: 400;
+  --text-body-tracking: 0em;
+
+  --text-small-size: 15px;
+  --text-small-line: 1.55;
+  --text-small-weight: 400;
+  --text-small-tracking: 0em;
+
+  --text-ui-size: 14px;
+  --text-ui-line: 1.40;
+  --text-ui-weight: 600;
+  --text-ui-tracking: 0em;
+
+  --text-stat-xl-size: 64px;
+  --text-stat-xl-line: 1.00;
+  --text-stat-xl-weight: 400;
+  --text-stat-xl-tracking: -0.010em;
+
+  --text-stat-l-size: 34px;
+  --text-stat-l-line: 1.05;
+  --text-stat-l-weight: 400;
+  --text-stat-l-tracking: 0em;
+
+  --text-stat-m-size: 22px;
+  --text-stat-m-line: 1.15;
+  --text-stat-m-weight: 400;
+  --text-stat-m-tracking: 0em;
+
+  --text-figure-size: 0.94em;
+  --text-figure-line: inherit;
+  --text-figure-weight: 400;
+  --text-figure-tracking: 0em;
+
+  --text-meta-size: 12.5px;
+  --text-meta-line: 1.45;
+  --text-meta-weight: 400;
+  --text-meta-tracking: 0.010em;
+
+  --text-label-size: 11px;
+  --text-label-line: 1.20;
+  --text-label-weight: 600;
+  --text-label-tracking: 0.080em;
+}
+
+/* Mobile compression, at 760px. Body never moves: seventeen pixels is already
+   right on a phone. Only the display steps compress. `stat-xl` crosses from
+   confidence-rule band three to band two at this width; that crossing is a
+   component concern, not a token one, and must be handled in the component
+   rather than by hand. */
+@media (max-width: 760px) {
+  :root {
+    --text-display-size: 36px;
+    --text-title-size: 29px;
+    --text-head-size: 23px;
+    --text-stat-xl-size: 40px;
+    --text-stat-l-size: 26px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   THE SPACE SCALE. A four-pixel base, ten steps, closed the same way the
+   palette is closed. Every margin, padding, and gap in the system is one of
+   these values. Named by their own pixel value, since the scale has no
+   semantic names of its own in the foundation doc.
+   --------------------------------------------------------------------------- */
+@theme {
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-48: 48px;
+  --space-64: 64px;
+  --space-96: 96px;
+  --space-144: 144px;
+
+  /* Three column widths. The article measure, a breakout for full-width
+     charts and modules inside an article, and the page bound for Home,
+     Articles, and the domain pages. */
+  --measure-article: 64ch;
+  --width-breakout: 1120px;
+  --width-page: 1180px;
 }
 
 /* Domain aliases. Not new colors, just the four assignments from the doc given
@@ -88,30 +217,70 @@
    The design, from Enzo's approved mock, remapped onto the tokens above. Every
    color here reads a custom property; there are no literals. The mock's own
    system stacks are gone, replaced by the three pinned families.
+
+   TOKEN MIGRATION (Prompt 2A). Every font-size, line-height, font-weight, and
+   letter-spacing below reads a --text-* token; every margin, padding, and gap
+   reads a --space-* token. The only literals left are the ones the migration
+   pass was told to leave alone: the page gutter (off-scale by design), border
+   and hairline widths, the confidence rule's own widths and offsets (Prompt 2B
+   rewrites those from lib/marks.ts), the logo and monogram's internal
+   geometry, and 0 / auto / percentage / viewport values. See the commit
+   message for the full snap table.
    --------------------------------------------------------------------------- */
 
 @layer components {
+  /* THE MONO ROLE. Tabular figures and no ligatures apply everywhere mono
+     text appears, in one place instead of the twenty-one places it used to be
+     declared. A number must not shift position when it updates, and a
+     publication about numbers must never render a programming ligature. */
+  .ph-bar,
+  .lock .tl,
+  .nav a,
+  .tag,
+  .meta,
+  .kick,
+  .num,
+  .stale-flag,
+  .sechead,
+  .moneybar .h,
+  .fchip,
+  .stat .dom,
+  .stat .ticker,
+  .stat .rate,
+  .stat .src .an,
+  .mod .lab,
+  .dom-stat .b,
+  .back,
+  .cline .l,
+  .cline .v {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-variant-ligatures: none;
+  }
+
   /* Placeholder banner. This repo is public and every headline and figure below
-     it is invented, so the page says so at the top rather than in a comment. */
+     it is invented, so the page says so at the top rather than in a comment.
+     Token: `meta` (Source lines, timestamps, notes) - this is a running
+     disclaimer line, not a short tag. */
   .ph-bar {
     background: var(--color-jet);
     color: var(--color-rule);
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.09em;
+    font-size: var(--text-meta-size);
+    line-height: var(--text-meta-line);
+    font-weight: var(--text-meta-weight);
+    letter-spacing: var(--text-meta-tracking);
     text-transform: uppercase;
-    padding: 7px 22px;
+    padding: var(--space-8) var(--space-24);
     text-align: center;
   }
   .ph-bar b {
     color: var(--color-page);
-    font-weight: 400;
   }
 
   .shell {
-    max-width: 1120px;
+    max-width: var(--width-breakout);
     margin: 0 auto;
-    padding: 0 34px;
+    padding: 0 var(--space-32);
   }
 
   /* masthead */
@@ -119,15 +288,21 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 22px 0 18px;
+    padding: var(--space-24) 0 var(--space-16);
     border-bottom: 1px solid var(--color-jet);
     flex-wrap: wrap;
-    gap: 16px;
+    gap: var(--space-16);
   }
   .wm {
     line-height: 1;
     display: inline-block;
   }
+  /* The wordmark is the logo lockup, governed by BR-LOGO Rev 03, not the Type
+     scale. Size, tracking, and the tight line-height that stacks "Burn" over
+     "Rate" are logo geometry the same way the segment widths and the
+     monogram overlap are; snapping this to `head` (28px, line 1.20) would
+     open a gap between the two words the lockup does not have. Left literal;
+     flagged for Enzo to confirm. */
   .wm .word {
     font-family: var(--font-serif);
     font-size: 30px;
@@ -144,13 +319,14 @@
   .lock {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-top: 9px;
+    gap: var(--space-8);
+    margin-top: var(--space-8);
   }
   /* The three segments are the confidence notation. Solid, dashed, dotted, left
      to right, in the same order as the marks. The order is load bearing and is
      never rearranged for visual balance. All three are jet, so line style alone
-     distinguishes them and the wordmark carries the color. */
+     distinguishes them and the wordmark carries the color. Segment width is
+     BR-LOGO geometry, left literal. */
   .seg {
     display: inline-block;
     height: 0;
@@ -175,6 +351,7 @@
     isolation: isolate;
   }
   .monogram .mg-r {
+    /* The -0.26em overlap is BR-LOGO geometry, left literal. */
     margin-left: -0.26em;
   }
   .monogram-color .mg-b {
@@ -189,8 +366,12 @@
     color: var(--color-jet);
   }
 
+  /* The tagline. Same BR-LOGO reasoning as the wordmark: it is part of the
+     lockup, not running type. The foundation doc names the tracking
+     specifically as off-scale ("the tagline tracking"); size and line-height
+     are left literal alongside it for the same reason rather than snapped to
+     `label` and bolded, which would make the tagline read as a UI tag. */
   .lock .tl {
-    font-family: var(--font-mono);
     font-size: 9.5px;
     letter-spacing: 0.19em;
     text-transform: uppercase;
@@ -204,19 +385,21 @@
 
   .nav {
     display: flex;
-    gap: 6px;
+    gap: var(--space-8);
     align-items: center;
     flex-wrap: wrap;
   }
-  /* Links are never underlined. */
+  /* Links are never underlined. Token: `label` (Domain tags, kickers, column
+     heads) - nav links are short caps tags. */
   .nav a {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.11em;
+    font-size: var(--text-label-size);
+    line-height: var(--text-label-line);
+    font-weight: var(--text-label-weight);
+    letter-spacing: var(--text-label-tracking);
     text-transform: uppercase;
     color: var(--color-muted);
     text-decoration: none;
-    padding: 5px 9px;
+    padding: var(--space-4) var(--space-8);
     border: 1px solid transparent;
   }
   .nav a:hover {
@@ -231,21 +414,24 @@
     width: 1px;
     height: 15px;
     background: var(--color-rule);
-    margin: 0 7px;
+    margin: 0 var(--space-8);
   }
 
   .view {
-    padding: 34px 0 90px;
+    padding: var(--space-32) 0 var(--space-96);
   }
 
   /* Tags are filled rectangles with page-colored uppercase mono type. Outlined
-     tags, dot-and-label, and uncolored labels are all rejected. */
+     tags, dot-and-label, and uncolored labels are all rejected. Token:
+     `label` (Domain tags, kickers, column heads) - the doc names this job
+     for this exact element. */
   .tag {
-    font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 0.1em;
+    font-size: var(--text-label-size);
+    line-height: var(--text-label-line);
+    font-weight: var(--text-label-weight);
+    letter-spacing: var(--text-label-tracking);
     text-transform: uppercase;
-    padding: 3px 7px;
+    padding: var(--space-4) var(--space-8);
     color: var(--color-page);
     display: inline-block;
   }
@@ -263,32 +449,42 @@
   }
   .tags {
     display: flex;
-    gap: 5px;
+    gap: var(--space-4);
     flex-wrap: wrap;
-    margin: 0 0 9px;
+    margin: 0 0 var(--space-8);
   }
 
+  /* Token: `meta` (Source lines, timestamps, notes) - same name as the class,
+     same job: dates, revision stamps, source lines. */
   .meta {
-    font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 0.07em;
+    font-size: var(--text-meta-size);
+    line-height: var(--text-meta-line);
+    font-weight: var(--text-meta-weight);
+    letter-spacing: var(--text-meta-tracking);
     text-transform: uppercase;
     color: var(--color-muted);
   }
+  /* Token: `label` (Domain tags, kickers, column heads) - a kicker is
+     literally named in the job description. */
   .kick {
-    font-family: var(--font-mono);
-    font-size: 9.5px;
-    letter-spacing: 0.11em;
+    font-size: var(--text-label-size);
+    line-height: var(--text-label-line);
+    font-weight: var(--text-label-weight);
+    letter-spacing: var(--text-label-tracking);
     text-transform: uppercase;
     color: var(--color-crimson);
-    margin: 0 0 10px;
+    margin: 0 0 var(--space-12);
   }
 
   /* Confidence marks. The underline is driven by confidence and nothing else
-     drives an underline. */
+     drives an underline. Token: `figure` (Any figure inside prose) - this is
+     the generic mark, sized relative to whatever context it sits in. Widths,
+     offsets, and colors on .cf/.rp/.dv are Prompt 2B's job; untouched here. */
   .num {
-    font-family: var(--font-mono);
-    font-variant-numeric: tabular-nums;
+    font-size: var(--text-figure-size);
+    line-height: var(--text-figure-line);
+    font-weight: var(--text-figure-weight);
+    letter-spacing: var(--text-figure-tracking);
   }
   .cf {
     border-bottom: 1.5px solid var(--color-jet);
@@ -307,41 +503,52 @@
   }
 
   /* Stale figures render flagged, never hidden. The mark says the verification
-     aged, not that the number is wrong. */
+     aged, not that the number is wrong. 0.75em is a relative multiplier on
+     whatever figure it flags, not a type step in its own right, so it stays
+     literal the same way `figure`'s own em sizing is a ratio rather than a
+     step. */
   .stale-flag {
     color: var(--color-crimson);
-    font-family: var(--font-mono);
     font-size: 0.75em;
     vertical-align: super;
     line-height: 0;
     margin-left: 1px;
   }
 
+  /* "Section head" names a mono divider label (see the module list further
+     down), not the serif `head` type step the name resembles. Token: `label`
+     (Domain tags, kickers, column heads) - it is a column-head-style caps
+     divider, matched by job rather than by name. */
   .sechead {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.14em;
+    font-size: var(--text-label-size);
+    line-height: var(--text-label-line);
+    font-weight: var(--text-label-weight);
+    letter-spacing: var(--text-label-tracking);
     text-transform: uppercase;
     color: var(--color-muted);
     border-bottom: 1px solid var(--color-jet);
-    padding-bottom: 8px;
-    margin: 0 0 4px;
+    padding-bottom: var(--space-8);
+    margin: 0 0 var(--space-4);
   }
 
   /* article rows */
   .list .it {
-    padding: 17px 0;
+    padding: var(--space-16) 0;
     border-bottom: 1px solid var(--color-rule);
   }
   .list .it:last-child {
     border-bottom: 0;
   }
+  /* Token: `head` (Section heads, list items) - named for exactly this job.
+     Previously 20px/1.24, a full step below where it belongs; this is the
+     largest single snap in the migration and worth a second look. */
   .row-h {
     font-family: var(--font-serif);
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 1.24;
-    margin: 0 0 5px;
+    font-size: var(--text-head-size);
+    line-height: var(--text-head-line);
+    font-weight: var(--text-head-weight);
+    letter-spacing: var(--text-head-tracking);
+    margin: 0 0 var(--space-4);
     color: var(--color-jet);
   }
   .list .it:hover .row-h {
@@ -350,14 +557,20 @@
   /* Sits in the same rhythm as a row, so the gap reads as part of the list
      rather than as the list having ended early. */
   .empty {
-    padding: 20px 0 24px;
+    padding: var(--space-24) 0 var(--space-24);
     border-bottom: 1px solid var(--color-rule);
   }
 
+  /* Token: `small` (Captions, secondary UI, navigation) - the summary line
+     under a list-item headline. */
   .row-d {
-    font-size: 13.5px;
+    font-family: var(--font-sans);
+    font-size: var(--text-small-size);
+    line-height: var(--text-small-line);
+    font-weight: var(--text-small-weight);
+    letter-spacing: var(--text-small-tracking);
     color: var(--color-body);
-    margin: 0 0 7px;
+    margin: 0 0 var(--space-8);
     max-width: 70ch;
   }
   .it a {
@@ -367,24 +580,32 @@
   }
 
   /* lead */
+  /* Token: `title` (Article title, the Articles lead) - named for exactly
+     this element. */
   .lead-h {
     font-family: var(--font-serif);
-    font-weight: 400;
-    font-size: 42px;
-    line-height: 1.08;
-    margin: 0 0 14px;
+    font-size: var(--text-title-size);
+    line-height: var(--text-title-line);
+    font-weight: var(--text-title-weight);
+    letter-spacing: var(--text-title-tracking);
+    margin: 0 0 var(--space-16);
     max-width: 19ch;
-    letter-spacing: -0.018em;
     color: var(--color-jet);
   }
   a:hover .lead-h {
     color: var(--color-blue-bright);
   }
+  /* Token: `body` (Running copy) - a teaser sentence, closest to running
+     copy of anything else on the scale. */
   .lead-d {
-    font-size: 16px;
+    font-family: var(--font-sans);
+    font-size: var(--text-body-size);
+    line-height: var(--text-body-line);
+    font-weight: var(--text-body-weight);
+    letter-spacing: var(--text-body-tracking);
     color: var(--color-body);
     max-width: 58ch;
-    margin: 0 0 12px;
+    margin: 0 0 var(--space-12);
   }
 
   /* Article cover image. The full-width breakout the article template's own
@@ -393,7 +614,7 @@
      hairline border, no shadow, no rounded corner standing in for one. */
   .cover-image {
     border: 1px solid var(--color-rule);
-    margin: 0 0 34px;
+    margin: 0 0 var(--space-32);
   }
   .cover-image img {
     display: block;
@@ -430,7 +651,7 @@
   .lead-cover-text {
     position: relative;
     height: 100%;
-    padding: 26px 26px 24px;
+    padding: var(--space-24);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -441,7 +662,7 @@
        color matches the headline in hue; case, size, and letter-spacing still
        carry the hierarchy between the two. */
     color: var(--color-page);
-    margin-bottom: 8px;
+    margin-bottom: var(--space-8);
   }
   .lead-cover-text .lead-h {
     color: var(--color-page);
@@ -456,33 +677,38 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    gap: 18px;
+    gap: var(--space-16);
     flex-wrap: wrap;
     border-bottom: 1px solid var(--color-jet);
-    padding-bottom: 9px;
+    padding-bottom: var(--space-8);
   }
+  /* Token: `label` (Domain tags, kickers, column heads) - functions as the
+     money band's section head, same caps-tag register as the rest of the
+     group. */
   .moneybar .h {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.14em;
+    font-size: var(--text-label-size);
+    line-height: var(--text-label-line);
+    font-weight: var(--text-label-weight);
+    letter-spacing: var(--text-label-tracking);
     text-transform: uppercase;
     color: var(--color-muted);
     margin: 0;
   }
   .filters {
     display: flex;
-    gap: 5px;
+    gap: var(--space-4);
     flex-wrap: wrap;
   }
   /* Chips are jet when active and panel grey when not. They are deliberately
      not colored by domain; that would put a second color language next to the
-     numbers. */
+     numbers. Token: `label`. */
   .fchip {
-    font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 0.09em;
+    font-size: var(--text-label-size);
+    line-height: var(--text-label-line);
+    font-weight: var(--text-label-weight);
+    letter-spacing: var(--text-label-tracking);
     text-transform: uppercase;
-    padding: 4px 9px;
+    padding: var(--space-4) var(--space-8);
     border: 1px solid var(--color-rule);
     background: var(--color-panel);
     color: var(--color-muted);
@@ -504,53 +730,72 @@
     grid-template-columns: repeat(4, 1fr);
     border-top: 2px solid var(--color-jet);
     border-bottom: 1px solid var(--color-rule);
-    margin: 0 0 40px;
+    margin: 0 0 var(--space-48);
   }
   .stat {
-    padding: 22px 20px 20px;
+    padding: var(--space-24);
     border-right: 1px solid var(--color-rule);
   }
   .stat:last-child {
     border-right: 0;
   }
+  /* Token: `label`. */
   .stat .dom {
-    font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 0.11em;
+    font-size: var(--text-label-size);
+    line-height: var(--text-label-line);
+    font-weight: var(--text-label-weight);
+    letter-spacing: var(--text-label-tracking);
     text-transform: uppercase;
-    margin: 0 0 12px;
+    margin: 0 0 var(--space-12);
     color: var(--color-muted);
   }
+  /* NOT MAPPED, reported rather than forced. `stat-l` (34px, Domain
+     statistics, chart callouts) is the named job match and its 1.05
+     line-height already matched this element exactly, which says the step is
+     right in principle. But the scale has no fluid mechanism above the 760px
+     step, and at 34px fixed the largest figures in this four-column grid
+     (up to fourteen characters, e.g. an Energy total) overflow the column and
+     the page gains horizontal scroll at ordinary desktop widths, well above
+     the mobile breakpoint. That is a layout capacity problem (four equal
+     columns cannot hold a stat-l figure at every width), not a token
+     question, and fixing it means changing the grid or allowing wrap, a
+     product decision outside this migration. Left as the original clamp
+     pending that decision. */
   .stat .ticker {
-    font-family: var(--font-mono);
-    font-variant-numeric: tabular-nums;
     font-size: clamp(15px, 1.85vw, 23px);
     line-height: 1.05;
     letter-spacing: -0.02em;
     display: inline-block;
-    margin: 0 0 10px;
+    margin: 0 0 var(--space-12);
     white-space: nowrap;
     border-bottom: 1.5px dotted;
     padding-bottom: 2px;
   }
+  /* Token: `meta`, on distance. No step targets a compact secondary stat
+     readout between `figure`'s relative sizing and `stat-m`'s 22px; flagged
+     as a possible gap in the scale. */
   .stat .rate {
-    font-family: var(--font-mono);
-    font-variant-numeric: tabular-nums;
-    font-size: 13px;
+    font-size: var(--text-meta-size);
+    line-height: var(--text-meta-line);
+    font-weight: var(--text-meta-weight);
+    letter-spacing: var(--text-meta-tracking);
     display: inline-block;
-    margin: 0 0 10px;
+    margin: 0 0 var(--space-12);
     border-bottom: 1.5px dotted;
     padding-bottom: 1px;
   }
+  /* Token: `small` (Captions, secondary UI, navigation). */
   .stat .src {
-    font-size: 11.5px;
+    font-family: var(--font-sans);
+    font-size: var(--text-small-size);
+    line-height: var(--text-small-line);
+    font-weight: var(--text-small-weight);
+    letter-spacing: var(--text-small-tracking);
     color: var(--color-body);
-    line-height: 1.35;
     margin: 0;
   }
   .stat .src .an {
-    font-family: var(--font-mono);
-    font-variant-numeric: tabular-nums;
+    /* size inherits from .stat .src above; mono role only. */
   }
 
   /* Figures take their domain's color. The line style still carries the mark:
@@ -594,20 +839,27 @@
   .mod {
     border: 1px dashed var(--color-rule);
     background: var(--color-panel);
-    padding: 30px 26px;
+    padding: var(--space-32) var(--space-24);
     text-align: center;
-    margin: 0 0 22px;
+    margin: 0 0 var(--space-24);
   }
+  /* Token: `label` - the class name is literally short for "label". */
   .mod .lab {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.12em;
+    font-size: var(--text-label-size);
+    line-height: var(--text-label-line);
+    font-weight: var(--text-label-weight);
+    letter-spacing: var(--text-label-tracking);
     text-transform: uppercase;
     color: var(--color-muted);
-    margin: 0 0 8px;
+    margin: 0 0 var(--space-8);
   }
+  /* Token: `small`. */
   .mod .desc {
-    font-size: 13px;
+    font-family: var(--font-sans);
+    font-size: var(--text-small-size);
+    line-height: var(--text-small-line);
+    font-weight: var(--text-small-weight);
+    letter-spacing: var(--text-small-tracking);
     color: var(--color-body);
     max-width: 56ch;
     margin: 0 auto;
@@ -615,36 +867,43 @@
   .modgrid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 22px;
+    gap: var(--space-24);
   }
 
   .split {
     display: grid;
     grid-template-columns: 1.6fr 1fr;
-    gap: 46px;
+    gap: var(--space-48);
   }
 
   /* domain page */
   .dom-head {
-    padding: 6px 0 0;
-    margin: 0 0 34px;
+    padding: var(--space-8) 0 0;
+    margin: 0 0 var(--space-32);
   }
+  /* Token: `display` (Domain page titles, Home hero) - named for exactly
+     this element. */
   .dom-title {
     font-family: var(--font-serif);
-    font-size: 52px;
-    font-weight: 400;
-    letter-spacing: -0.02em;
-    margin: 0 0 12px;
-    line-height: 1;
+    font-size: var(--text-display-size);
+    line-height: var(--text-display-line);
+    font-weight: var(--text-display-weight);
+    letter-spacing: var(--text-display-tracking);
+    margin: 0 0 var(--space-12);
     color: var(--color-jet);
   }
   .dom-bar {
     height: 6px;
     width: 100%;
-    margin: 0 0 18px;
+    margin: 0 0 var(--space-16);
   }
+  /* Token: `body`. */
   .dom-lede {
-    font-size: 16px;
+    font-family: var(--font-sans);
+    font-size: var(--text-body-size);
+    line-height: var(--text-body-line);
+    font-weight: var(--text-body-weight);
+    letter-spacing: var(--text-body-tracking);
     color: var(--color-body);
     max-width: 62ch;
     margin: 0;
@@ -654,115 +913,160 @@
     grid-template-columns: repeat(3, 1fr);
     border-top: 1px solid var(--color-jet);
     border-bottom: 1px solid var(--color-rule);
-    margin: 0 0 38px;
+    margin: 0 0 var(--space-32);
   }
   .dom-stat {
-    padding: 18px 20px;
+    padding: var(--space-16) var(--space-24);
     border-right: 1px solid var(--color-rule);
   }
   .dom-stat:last-child {
     border-right: 0;
   }
+  /* Token: `stat-m` (Inset panel figures, table totals) - named for exactly
+     this element, a bordered stat panel. */
   .dom-stat .b {
-    font-family: var(--font-mono);
-    font-size: 25px;
-    font-variant-numeric: tabular-nums;
+    font-size: var(--text-stat-m-size);
+    line-height: var(--text-stat-m-line);
+    font-weight: var(--text-stat-m-weight);
+    letter-spacing: var(--text-stat-m-tracking);
     display: inline-block;
-    margin: 0 0 7px;
+    margin: 0 0 var(--space-8);
   }
+  /* Token: `small`. */
   .dom-stat .c {
-    font-size: 12px;
+    font-family: var(--font-sans);
+    font-size: var(--text-small-size);
+    line-height: var(--text-small-line);
+    font-weight: var(--text-small-weight);
+    letter-spacing: var(--text-small-tracking);
     color: var(--color-body);
   }
 
   /* article detail */
   .measure {
-    max-width: 64ch;
+    max-width: var(--measure-article);
     margin: 0 auto;
   }
+  /* Token: `subhead` (In-article subheads) - named for exactly this element.
+     Previously 37px, close to `title`'s 40, but the doc's own job label for
+     this element is unambiguous. This is the largest and most consequential
+     snap in the migration: 37px down to 21px. Flagged for a second look. */
   .art h2 {
     font-family: var(--font-serif);
-    font-weight: 400;
-    font-size: 37px;
-    line-height: 1.11;
-    margin: 0 0 16px;
-    letter-spacing: -0.018em;
+    font-size: var(--text-subhead-size);
+    line-height: var(--text-subhead-line);
+    font-weight: var(--text-subhead-weight);
+    letter-spacing: var(--text-subhead-tracking);
+    margin: 0 0 var(--space-16);
     color: var(--color-jet);
   }
+  /* Token: `body` (Running copy) - the doc's job label matches this element
+     exactly: it is the article's running copy. */
   .art p {
-    font-size: 16px;
+    font-family: var(--font-sans);
+    font-size: var(--text-body-size);
+    line-height: var(--text-body-line);
+    font-weight: var(--text-body-weight);
+    letter-spacing: var(--text-body-tracking);
     color: var(--color-body);
-    margin: 0 0 18px;
+    margin: 0 0 var(--space-16);
   }
+  /* Token: `standfirst` - named for exactly this element, and the size
+     already matched exactly before this pass. */
   .stand {
     font-family: var(--font-serif);
-    font-size: 20px;
-    line-height: 1.4;
+    font-size: var(--text-standfirst-size);
+    line-height: var(--text-standfirst-line);
+    font-weight: var(--text-standfirst-weight);
+    letter-spacing: var(--text-standfirst-tracking);
     color: var(--color-jet);
-    margin: 0 0 22px;
+    margin: 0 0 var(--space-24);
   }
   .inset {
     background: var(--color-panel);
     border: 1px solid var(--color-rule);
-    padding: 17px 19px;
-    margin: 0 0 22px;
+    padding: var(--space-16);
+    margin: 0 0 var(--space-24);
   }
+  /* Token: `small`. */
   .inset p {
+    font-size: var(--text-small-size);
+    line-height: var(--text-small-line);
+    font-weight: var(--text-small-weight);
+    letter-spacing: var(--text-small-tracking);
     margin: 0;
-    font-size: 13.5px;
   }
   .titleblock {
     border-top: 1px solid var(--color-jet);
-    padding-top: 15px;
-    margin-top: 30px;
+    padding-top: var(--space-16);
+    margin-top: var(--space-32);
   }
+  /* Token: `label`. */
   .back {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.1em;
+    font-size: var(--text-label-size);
+    line-height: var(--text-label-line);
+    font-weight: var(--text-label-weight);
+    letter-spacing: var(--text-label-tracking);
     text-transform: uppercase;
     color: var(--color-blue-bright);
     text-decoration: none;
     display: inline-block;
-    margin: 0 0 22px;
+    margin: 0 0 var(--space-24);
   }
 
   /* contact */
   .contact-grid {
     display: grid;
     grid-template-columns: 1.3fr 1fr;
-    gap: 56px;
+    gap: var(--space-64);
   }
+  /* Token: `title`, on size-exactness and prominence. The doc has no page
+     heading job distinct from the article-title job; this is the closest
+     and largest tier for a singular page heading. Flagged as a judgment
+     call. */
   .contact-grid h2 {
     font-family: var(--font-serif);
-    font-weight: 400;
-    font-size: 40px;
-    margin: 0 0 16px;
-    letter-spacing: -0.015em;
-    line-height: 1.08;
+    font-size: var(--text-title-size);
+    line-height: var(--text-title-line);
+    font-weight: var(--text-title-weight);
+    letter-spacing: var(--text-title-tracking);
+    margin: 0 0 var(--space-16);
     color: var(--color-jet);
   }
+  /* Token: `body`. */
   .contact-grid p {
-    font-size: 15.5px;
+    font-family: var(--font-sans);
+    font-size: var(--text-body-size);
+    line-height: var(--text-body-line);
+    font-weight: var(--text-body-weight);
+    letter-spacing: var(--text-body-tracking);
     color: var(--color-body);
-    margin: 0 0 18px;
+    margin: 0 0 var(--space-16);
     max-width: 52ch;
   }
   .cline {
     border-top: 1px solid var(--color-rule);
-    padding: 14px 0;
+    padding: var(--space-16) 0;
   }
+  /* Token: `label`. */
   .cline .l {
-    font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 0.11em;
+    font-size: var(--text-label-size);
+    line-height: var(--text-label-line);
+    font-weight: var(--text-label-weight);
+    letter-spacing: var(--text-label-tracking);
     text-transform: uppercase;
     color: var(--color-muted);
-    margin: 0 0 5px;
+    margin: 0 0 var(--space-4);
   }
+  /* Token: `ui` (Active nav, controls) - size already matched exactly before
+     this pass. A contact value that is also a link reads closest to a
+     control of anything on the scale; the weight moving from regular to 600
+     is the visible consequence, flagged. */
   .cline .v {
-    font-family: var(--font-mono);
-    font-size: 14px;
+    font-size: var(--text-ui-size);
+    line-height: var(--text-ui-line);
+    font-weight: var(--text-ui-weight);
+    letter-spacing: var(--text-ui-tracking);
     color: var(--color-jet);
   }
   .cline .v a {
@@ -772,15 +1076,12 @@
 
   .site-footer {
     border-top: 1px solid var(--color-jet);
-    padding: 22px 0 44px;
-    margin-top: 60px;
+    padding: var(--space-24) 0 var(--space-48);
+    margin-top: var(--space-64);
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 14px;
-  }
-  .site-footer .meta {
-    font-size: 9px;
+    gap: var(--space-16);
   }
 
   /* Hand-built inline SVG, no icon library. Inherits the metadata line's muted

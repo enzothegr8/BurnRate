@@ -60,7 +60,7 @@ export function LeadTeaser({ article }: { article: Article }) {
           {standfirst}
         </div>
       </Link>
-      <div style={{ marginTop: 10 }}>{meta}</div>
+      <div style={{ marginTop: "var(--space-12)" }}>{meta}</div>
     </div>
   );
 }

@@ -108,7 +108,10 @@ export function MoneyBand() {
 
       {/* Required, and not optional. The band would otherwise imply both that
           the annual figures are ours and that the four can be added. */}
-      <p className="meta" style={{ margin: "14px 0 44px", lineHeight: 1.7 }}>
+      <p
+        className="meta"
+        style={{ margin: "var(--space-16) 0 var(--space-48)" }}
+      >
         Annual figures are <span className="rp">reported</span>, placeholder in
         this build. Rates and running totals are Burn Rate&apos;s own arithmetic
         and are therefore <span className="dv">derived</span>, always.
