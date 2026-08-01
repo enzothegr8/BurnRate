@@ -15,16 +15,21 @@ import { DOMAINS, DOMAIN_LABEL, type Domain } from "@/lib/site";
 // these numbers somebody published and which one we computed is being misled by
 // the design.
 //
-// Two by two, not four across, per Rev 12 of the foundation doc: four columns
-// cannot hold a stat-xl figure at the page bound, and two rows of two also
-// keep the four domains from reading as a set the way a single row would. The
+// Four full-width rows, one per domain, per Rev 13 of the foundation doc: a
+// visibly whirling running total needs about twelve significant digits, and
+// eighteen characters at stat-xl is wider than half the page bound, so no
+// column count above one fits it. Two by two, tried first, did not. Rows also
+// keep the four domains from reading as a set the way one line would. The
 // four are never summed regardless of arrangement. The categories overlap,
 // the overlap is not quantified, and the caption under the band says so to
 // the reader while a validator says so to the code.
 //
-// The running total renders through <Figure scale="stat-xl" />, so the mark's
-// band (three on desktop, two below 760px, where stat-xl's own size drops
-// from 64 to 40) is handled inside Figure rather than duplicated here.
+// The running total renders through <Figure scale="stat-xl" />. Below 760px
+// it steps to stat-l instead of just compressing stat-xl's own size, which
+// app/globals.css handles via the same .mark-stat-xl class Figure already
+// applies for the confidence rule's band crossing, so the token swap and the
+// mark's band both key off one class instead of two mechanisms drifting
+// apart.
 
 const ANNUAL = band.annual_usd as Record<Domain, number>;
 const SHARE = band.regional_share as Record<string, Record<Domain, number>>;
@@ -92,27 +97,28 @@ export function MoneyBand() {
         </div>
       </div>
 
-      <div className="stats">
+      <div className="money-rows">
         {DOMAINS.map((d) => {
           const annual = ANNUAL[d] * SHARE[region][d];
           return (
-            <div key={d} className={`stat d-${d}`}>
+            <div key={d} className={`money-row d-${d}`}>
               <p className="dom">{DOMAIN_LABEL[d]}</p>
-              <span className="ticker">
-                <Figure
-                  placeholder={money(annual * elapsedFraction)}
-                  confidence="derived"
-                  scale="stat-xl"
-                />
-              </span>
-              <br />
-              <span className="rate band-2">
-                {bounds ? rateLabel(annual / bounds.seconds) : "$0/sec"}
-              </span>
-              <p className="src">
-                of <span className="an rp">{annualLabel(annual)}</span> for the
-                year
-              </p>
+              <div className="money-figures">
+                <span className="ticker">
+                  <Figure
+                    placeholder={money(annual * elapsedFraction)}
+                    confidence="derived"
+                    scale="stat-xl"
+                  />
+                </span>
+                <span className="rate band-2">
+                  {bounds ? rateLabel(annual / bounds.seconds) : "$0/sec"}
+                </span>
+                <p className="src">
+                  of <span className="an rp">{annualLabel(annual)}</span> for
+                  the year
+                </p>
+              </div>
             </div>
           );
         })}

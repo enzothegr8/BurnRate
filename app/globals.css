@@ -768,71 +768,82 @@
     color: var(--color-page);
   }
 
-  /* Two by two, not four across, per Rev 12: four columns cannot hold a
-     stat-xl figure at the 1180 page bound, and two rows of two also stop
-     four non-summable domains from reading as a set. Fixed order Space, AI,
-     Robotics, Energy, reading left to right then down; a two-column grid in
-     DOMAINS order produces that automatically, no reordering needed. Column
-     and row gap both come from the space scale, so no per-cell divider is
-     needed the way the old four-across border-right was. */
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-48);
-    border-top: 2px solid var(--color-jet);
-    border-bottom: 1px solid var(--color-rule);
-    padding: var(--space-24) 0;
-    margin: 0 0 var(--space-48);
+  /* Four full-width rows, one per domain, per Rev 13: a visibly whirling
+     total needs about twelve significant digits, and eighteen characters at
+     stat-xl is wider than half the page bound, so no column count above one
+     fits it. Fixed order Space, AI, Robotics, Energy, top to bottom; DOM
+     order alone produces that. Hairline between rows, none above the first
+     or below the last: border-top on every row, zeroed on the first. */
+  .money-rows {
+    margin: var(--space-48) 0;
   }
-  .stat {
-    /* Grid items default to min-width: auto, which for a nowrap ticker
-       equals its unwrapped content width. Without this, a wide stat-xl
-       figure forces the track past its 1fr share instead of respecting it,
-       and the whole grid overflows the page. This does not change what
-       fits; it only stops the track from lying about it. */
-    min-width: 0;
-    padding: 0;
+  .money-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-24);
+    padding: var(--space-24) 0;
+    border-top: 1px solid var(--color-rule);
+  }
+  .money-row:first-child {
+    border-top: 0;
   }
   /* Token: `label`. */
-  .stat .dom {
+  .money-row .dom {
     font-size: var(--text-label-size);
     line-height: var(--text-label-line);
     font-weight: var(--text-label-weight);
     letter-spacing: var(--text-label-tracking);
     text-transform: uppercase;
-    margin: 0 0 var(--space-12);
+    margin: 0;
     color: var(--color-muted);
   }
-  /* Token: `stat-xl` (Home running statistics), fixed by Rev 12. The
-     two-by-two layout is what makes this fit: a stat-xl figure needed the
-     grid to change, not a new value on a closed scale. The mark itself
-     (band 3 on desktop, band 2 below 760px, where stat-xl's own size drops
-     from 64 to 40) is rendered by Figure via components/home/money-band.tsx,
-     which passes scale="stat-xl" - this rule only supplies the size, since
-     .num's own default is the `figure` token's relative sizing, wrong for a
-     running statistic. */
-  .stat .ticker {
-    display: inline-block;
-    margin: 0 0 var(--space-12);
-    white-space: nowrap;
+  /* The ticker and the rate/annual group, right-aligned as one block. Grid
+     items (and flex items) default to min-width: auto, which for a nowrap
+     ticker equals its unwrapped content width and can force the row wider
+     than the page; min-width: 0 is what stops that. This is the same fix
+     the two-by-two layout needed, kept because the underlying default is
+     still there regardless of column count. */
+  .money-figures {
+    min-width: 0;
+    text-align: right;
   }
-  .stat .ticker .num {
+  /* Token: `stat-xl` (Home running statistics) above 760px, `stat-l` (Domain
+     statistics, chart callouts) below it, per Rev 13. Figure applies
+     `.mark-stat-xl` for any scale="stat-xl" figure; the 760px query below
+     reads that same class to swap both the confidence-rule band (see the
+     .mark-stat-xl.band-3 rule near .cf/.rp/.dv) and the size token, so the
+     crossing is defined once, in one place, for whichever figure uses it. */
+  .num.mark-stat-xl {
     font-size: var(--text-stat-xl-size);
     line-height: var(--text-stat-xl-line);
     font-weight: var(--text-stat-xl-weight);
     letter-spacing: var(--text-stat-xl-tracking);
   }
-  /* Token: `stat-m` (Inset panel figures, table totals), fixed by Rev 12.
-     Band 2, read from the same --mark-* custom properties .cf/.rp/.dv use,
-     rather than a second flat literal duplicating lib/marks.ts's numbers.
-     money-band.tsx applies `.band-2` alongside this class. */
-  .stat .rate {
+  @media (max-width: 760px) {
+    .num.mark-stat-xl {
+      font-size: var(--text-stat-l-size);
+      line-height: var(--text-stat-l-line);
+      font-weight: var(--text-stat-l-weight);
+      letter-spacing: var(--text-stat-l-tracking);
+    }
+  }
+  .ticker {
+    display: inline-block;
+    white-space: nowrap;
+  }
+  /* Token: `stat-m` (Inset panel figures, table totals). Band 2, read from
+     the same --mark-* custom properties .cf/.rp/.dv use, rather than a
+     second flat literal duplicating lib/marks.ts's numbers. money-band.tsx
+     applies `.band-2` alongside this class. */
+  .rate {
     font-size: var(--text-stat-m-size);
     line-height: var(--text-stat-m-line);
     font-weight: var(--text-stat-m-weight);
     letter-spacing: var(--text-stat-m-tracking);
-    display: inline-block;
-    margin: 0 0 var(--space-12);
+    display: block;
+    margin: var(--space-8) 0 0;
     border-bottom-style: dotted;
     border-bottom-width: var(--mark-dotted-w, 2.5px);
     border-bottom-color: var(--color-jet);
@@ -840,17 +851,17 @@
   }
   /* Token: `meta` (Source lines, timestamps, notes) - the annual figure this
      line reports is exactly that: a source line. */
-  .stat .src {
+  .money-figures .src {
     font-family: var(--font-sans);
     font-size: var(--text-meta-size);
     line-height: var(--text-meta-line);
     font-weight: var(--text-meta-weight);
     letter-spacing: var(--text-meta-tracking);
     color: var(--color-body);
-    margin: 0;
+    margin: var(--space-4) 0 0;
   }
-  .stat .src .an {
-    /* size inherits from .stat .src above; mono role only. */
+  .money-figures .src .an {
+    /* size inherits from .src above; mono role only. */
   }
 
   /* Figures take their domain's color. The line style still carries the mark:
