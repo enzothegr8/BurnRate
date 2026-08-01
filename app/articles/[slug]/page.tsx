@@ -53,7 +53,7 @@ export default async function ArticlePage({
 
         <DomainTags domains={article.domains} />
         <p className="kick">{article.kicker}</p>
-        <h2>{article.title}</h2>
+        <h1 className="article-title">{article.title}</h1>
         <p className="stand">{article.standfirst}</p>
       </div>
 

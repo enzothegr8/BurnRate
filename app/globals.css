@@ -1012,6 +1012,21 @@
     max-width: var(--measure-article);
     margin: 0 auto;
   }
+  /* Token: `title` (Article title, the Articles lead) - Rev 13: the
+     article's own title is the name of the piece, not a division within it,
+     and takes the same step as the Articles lead (.lead-h). Its own class,
+     so it cannot ride on the in-article H2 rule below the way it did before
+     this fix, when a bare <h2> with no class inherited `.art h2` by markup
+     coincidence rather than by being a section head. */
+  .article-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-title-size);
+    line-height: var(--text-title-line);
+    font-weight: var(--text-title-weight);
+    letter-spacing: var(--text-title-tracking);
+    margin: 0 0 var(--space-16);
+    color: var(--color-jet);
+  }
   /* Token: `head` (Section heads, list items) - Rev 12 states the article
      heading map explicitly: inside an article, H2 is `head` and H3 is
      `subhead`. An H2 divides the article into sections, so it is a section
