@@ -1,27 +1,111 @@
-<!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
+# Burn Rate, rules for anyone working in this repo
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
-<!-- END:nextjs-agent-rules -->
+## The spec
 
-# Burn Rate rules, read before any change
+`docs/brand-foundation.md` is the single source of truth. Read it before any
+change. It is spec, not suggestion. If a request conflicts with it, stop and say
+so rather than resolving the conflict yourself.
 
-The spec lives in three files in the repo root and wins over any instinct you have:
-`brand-bible.md`, `editorial-standards.md`, `data-model.md`. If a request conflicts
-with them, stop and say so.
+Everything not in that document is open. If a rule here or anywhere else does
+not trace back to a line in it, treat it as an assumption and challenge it.
 
-Non-negotiables that get violated by default habits:
+## This is not the Next.js you know
 
-- Vellum background `#EAEBE5`, never white. Light only, no dark mode.
-- Instrument Serif for display (no bold exists, never fake it), IBM Plex Sans for
-  body, IBM Plex Mono with tabular-nums for every number. Never Inter.
-- Hairlines, not cards. No shadows, no rounded floating boxes, no gradients.
-- Links are never underlined. Underlines belong to the notation only:
-  solid = confirmed, dashed = reported, dotted = derived. Rendered by
-  `components/ui/figure.tsx`, driven by `confidence` on records in `/data`.
-- Every number renders through `<Figure />` from a fact record with at least one
-  sourced URL. Never type a numeral into copy. Never mark anything `confirmed`;
-  only Enzo promotes.
-- Orange `#E8410A` at most once per section. Forbidden colors: `#F4EFE1`,
-  `#E9B84C`, `#E5544C`, `#FFFFFF` backgrounds.
-- American English. No em dashes anywhere, including code comments.
+This project runs Next.js 16. APIs, conventions, and file structure may differ
+from your training data. Read the relevant guide in `node_modules/next/dist/docs/`
+before writing code against a framework API. Heed deprecation notices.
+
+## The palette is closed
+
+Page `#FBFBFC` · Panel `#EFEFF1` · Rule `#D8D8DC` · Muted `#67676E` ·
+Body `#35353B` · Jet `#08080A` · Blue deep `#101F52` · Blue bright `#1F5FE0` ·
+Crimson `#B3122B`.
+
+A new color is a revision to `docs/brand-foundation.md`, not a decision made
+inside a component. Never write a hex literal in a component; read the token.
+
+White is the page and grey is the panel, not the reverse. Panels always carry a
+hairline border, because the tint alone is 1.11 contrast and will not define an
+edge. Light only. Dark mode is not under consideration.
+
+Blue bright is the tightest value in the system at 4.85 on panel. Links and
+derived marks only, never long copy, never below 12px.
+
+## Type
+
+Serif is Gelasio: headlines, display, standfirsts. Sans is Selawik: running
+copy, navigation, UI. Mono is Cascadia Mono: every figure, unit, label, tag,
+timestamp, and source line. Never Inter. Ligatures stay off in mono, because a
+publication about numbers must not render programming ligatures.
+
+## The domains
+
+Space, AI, Robotics, Energy, in that order, always. The order is a presentation
+convention, not a ranking, and all four sit at equal visibility.
+
+Space is blue deep, AI is blue bright, Robotics is jet, Energy is crimson. Tags
+are filled rectangles with white uppercase mono type. Outlined tags,
+dot-and-label, and uncolored labels are all rejected.
+
+## The numbers standard
+
+This is the core of the brand. Every number declares how much it is trusted,
+visibly, in the type. The day the notation lies, Burn Rate is worth less than a
+plain blog, because a plain blog never promised anything.
+
+Confidence drives the underline and nothing else does:
+
+- `confirmed` solid, jet
+- `reported` dashed, muted
+- `derived` dotted, blue bright
+
+The marks are kinds, not degrees. Marking a reported figure as derived is as
+wrong as the reverse. Ask what kind of thing the number is, not how much you
+trust it.
+
+Every number renders through the fact store from a record carrying at least one
+source that actually states the value. Never type a numeral into copy.
+
+**Never mark anything `confirmed`.** An agent may gather a number and may
+propose `reported` or `derived`. Only Enzo promotes, after opening the primary
+URL himself. Agreement between agents is not verification, it is correlated
+error. An agent that cannot supply a URL has not found a fact, it has found a
+rumor.
+
+Never sum across domains. The overlaps are real and unquantified. This is a
+validator rule as well as an editorial one.
+
+Never invent a figure to fill a gap, never state a range as a point, never
+publish an unmarked number. There is no neutral state.
+
+## Working with agents
+
+Agents build. Agents do not assert. Three cases, one stops:
+
+- A figure is weak, conflicting, or secondary. Build it, mark it to its kind at
+  the lowest defensible level, put every competing framing in notes. Proceed.
+- No figure exists. Do not invent one. Build the structure with the slot empty
+  and render the emptiness visibly. Proceed.
+- The instructions are missing or contradictory. Stop and ask. This is the only
+  case that blocks.
+
+Agents may not write claim sentences. The read is Enzo's and voice is not
+delegable. Agents may not fit constants to close a gap; a fitted constant is a
+fabricated number wearing a lab coat.
+
+## This repository is public
+
+Placeholder figures must be visibly fake: `$000B`, `$0.0T`, `000TWh`. Never
+invent a plausible-looking number. A realistic fake figure in a public repo
+belonging to a publication whose premise is marking its numbers is the worst
+thing that could ship.
+
+## Carried from the retired docs, pending confirmation
+
+`brand-bible.md`, `editorial-standards.md`, and `data-model.md` were retired and
+deleted; Rev 09 of the foundation doc absorbed what was worth keeping. One rule
+did not survive consolidation and is recorded here rather than lost:
+
+- No em dashes anywhere, including code comments. American English.
+
+Confirm or drop it. Until Enzo rules, follow it.

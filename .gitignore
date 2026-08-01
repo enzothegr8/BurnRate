@@ -40,18 +40,14 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# python artifacts (a background agent once wrote a venv into the repo root;
-# never ignore "Lib/" here: git on Windows matches case-insensitively and it
-# would swallow the real lib/ source tree)
+# Stray Python venv artifacts. An agent once wrote a venv into this repo root
+# and its Lib/ case-merged with the real lib/ source tree on Windows, which
+# broke the build in a way that took a while to see. Never add a bare "Lib/"
+# rule here for the same reason: git on Windows would match lib/ too.
 venv/
 .venv/
 __pycache__/
 *.pyc
 pyvenv.cfg
-site-packages/
-
-# Stray Python venv artifacts (a subagent once created a venv in the repo root;
-# it case-merges with lib/ on Windows and must never be committed)
 /Scripts/
 /lib/site-packages/
-pyvenv.cfg

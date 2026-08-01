@@ -1,0 +1,24 @@
+{
+  "_note": "PLACEHOLDER. Annual totals are the only inputs; every rate and running total on the band is computed from them, which is why those render dotted. Values are deliberately round and are not claims about the world. Each one becomes a fact record with sources before this band ships anything real.",
+  "_regional_shares_are_claims": "The regional shares below are themselves claims, not arithmetic. Each will eventually need its own fact record with its own sources and its own confidence mark, and the share applied to a domain total is a derivation on top of that. Right now they are invented round numbers.",
+  "annual_usd": {
+    "space": 600000000000,
+    "ai": 700000000000,
+    "robotics": 50000000000,
+    "energy": 3000000000000
+  },
+  "regions": [
+    { "id": "global", "label": "Global" },
+    { "id": "na", "label": "North America" },
+    { "id": "eu", "label": "Europe" },
+    { "id": "cn", "label": "China" },
+    { "id": "row", "label": "Rest of world" }
+  ],
+  "regional_share": {
+    "global": { "space": 1.0, "ai": 1.0, "robotics": 1.0, "energy": 1.0 },
+    "na": { "space": 0.45, "ai": 0.55, "robotics": 0.18, "energy": 0.22 },
+    "eu": { "space": 0.18, "ai": 0.12, "robotics": 0.2, "energy": 0.19 },
+    "cn": { "space": 0.15, "ai": 0.2, "robotics": 0.42, "energy": 0.34 },
+    "row": { "space": 0.22, "ai": 0.13, "robotics": 0.2, "energy": 0.25 }
+  }
+}

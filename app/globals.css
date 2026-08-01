@@ -1,140 +1,700 @@
+/* ---------------------------------------------------------------------------
+   THE PALETTE IS CLOSED.
+
+   Every color Burn Rate is allowed to use is defined in this file and nowhere
+   else. A new color is a revision to docs/brand-foundation.md, not a decision
+   made inside a component. If a design needs a value that is not here, that is
+   a conversation with Enzo and an entry in the revision log, not a hex literal
+   typed into a className.
+
+   Values are transcribed exactly from section 3, Color, of the foundation doc,
+   which carries the full specification as BR-COLOR Rev 02. No approximations,
+   no additions, no tints computed on the fly.
+
+   Two rules that get broken by default habits:
+
+   White is the page and grey is the panel, not the reverse. Panels always carry
+   a hairline border, because the panel tint alone is 1.11 contrast against the
+   page and will not define an edge on its own.
+
+   Blue bright is the tightest value in the system at 4.85 on panel. It is for
+   links and derived marks only. Never long copy, never below 12px.
+
+   The site is light. Dark mode is not under consideration, so there is no
+   prefers-color-scheme block here and there should never be one.
+   --------------------------------------------------------------------------- */
+
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
 
-/*
- * Burn Rate surface. Light only, per brand-bible.md section 5. There is no
- * dark mode, no theme toggle, and no dark variant block; do not add them.
- * The vellum page background is the signature and is not negotiable.
- * Never ship on #FFFFFF. Never use The Space Race's cream #F4EFE1,
- * gold #E9B84C, or red #E5544C.
- */
+@theme {
+  /* The reading surface. White, never warm. */
+  --color-page: #fbfbfc;
+  /* Raised blocks sitting on the page. Always bordered. */
+  --color-panel: #efeff1;
+  /* Hairlines. Never text. */
+  --color-rule: #d8d8dc;
+  /* Metadata and the reported mark. */
+  --color-muted: #67676e;
+  /* Running copy. */
+  --color-body: #35353b;
+  /* Headlines, the confirmed mark, Robotics. */
+  --color-jet: #08080a;
+  /* Structure, chart outlines, Space. */
+  --color-blue-deep: #101f52;
+  /* Links, the derived mark, AI. */
+  --color-blue-bright: #1f5fe0;
+  /* Emphasis, kickers, revision numbers, Energy. */
+  --color-crimson: #b3122b;
 
-@theme inline {
-  /* Brand tokens, usable as bg-vellum, text-ink, border-rule, text-orange, etc. */
-  --color-vellum: #eaebe5;
-  --color-rule: #d3d6ce;
-  --color-muted: #8c9198;
-  --color-secondary: #565a5f;
-  --color-ink: #16181b;
-  --color-orange: #e8410a;
-  --color-ochre: #a8823c;
-
-  /* Series palette, for charts with genuinely real categories only. */
-  --color-series-1: #e8410a;
-  --color-series-2: #37535f;
-  --color-series-3: #a8823c;
-  --color-series-4: #6e7f63;
-  --color-series-5: #8c9198;
-
-  /* shadcn semantic tokens, mapped onto the brand palette. */
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-
-  /* Type. Instrument Serif for display, IBM Plex Sans for body and UI,
-     IBM Plex Mono for every number, label, timestamp, and source line. */
-  --font-sans: var(--font-plex-sans);
-  --font-mono: var(--font-plex-mono);
-  --font-display: var(--font-instrument-serif);
-  --font-heading: var(--font-plex-sans);
-
-  /* Hairlines and square corners. Technical documents do not have rounded
-     floating boxes; keep radii at zero. */
-  --radius-sm: 0px;
-  --radius-md: 0px;
-  --radius-lg: 0px;
-  --radius-xl: 0px;
-  --radius-2xl: 0px;
-  --radius-3xl: 0px;
-  --radius-4xl: 0px;
+  /* Chart series order, and it is an order rather than a set. A chart about
+     the domains uses the domain colors and needs no legend. Every other chart
+     walks this list from the top and stops at five. Beyond five categories the
+     chart is wrong, not the palette. */
+  --color-chart-1: #101f52;
+  --color-chart-2: #1f5fe0;
+  --color-chart-3: #b3122b;
+  --color-chart-4: #08080a;
+  --color-chart-5: #67676e;
 }
 
+/* Domain aliases. Not new colors, just the four assignments from the doc given
+   the names the design thinks in. Space is blue deep, AI is blue bright,
+   Robotics is jet, Energy is crimson. */
 :root {
-  --background: #eaebe5;
-  --foreground: #16181b;
-  --card: #f5f6f2;
-  --card-foreground: #16181b;
-  --popover: #f5f6f2;
-  --popover-foreground: #16181b;
-  --primary: #16181b;
-  --primary-foreground: #eaebe5;
-  --secondary-foreground: #eaebe5;
-  --muted-foreground: #565a5f;
-  --accent: #f5f6f2;
-  --accent-foreground: #16181b;
-  --destructive: #b3261e;
-  --border: #d3d6ce;
-  --input: #d3d6ce;
-  --ring: #8c9198;
-  --chart-1: #e8410a;
-  --chart-2: #37535f;
-  --chart-3: #a8823c;
-  --chart-4: #6e7f63;
-  --chart-5: #8c9198;
-  --radius: 0px;
+  --domain-space: var(--color-blue-deep);
+  --domain-ai: var(--color-blue-bright);
+  --domain-robotics: var(--color-jet);
+  --domain-energy: var(--color-crimson);
 }
+
+/* The font variables themselves are set by next/font in app/fonts/index.ts and
+   land on <html> as --font-serif, --font-sans, and --font-mono. */
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
   html {
-    @apply font-sans;
+    background-color: var(--color-page);
   }
 
-  /*
-   * LINKS ARE NEVER UNDERLINED ANYWHERE ON THIS SITE.
-   *
-   * This is a consequence of the notation, not a taste call
-   * (brand-bible.md section 4). Solid, dashed, and dotted underlines mean
-   * confirmed, reported, and derived. The underline budget is spent on
-   * provenance; an underlined link would counterfeit the notation. Links are
-   * secondary #565A5F with no underline, and the !important is deliberate:
-   * it overrides Tailwind underline utilities and any shadcn component
-   * default, so a future component cannot reintroduce one by accident.
-   * If you are tempted to remove this, read brand-bible.md first.
-   */
-  a,
-  a:hover,
-  a:focus,
-  a:visited {
-    color: var(--color-secondary);
-    text-decoration: none !important;
+  body {
+    background-color: var(--color-page);
+    color: var(--color-jet);
+    font-family: var(--font-sans);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   The design, from Enzo's approved mock, remapped onto the tokens above. Every
+   color here reads a custom property; there are no literals. The mock's own
+   system stacks are gone, replaced by the three pinned families.
+   --------------------------------------------------------------------------- */
+
+@layer components {
+  /* Placeholder banner. This repo is public and every headline and figure below
+     it is invented, so the page says so at the top rather than in a comment. */
+  .ph-bar {
+    background: var(--color-jet);
+    color: var(--color-rule);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    padding: 7px 22px;
+    text-align: center;
+  }
+  .ph-bar b {
+    color: var(--color-page);
+    font-weight: 400;
   }
 
-  /*
-   * Every number on the site is IBM Plex Mono with tabular numerals. This is
-   * the base rule on the mono utility itself, per brand-bible.md section 6,
-   * so no component ever has to remember it. Figures that do not align in a
-   * column are the mark of an amateur publication.
-   */
-  .font-mono,
-  code,
-  kbd,
-  samp,
-  pre {
+  .shell {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 34px;
+  }
+
+  /* masthead */
+  .mast {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 0 18px;
+    border-bottom: 1px solid var(--color-jet);
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .wm {
+    line-height: 1;
+    display: inline-block;
+  }
+  .wm .word {
+    font-family: var(--font-serif);
+    font-size: 30px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    display: block;
+  }
+  .wm .word .b {
+    color: var(--domain-ai);
+  }
+  .wm .word .r {
+    color: var(--domain-energy);
+  }
+  .lock {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 9px;
+  }
+  /* The three segments are the confidence notation. Solid, dashed, dotted, left
+     to right, in the same order as the marks. The order is load bearing and is
+     never rearranged for visual balance. All three are jet, so line style alone
+     distinguishes them and the wordmark carries the color. */
+  .seg {
+    display: inline-block;
+    height: 0;
+    width: 30px;
+  }
+  .seg-s {
+    border-bottom: 2px solid var(--color-jet);
+  }
+  .seg-d {
+    border-bottom: 2px dashed var(--color-jet);
+  }
+  .seg-t {
+    border-bottom: 2px dotted var(--color-jet);
+  }
+  .lock .tl {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.19em;
+    text-transform: uppercase;
+    color: var(--domain-space);
+    white-space: nowrap;
+  }
+  .lock .tl b {
+    color: var(--domain-energy);
+    font-weight: 400;
+  }
+
+  .nav {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  /* Links are never underlined. */
+  .nav a {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    text-decoration: none;
+    padding: 5px 9px;
+    border: 1px solid transparent;
+  }
+  .nav a:hover {
+    color: var(--color-jet);
+  }
+  .nav a.on {
+    color: var(--color-jet);
+    border-color: var(--color-rule);
+    background: var(--color-panel);
+  }
+  .nav .sep {
+    width: 1px;
+    height: 15px;
+    background: var(--color-rule);
+    margin: 0 7px;
+  }
+
+  .view {
+    padding: 34px 0 90px;
+  }
+
+  /* Tags are filled rectangles with page-colored uppercase mono type. Outlined
+     tags, dot-and-label, and uncolored labels are all rejected. */
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    color: var(--color-page);
+    display: inline-block;
+  }
+  .t-space {
+    background: var(--domain-space);
+  }
+  .t-ai {
+    background: var(--domain-ai);
+  }
+  .t-robotics {
+    background: var(--domain-robotics);
+  }
+  .t-energy {
+    background: var(--domain-energy);
+  }
+  .tags {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin: 0 0 9px;
+  }
+
+  .meta {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+  .kick {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--color-crimson);
+    margin: 0 0 10px;
+  }
+
+  /* Confidence marks. The underline is driven by confidence and nothing else
+     drives an underline. */
+  .num {
+    font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
+  }
+  .cf {
+    border-bottom: 1.5px solid var(--color-jet);
+    padding-bottom: 1px;
+    color: var(--color-jet);
+  }
+  .rp {
+    border-bottom: 1.5px dashed var(--color-muted);
+    padding-bottom: 1px;
+    color: var(--color-body);
+  }
+  .dv {
+    border-bottom: 1.5px dotted var(--color-blue-bright);
+    padding-bottom: 1px;
+    color: var(--color-blue-bright);
+  }
+
+  .sechead {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    border-bottom: 1px solid var(--color-jet);
+    padding-bottom: 8px;
+    margin: 0 0 4px;
+  }
+
+  /* article rows */
+  .list .it {
+    padding: 17px 0;
+    border-bottom: 1px solid var(--color-rule);
+  }
+  .list .it:last-child {
+    border-bottom: 0;
+  }
+  .row-h {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.24;
+    margin: 0 0 5px;
+    color: var(--color-jet);
+  }
+  .list .it:hover .row-h {
+    color: var(--color-blue-bright);
+  }
+  .row-d {
+    font-size: 13.5px;
+    color: var(--color-body);
+    margin: 0 0 7px;
+    max-width: 70ch;
+  }
+  .it a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  /* lead */
+  .lead-h {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 42px;
+    line-height: 1.08;
+    margin: 0 0 14px;
+    max-width: 19ch;
+    letter-spacing: -0.018em;
+    color: var(--color-jet);
+  }
+  a:hover .lead-h {
+    color: var(--color-blue-bright);
+  }
+  .lead-d {
+    font-size: 16px;
+    color: var(--color-body);
+    max-width: 58ch;
+    margin: 0 0 12px;
+  }
+
+  /* money band */
+  .moneybar {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--color-jet);
+    padding-bottom: 9px;
+  }
+  .moneybar .h {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin: 0;
+  }
+  .filters {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+  /* Chips are jet when active and panel grey when not. They are deliberately
+     not colored by domain; that would put a second color language next to the
+     numbers. */
+  .fchip {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    padding: 4px 9px;
+    border: 1px solid var(--color-rule);
+    background: var(--color-panel);
+    color: var(--color-muted);
+    cursor: pointer;
+    user-select: none;
+  }
+  .fchip:hover {
+    color: var(--color-jet);
+    border-color: var(--color-muted);
+  }
+  .fchip.on {
+    background: var(--color-jet);
+    border-color: var(--color-jet);
+    color: var(--color-page);
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 2px solid var(--color-jet);
+    border-bottom: 1px solid var(--color-rule);
+    margin: 0 0 40px;
+  }
+  .stat {
+    padding: 22px 20px 20px;
+    border-right: 1px solid var(--color-rule);
+  }
+  .stat:last-child {
+    border-right: 0;
+  }
+  .stat .dom {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    margin: 0 0 12px;
+    color: var(--color-muted);
+  }
+  .stat .ticker {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-size: clamp(15px, 1.85vw, 23px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    display: inline-block;
+    margin: 0 0 10px;
+    white-space: nowrap;
+    border-bottom: 1.5px dotted;
+    padding-bottom: 2px;
+  }
+  .stat .rate {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    display: inline-block;
+    margin: 0 0 10px;
+    border-bottom: 1.5px dotted;
+    padding-bottom: 1px;
+  }
+  .stat .src {
+    font-size: 11.5px;
+    color: var(--color-body);
+    line-height: 1.35;
+    margin: 0;
+  }
+  .stat .src .an {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Figures take their domain's color. The line style still carries the mark:
+     the running total and the rate are dotted because they are Burn Rate's own
+     arithmetic, the annual figure is dashed because it is reported. */
+  .d-space .ticker,
+  .d-space .rate {
+    color: var(--domain-space);
+  }
+  .d-ai .ticker,
+  .d-ai .rate {
+    color: var(--domain-ai);
+  }
+  .d-robotics .ticker,
+  .d-robotics .rate {
+    color: var(--domain-robotics);
+  }
+  .d-energy .ticker,
+  .d-energy .rate {
+    color: var(--domain-energy);
+  }
+  .d-space .src .an {
+    color: var(--domain-space);
+    border-bottom-color: var(--domain-space);
+  }
+  .d-ai .src .an {
+    color: var(--domain-ai);
+    border-bottom-color: var(--domain-ai);
+  }
+  .d-robotics .src .an {
+    color: var(--domain-robotics);
+    border-bottom-color: var(--domain-robotics);
+  }
+  .d-energy .src .an {
+    color: var(--domain-energy);
+    border-bottom-color: var(--domain-energy);
+  }
+
+  /* Module slots. Dashed border and a label, so they never read as finished
+     content. */
+  .mod {
+    border: 1px dashed var(--color-rule);
+    background: var(--color-panel);
+    padding: 30px 26px;
+    text-align: center;
+    margin: 0 0 22px;
+  }
+  .mod .lab {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin: 0 0 8px;
+  }
+  .mod .desc {
+    font-size: 13px;
+    color: var(--color-body);
+    max-width: 56ch;
+    margin: 0 auto;
+  }
+  .modgrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 46px;
+  }
+
+  /* domain page */
+  .dom-head {
+    padding: 6px 0 0;
+    margin: 0 0 34px;
+  }
+  .dom-title {
+    font-family: var(--font-serif);
+    font-size: 52px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
+    line-height: 1;
+    color: var(--color-jet);
+  }
+  .dom-bar {
+    height: 6px;
+    width: 100%;
+    margin: 0 0 18px;
+  }
+  .dom-lede {
+    font-size: 16px;
+    color: var(--color-body);
+    max-width: 62ch;
+    margin: 0;
+  }
+  .dom-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--color-jet);
+    border-bottom: 1px solid var(--color-rule);
+    margin: 0 0 38px;
+  }
+  .dom-stat {
+    padding: 18px 20px;
+    border-right: 1px solid var(--color-rule);
+  }
+  .dom-stat:last-child {
+    border-right: 0;
+  }
+  .dom-stat .b {
+    font-family: var(--font-mono);
+    font-size: 25px;
+    font-variant-numeric: tabular-nums;
+    display: inline-block;
+    margin: 0 0 7px;
+  }
+  .dom-stat .c {
+    font-size: 12px;
+    color: var(--color-body);
+  }
+
+  /* article detail */
+  .measure {
+    max-width: 64ch;
+    margin: 0 auto;
+  }
+  .art h2 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 37px;
+    line-height: 1.11;
+    margin: 0 0 16px;
+    letter-spacing: -0.018em;
+    color: var(--color-jet);
+  }
+  .art p {
+    font-size: 16px;
+    color: var(--color-body);
+    margin: 0 0 18px;
+  }
+  .stand {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    line-height: 1.4;
+    color: var(--color-jet);
+    margin: 0 0 22px;
+  }
+  .inset {
+    background: var(--color-panel);
+    border: 1px solid var(--color-rule);
+    padding: 17px 19px;
+    margin: 0 0 22px;
+  }
+  .inset p {
+    margin: 0;
+    font-size: 13.5px;
+  }
+  .titleblock {
+    border-top: 1px solid var(--color-jet);
+    padding-top: 15px;
+    margin-top: 30px;
+  }
+  .back {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-blue-bright);
+    text-decoration: none;
+    display: inline-block;
+    margin: 0 0 22px;
+  }
+
+  /* contact */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 56px;
+  }
+  .contact-grid h2 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 40px;
+    margin: 0 0 16px;
+    letter-spacing: -0.015em;
+    line-height: 1.08;
+    color: var(--color-jet);
+  }
+  .contact-grid p {
+    font-size: 15.5px;
+    color: var(--color-body);
+    margin: 0 0 18px;
+    max-width: 52ch;
+  }
+  .cline {
+    border-top: 1px solid var(--color-rule);
+    padding: 14px 0;
+  }
+  .cline .l {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin: 0 0 5px;
+  }
+  .cline .v {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-jet);
+  }
+  .cline .v a {
+    color: var(--color-blue-bright);
+    text-decoration: none;
+  }
+
+  .site-footer {
+    border-top: 1px solid var(--color-jet);
+    padding: 22px 0 44px;
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .site-footer .meta {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 900px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 860px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .modgrid {
+    grid-template-columns: 1fr;
+  }
+  .dom-stats {
+    grid-template-columns: 1fr;
+  }
+  .contact-grid {
+    grid-template-columns: 1fr;
   }
 }

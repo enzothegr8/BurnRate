@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Burn Rate — Logo Specification</title>
+<style>
+  :root{
+    --sans:ui-sans-serif,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:ui-serif,Georgia,"Times New Roman",serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace;
+    --page:#FBFBFC; --panel:#EFEFF1; --rule:#D8D8DC; --muted:#67676E;
+    --ink:#08080A; --body:#35353B;
+    --sp:#101F52; --ai:#1F5FE0; --en:#B3122B;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--page);color:var(--ink);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1000px;margin:0 auto;padding:56px 28px 96px}
+  header{border-bottom:1px solid var(--rule);padding-bottom:26px}
+  h1{font-family:var(--serif);font-weight:400;font-size:38px;margin:0 0 8px;letter-spacing:-.015em}
+  .sub{color:var(--body);font-size:15px;max-width:78ch;margin:0 0 16px}
+  .doc{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+  .doc b{font-weight:400;color:var(--en)}
+  h2{font-family:var(--serif);font-weight:400;font-size:25px;margin:54px 0 4px}
+  .lead{color:var(--body);font-size:14.5px;max-width:84ch;margin:0 0 20px}
+
+  .stage{border:1px solid var(--rule);background:var(--page);padding:54px 40px;display:flex;align-items:center;justify-content:center;gap:44px;flex-wrap:wrap}
+  .stage.panel{background:var(--panel)}
+  .stage.dark{background:var(--ink)}
+  .caps{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:9px 0 0}
+  .caps.c{text-align:center}
+  .cell{text-align:center}
+
+  /* lockup */
+  .lk{display:inline-block;text-align:left}
+  .lk .word{font-family:var(--serif);letter-spacing:-.02em;line-height:1;display:block}
+  .lk .word .b{color:var(--ai)}
+  .lk .word .r{color:var(--en)}
+  .lk .row{display:flex;align-items:center;gap:10px;margin-top:12px}
+  .seg{display:inline-block;height:0;border-bottom-color:var(--ink)}
+  .seg-s{border-bottom-style:solid;border-bottom-width:2px}
+  .seg-d{border-bottom-style:dashed;border-bottom-width:2px}
+  .seg-t{border-bottom-style:dotted;border-bottom-width:2px}
+  .lk .tl{font-family:var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--sp);white-space:nowrap}
+  .lk .tl b{color:var(--en);font-weight:400}
+
+  .xl .word{font-size:64px} .xl .seg{width:56px} .xl .tl{font-size:13px}
+  .md .word{font-size:36px} .md .seg{width:32px} .md .tl{font-size:9.5px}
+  .sm .word{font-size:22px} .sm .row{margin-top:7px;gap:7px}
+  .sm .seg{width:19px;border-bottom-width:1.5px} .sm .tl{font-size:7px;letter-spacing:.15em}
+
+  .dark .lk .word .b{color:#5B8CFF}
+  .dark .lk .word .r{color:#E4586E}
+  .dark .seg{border-bottom-color:#FBFBFC}
+  .dark .lk .tl{color:#8FA3D6}
+  .dark .lk .tl b{color:#E4586E}
+
+  /* monogram · settled: medium overlap, B in front */
+  .mg{font-family:var(--serif);line-height:1;display:inline-block;isolation:isolate;white-space:nowrap}
+  .mg .b{color:var(--ai);display:inline-block;position:relative;z-index:1}
+  .mg .r{color:var(--en);display:inline-block;position:relative;margin-left:-.26em;mix-blend-mode:multiply}
+  .mg.jet .b,.mg.jet .r{color:var(--ink)}
+  .mg.jet .r{mix-blend-mode:normal}
+  .s128{font-size:128px} .s64{font-size:64px} .s48{font-size:48px}
+  .s32{font-size:32px} .s16{font-size:16px}
+
+  .tile{width:112px;height:112px;border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;background:var(--page)}
+  .tile.dk{background:var(--ink);border-color:var(--ink)}
+  .tile.dk .mg .b{color:#5B8CFF} .tile.dk .mg .r{color:#E4586E;mix-blend-mode:screen}
+  .row3{display:flex;gap:22px;align-items:flex-end;flex-wrap:wrap;justify-content:center}
+
+  table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13.5px;background:var(--panel)}
+  th,td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--rule);vertical-align:top}
+  th{font-family:var(--mono);font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:400}
+  code{font-family:var(--mono);font-size:12.5px}
+  .sw{display:inline-block;width:11px;height:11px;margin-right:7px;vertical-align:-1px}
+
+  .box{margin-top:54px;padding:24px 26px;background:var(--panel);border:1px solid var(--rule);border-left:3px solid var(--sp)}
+  .box h3{font-family:var(--serif);font-weight:400;font-size:22px;margin:0 0 11px}
+  .box p{font-size:14.5px;color:var(--body);max-width:86ch;margin:0 0 11px}
+  .box p:last-child{margin-bottom:0}
+  .box strong{color:var(--ink)}
+  .box.warn{border-left-color:var(--en)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Burn Rate — Logo Specification</h1>
+  <p class="sub">Settled. Burn in bright blue, Rate in crimson, all three rule segments in jet, the line in deep blue. Monogram is medium overlap with B in front. Built in live type so it scales and recolors.</p>
+  <p class="doc">Doc BR-LOGO · Rev <b>03</b> · Updated 2026-07-31 · Drawn E. Carvalho</p>
+</header>
+
+<h2>Primary lockup</h2>
+<div class="stage">
+  <div class="lk xl">
+    <span class="word"><span class="b">Burn</span> <span class="r">Rate</span></span>
+    <span class="row">
+      <span class="seg seg-s"></span><span class="seg seg-d"></span><span class="seg seg-t"></span>
+      <span class="tl">[Truth in numbers]<b>.</b></span>
+    </span>
+  </div>
+</div>
+
+<h2>The lockup contains all four domains</h2>
+<p class="lead">Unplanned, and worth keeping. With the line in deep blue, the complete mark now uses every domain color exactly once. Whatever else it does, the logo is a quiet statement that the publication is these four things.</p>
+<table>
+  <tr><th>Element</th><th>Color</th><th>Domain</th></tr>
+  <tr><td>Burn</td><td><span class="sw" style="background:#1F5FE0"></span><code>#1F5FE0</code> blue bright</td><td>AI</td></tr>
+  <tr><td>Rate</td><td><span class="sw" style="background:#B3122B"></span><code>#B3122B</code> crimson</td><td>Energy</td></tr>
+  <tr><td>The three rule segments</td><td><span class="sw" style="background:#08080A"></span><code>#08080A</code> jet</td><td>Robotics</td></tr>
+  <tr><td>[Truth in numbers]</td><td><span class="sw" style="background:#101F52"></span><code>#101F52</code> blue deep</td><td>Space</td></tr>
+  <tr><td>The period</td><td><span class="sw" style="background:#B3122B"></span><code>#B3122B</code> crimson</td><td>The one piece of colored punctuation. Echoes the last word.</td></tr>
+</table>
+
+<h2>Sizes</h2>
+<div class="stage" style="padding:38px 30px">
+  <div class="cell">
+    <div class="lk md"><span class="word"><span class="b">Burn</span> <span class="r">Rate</span></span>
+      <span class="row"><span class="seg seg-s"></span><span class="seg seg-d"></span><span class="seg seg-t"></span><span class="tl">[Truth in numbers]<b>.</b></span></span></div>
+    <p class="caps">Masthead</p>
+  </div>
+  <div class="cell">
+    <div class="lk sm"><span class="word"><span class="b">Burn</span> <span class="r">Rate</span></span>
+      <span class="row"><span class="seg seg-s"></span><span class="seg seg-d"></span><span class="seg seg-t"></span><span class="tl">[Truth in numbers]<b>.</b></span></span></div>
+    <p class="caps">Floor · drop the line below this</p>
+  </div>
+</div>
+
+<h2>Surfaces</h2>
+<div class="stage panel" style="padding:38px 30px">
+  <div class="lk md"><span class="word"><span class="b">Burn</span> <span class="r">Rate</span></span>
+    <span class="row"><span class="seg seg-s"></span><span class="seg seg-d"></span><span class="seg seg-t"></span><span class="tl">[Truth in numbers]<b>.</b></span></span></div>
+</div>
+<p class="caps c">On panel <code>#EFEFF1</code> · unchanged</p>
+<div class="stage dark" style="margin-top:18px;padding:38px 30px">
+  <div class="lk md"><span class="word"><span class="b">Burn</span> <span class="r">Rate</span></span>
+    <span class="row"><span class="seg seg-s"></span><span class="seg seg-d"></span><span class="seg seg-t"></span><span class="tl">[Truth in numbers]<b>.</b></span></span></div>
+</div>
+<p class="caps c">On jet · all four colors lifted, rules invert to white. Social cards and video only, never the site.</p>
+
+<h2>The monogram</h2>
+<p class="lead">Medium overlap, B in front, multiply blend at the seam. Where the two letters cross, blue multiplied by crimson lands on <code>#160726</code>, which is a hair off the site's ink. The intersection is the darkest part of the mark, which is the thesis rendered as geometry.</p>
+<div class="stage">
+  <span class="mg s128"><span class="b">B</span><span class="r">R</span></span>
+</div>
+<div class="stage" style="margin-top:18px">
+  <div class="row3">
+    <div class="cell"><span class="mg s64"><span class="b">B</span><span class="r">R</span></span><p class="caps">64</p></div>
+    <div class="cell"><span class="mg s48"><span class="b">B</span><span class="r">R</span></span><p class="caps">48</p></div>
+    <div class="cell"><span class="mg s32"><span class="b">B</span><span class="r">R</span></span><p class="caps">32</p></div>
+    <div class="cell"><span class="mg s16"><span class="b">B</span><span class="r">R</span></span><p class="caps">16</p></div>
+    <div class="cell"><span class="mg jet s32"><span class="b">B</span><span class="r">R</span></span><p class="caps">32 jet</p></div>
+    <div class="cell"><span class="mg jet s16"><span class="b">B</span><span class="r">R</span></span><p class="caps">16 jet</p></div>
+  </div>
+</div>
+
+<h2>Tiles</h2>
+<div class="stage" style="gap:20px">
+  <div class="cell"><div class="tile"><span class="mg s48"><span class="b">B</span><span class="r">R</span></span></div><p class="caps">App tile</p></div>
+  <div class="cell"><div class="tile" style="background:var(--panel)"><span class="mg s48"><span class="b">B</span><span class="r">R</span></span></div><p class="caps">On panel</p></div>
+  <div class="cell"><div class="tile dk"><span class="mg s48"><span class="b">B</span><span class="r">R</span></span></div><p class="caps">On jet</p></div>
+</div>
+
+<h2>Rules</h2>
+<div class="box">
+  <p><strong>The segment order never changes.</strong> Solid, dashed, dotted, left to right, is the confidence notation in order. It is not a decorative rhythm and it may not be rearranged for balance.</p>
+  <p><strong>The wordmark carries the color; the rule does not.</strong> All three segments are jet, so the marks are distinguished by line style alone.</p>
+  <p><strong>Below the small size shown above, drop the tagline rather than shrinking it.</strong> The wordmark and rule can go smaller. The line cannot.</p>
+  <p><strong>The tagline belongs to the mark, not to the writing.</strong> It does not appear in body copy, headlines, or social captions as a phrase.</p>
+  <p><strong>Two colors only in the monogram.</strong> The overlap value is a product, not a choice, and must never be set by hand or substituted.</p>
+</div>
+
+<div class="box warn">
+  <h3>One thing to decide before launch</h3>
+  <p><strong>The favicon.</strong> Look at the 16px renders above. At that size the multiply overlap fills in and the two letters begin to read as a single shape. The jet-only version beside it holds together better because there is no seam color to muddy.</p>
+  <p>Shipping the two-color monogram at 32px and above and a jet-only version at 16px is the normal solution and the one I would take. It is a technical fallback rather than a second logo, so it does not need its own approval every time.</p>
+</div>
+
+</div>
+</body>
+</html>
