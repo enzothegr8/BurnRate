@@ -48,6 +48,39 @@ describe("the anchor is the retrieval, not the event", () => {
     expect(verificationAnchor(many)).toBe("2026-05-01");
   });
 
+  it("ignores a fresher retrieval at a worse tier", () => {
+    // The figure rests on the tier 1 document. A trade reprint being re-read in
+    // July says nothing about whether the originating party revised it.
+    const mixed = fact({
+      sources: [
+        source({ name: "Agency filing", tier: 1, retrieved_at: "2026-01-01" }),
+        source({ name: "Trade reprint", tier: 3, retrieved_at: "2026-07-01" }),
+      ],
+    });
+    expect(verificationAnchor(mixed)).toBe("2026-01-01");
+  });
+
+  it("takes the most recent retrieval when several sources share the best tier", () => {
+    const twoPrimaries = fact({
+      sources: [
+        source({ tier: 1, retrieved_at: "2026-01-01" }),
+        source({ tier: 1, retrieved_at: "2026-04-01" }),
+        source({ tier: 4, retrieved_at: "2026-09-01" }),
+      ],
+    });
+    expect(verificationAnchor(twoPrimaries)).toBe("2026-04-01");
+  });
+
+  it("uses the best tier available, even when that is a weak one", () => {
+    const noPrimary = fact({
+      sources: [
+        source({ tier: 3, retrieved_at: "2026-02-01" }),
+        source({ tier: 5, retrieved_at: "2026-08-01" }),
+      ],
+    });
+    expect(verificationAnchor(noPrimary)).toBe("2026-02-01");
+  });
+
   it("ignores a retrieval by a source that does not state the value", () => {
     const mixed = fact({
       sources: [

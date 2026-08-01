@@ -51,3 +51,6 @@ __pycache__/
 pyvenv.cfg
 /Scripts/
 /lib/site-packages/
+
+# Build-time font cache for tools/generate-icons.mjs
+.cache/

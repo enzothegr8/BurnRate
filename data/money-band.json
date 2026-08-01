@@ -1,11 +1,12 @@
 {
-  "_note": "PLACEHOLDER. Annual totals are the only inputs; every rate and running total on the band is computed from them, which is why those render dotted. Values are deliberately round and are not claims about the world. Each one becomes a fact record with sources before this band ships anything real.",
+  "_note": "PLACEHOLDER. Annual totals are the only inputs; every rate and running total on the band is computed from them, which is why those render dotted. Each one becomes a fact record with sources before this band ships anything real.",
+  "_why_repdigits": "The values are repdigits on purpose. A counter cannot tick from $000B, so this band cannot use the visibly-fake form the rest of the site uses, and earlier placeholders here sat inside the real reported range for hyperscaler capex, which the foundation doc cites as its own worked example of laundering. Repeated digits keep the magnitudes and proportions honest for layout while being unmistakable as invented. Do not replace them with plausible figures until they are records with sources.",
   "_regional_shares_are_claims": "The regional shares below are themselves claims, not arithmetic. Each will eventually need its own fact record with its own sources and its own confidence mark, and the share applied to a domain total is a derivation on top of that. Right now they are invented round numbers.",
   "annual_usd": {
-    "space": 600000000000,
-    "ai": 700000000000,
-    "robotics": 50000000000,
-    "energy": 3000000000000
+    "space": 666000000000,
+    "ai": 777000000000,
+    "robotics": 55000000000,
+    "energy": 3333000000000
   },
   "regions": [
     { "id": "global", "label": "Global" },
