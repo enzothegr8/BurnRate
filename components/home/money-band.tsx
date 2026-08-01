@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import band from "@/data/money-band.json";
 import { Figure } from "@/components/facts/figure";
+import { motionAwareTicker } from "@/lib/reduced-motion";
 import { DOMAINS, DOMAIN_LABEL, type Domain } from "@/lib/site";
 
 // The running total is year to date: the annual figure multiplied by the
@@ -62,9 +63,19 @@ export function MoneyBand() {
   // one produces a hydration mismatch on a number that is supposed to be exact.
   const [now, setNow] = useState<number | null>(null);
 
+  // A counter ticking at a rate asserts the rate, so prefers-reduced-motion
+  // has to gate the interval itself, not just a CSS transition nothing here
+  // has. Reduced motion drops the whirl, never the number: motionAwareTicker
+  // always calls onTick once even when reduced, so the static state still
+  // renders the current year-to-date value rather than sitting blank.
   useEffect(() => {
-    const id = setInterval(() => setNow(Date.now()), 90);
-    return () => clearInterval(id);
+    return motionAwareTicker({
+      matchMedia: (query) => window.matchMedia(query),
+      onTick: () => setNow(Date.now()),
+      intervalMs: 90,
+      setInterval: (handler, ms) => window.setInterval(handler, ms),
+      clearInterval: (id) => window.clearInterval(id),
+    });
   }, []);
 
   const bounds = now === null ? null : boundsFor(now);
