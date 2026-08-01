@@ -8,6 +8,13 @@
 // example.com. The confirmed one exists so the solid mark has something to
 // exercise in a test. If a record here ever describes something real, it stops
 // being a fixture and the promotion rule applies to it in full.
+//
+// One note on the reported fixture with the old retrieved_at. It exists so the
+// stale flag has something to exercise, on /specimen and in tests, the same
+// reason the confirmed fixture exists. The date is set decades in the past on
+// purpose: staleness is computed against the current date, not a fixed one, so
+// a near-future date would eventually stop being stale and quietly break
+// whatever it was there to demonstrate.
 
 import type { DerivedFact, Fact } from "./types";
 
@@ -88,6 +95,28 @@ export const FIXTURE_FACTS: Fact[] = [
     notes:
       "Fixture record. Precision is fp8, generation is the fixture generation, and this is a peak figure rather than achieved.",
     stale_after: "quarterly",
+  },
+  {
+    id: "fixture.energy.grid.capacity_factor",
+    domain: "energy",
+    value: 0.42,
+    unit: "capacity_factor",
+    label: "FIXTURE, synthetic capacity factor",
+    as_of: "2020-01-01",
+    confidence: "reported",
+    sources: [
+      {
+        name: "FIXTURE aged trade outlet",
+        url: "https://example.com/fixture/capacity-factor",
+        tier: 3,
+        states_value: true,
+        traces_to: null,
+        retrieved_at: "2020-01-01",
+      },
+    ],
+    notes:
+      "Fixture record. Exercises the stale flag: retrieved decades ago against a 30-day fast window, so it stays stale regardless of when this is read.",
+    stale_after: "fast",
   },
 ];
 

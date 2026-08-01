@@ -315,6 +315,49 @@
   .wm .word .r {
     color: var(--domain-energy);
   }
+  /* Named size variants, BR-LOGO Rev 03's own table. Word size, segment
+     width, and tagline size all scale together; only `sm` also changes the
+     segment stroke, the tagline tracking, and the row's own gap, because
+     the sheet specifies those three change at the small size and nothing
+     else does. All BR-LOGO geometry, exempt from the Type and Space scales
+     the same way the unsized default above is. */
+  .wm-xl .word {
+    font-size: 64px;
+  }
+  .wm-xl .seg {
+    width: 56px;
+  }
+  .wm-xl .lock .tl {
+    font-size: 13px;
+  }
+  .wm-md .word {
+    font-size: 36px;
+  }
+  .wm-md .seg {
+    width: 32px;
+  }
+  .wm-md .lock .tl {
+    font-size: 9.5px;
+  }
+  .wm-sm .word {
+    font-size: 22px;
+  }
+  .wm-sm .lock {
+    margin-top: 7px;
+    gap: 7px;
+  }
+  .wm-sm .seg {
+    width: 19px;
+  }
+  .wm-sm .seg-s,
+  .wm-sm .seg-d,
+  .wm-sm .seg-t {
+    border-bottom-width: 1.5px;
+  }
+  .wm-sm .lock .tl {
+    font-size: 7px;
+    letter-spacing: 0.15em;
+  }
   .lock {
     display: flex;
     align-items: center;
@@ -1207,11 +1250,191 @@
   }
 }
 
-/* The money band goes to a single column below 760px, the same width the
-   type scale's own mobile compression uses, since stat-xl's size step
-   changes at that width too. Same order: Space, AI, Robotics, Energy. */
-@media (max-width: 760px) {
-  .stats {
-    grid-template-columns: 1fr;
+/* ---------------------------------------------------------------------------
+   THE SPECIMEN. app/specimen/page.tsx only. Every value below reads a token;
+   the only thing added here is layout scaffolding this one page needed
+   (grids, section rhythm, swatch shapes) and nothing else in the site did.
+   No new color, size, or space value is introduced anywhere in this block.
+   --------------------------------------------------------------------------- */
+@layer components {
+  /* Breaks out of the root layout's shared .shell (1120px, --width-breakout)
+     to reach the doc's page bound (1180px, --width-page), the value this
+     route exists to demonstrate. The offset is a formula, not a literal: the
+     shell's own padding plus half the gap between the two widths. It reads
+     .shell's padding by variable rather than assuming a number, so if that
+     padding is ever corrected to the doc's named 28/20 gutter exception
+     instead of the space-scale step it currently snaps to, this still holds. */
+  .specimen {
+    width: var(--width-page);
+    margin-left: calc(
+      -1 * (var(--space-32) + (var(--width-page) - var(--width-breakout)) / 2)
+    );
+    margin-right: calc(
+      -1 * (var(--space-32) + (var(--width-page) - var(--width-breakout)) / 2)
+    );
+  }
+
+  /* Section head above / below is 96 / 16 per the Space subsection; .sechead
+     already carries the 16-below half of that, this carries the 96-above
+     half for every section but the first. */
+  .specimen-section {
+    margin-top: var(--space-96);
+  }
+  .specimen-section:first-child {
+    margin-top: 0;
+  }
+
+  /* Three surfaces a lockup or a mark can sit on: the page, a panel, and the
+     jet surface used for social cards and video, where BR-LOGO specifies the
+     rules invert to white. */
+  .specimen-surface {
+    padding: var(--space-32);
+    display: flex;
+    align-items: center;
+    gap: var(--space-48);
+    flex-wrap: wrap;
+    border: 1px solid var(--color-rule);
+  }
+  .specimen-surface-page {
+    background: var(--color-page);
+  }
+  .specimen-surface-panel {
+    background: var(--color-panel);
+  }
+  .specimen-surface-jet {
+    background: var(--color-jet);
+  }
+  /* The wordmark's domain colors are not confidence marks and stay put on
+     jet. The confidence rule and the tagline are what BR-LOGO specifies
+     inverting to white on this surface. */
+  .specimen-surface-jet .seg-s,
+  .specimen-surface-jet .seg-d,
+  .specimen-surface-jet .seg-t {
+    border-bottom-color: var(--color-page);
+  }
+  .specimen-surface-jet .lock .tl,
+  .specimen-surface-jet .lock .tl b {
+    color: var(--color-page);
+  }
+
+  .swatch-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-24);
+  }
+  .swatch {
+    width: calc(var(--space-144) + var(--space-64));
+  }
+  .swatch-color {
+    height: var(--space-64);
+    border: 1px solid var(--color-rule);
+    margin: 0 0 var(--space-8);
+  }
+  .swatch-label {
+    font-family: var(--font-sans);
+    font-size: var(--text-ui-size);
+    line-height: var(--text-ui-line);
+    font-weight: var(--text-ui-weight);
+    letter-spacing: var(--text-ui-tracking);
+    color: var(--color-jet);
+    margin: 0 0 var(--space-4);
+  }
+  .swatch-job {
+    font-family: var(--font-sans);
+    font-size: var(--text-small-size);
+    line-height: var(--text-small-line);
+    font-weight: var(--text-small-weight);
+    letter-spacing: var(--text-small-tracking);
+    color: var(--color-body);
+    margin: var(--space-4) 0 0;
+  }
+
+  .type-row {
+    padding: var(--space-16) 0;
+    border-top: 1px solid var(--color-rule);
+  }
+  .type-row:first-child {
+    border-top: 0;
+  }
+  .type-row-sample {
+    display: block;
+    color: var(--color-jet);
+  }
+  .type-row-meta {
+    margin: var(--space-8) 0 0;
+  }
+
+  /* The space scale as bars: each bar's own width is its value, so the
+     specimen never prints a number next to a shape that might not match it.
+     The shape is the number. */
+  .space-bars {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+  .space-bar-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-16);
+  }
+  .space-bar {
+    height: var(--space-16);
+    background: var(--color-blue-bright);
+  }
+
+  .mark-demo-row {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-32);
+    flex-wrap: wrap;
+    padding: var(--space-8) 0;
+    border-top: 1px solid var(--color-rule);
+  }
+  .mark-demo-row:first-child {
+    border-top: 0;
+  }
+  .mark-demo-figures {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-16);
+  }
+  .mark-demo-svg-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-32);
+    flex-wrap: wrap;
+    padding: 0 0 var(--space-8);
+  }
+
+  .context-color-row {
+    display: flex;
+    gap: var(--space-32);
+    flex-wrap: wrap;
+  }
+
+  .column-demo {
+    border: 1px solid var(--color-rule);
+    background: var(--color-panel);
+    padding: var(--space-4);
+    margin: 0 0 var(--space-12);
+  }
+  .column-demo-inner {
+    height: var(--space-24);
+    background: var(--color-blue-deep);
+  }
+  .column-demo-label {
+    margin: 0 0 var(--space-4);
+  }
+
+  .specimen-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: var(--space-16) 0 0;
+  }
+  .specimen-table td {
+    padding: var(--space-8) var(--space-16) var(--space-8) 0;
+    border-top: 1px solid var(--color-rule);
+    text-align: left;
   }
 }
+
