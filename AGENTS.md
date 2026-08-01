@@ -31,6 +31,15 @@ edge. Light only. Dark mode is not under consideration.
 Blue bright is the tightest value in the system at 4.85 on panel. Links and
 derived marks only, never long copy, never below 12px.
 
+## The type and space scales are closed too
+
+Same rule as the palette. The fourteen type steps and the ten space steps in
+`docs/brand-foundation.md` section 3 are the only sizes, line heights,
+weights, tracking, and spacing values Burn Rate is allowed to use, transcribed
+into `app/globals.css` as tokens. A new value in either scale is a revision to
+the foundation doc, not a decision made inside a component. Never write a px
+size or a spacing value in a component; read the token.
+
 ## Type
 
 Serif is Gelasio: headlines, display, standfirsts. Sans is Selawik: running
@@ -55,9 +64,16 @@ plain blog, because a plain blog never promised anything.
 
 Confidence drives the underline and nothing else does:
 
-- `confirmed` solid, jet
-- `reported` dashed, muted
-- `derived` dotted, blue bright
+- `confirmed` solid
+- `reported` dashed
+- `derived` dotted
+
+The marks carry no color. The rule is jet in all three styles, and the
+numeral takes whatever color its context sets, never a color chosen for what
+the mark is. A figure is never set in blue bright for being derived, and
+never in muted grey for being reported; that mapping was rejected in Rev 11
+because it smuggled a hierarchy into a system that has none. Confidence maps
+to line style and to nothing else.
 
 The marks are kinds, not degrees. Marking a reported figure as derived is as
 wrong as the reverse. Ask what kind of thing the number is, not how much you

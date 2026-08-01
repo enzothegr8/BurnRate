@@ -116,7 +116,7 @@ Full specification in `BR-TYPE` Rev 02.
 
 **Mono owning every figure decides more than it looks like it does.** The large running statistics on Home are not serif display type with numbers in it. They are mono, at display size, carrying confidence marks. This is the most distinctive typographic consequence in the system and it falls out of the numbers standard rather than out of a style preference.
 
-**Sizes, weights, and line heights are settled as of Rev 10.** Fourteen steps.
+**Sizes, weights, and line heights are settled as of Rev 11.** Fourteen steps.
 
 | Token | Family | Size | Line | Weight | Tracking | Job |
 |---|---|---|---|---|---|---|
