@@ -100,12 +100,11 @@ invent a plausible-looking number. A realistic fake figure in a public repo
 belonging to a publication whose premise is marking its numbers is the worst
 thing that could ship.
 
-## Carried from the retired docs, pending confirmation
+## Prose
 
-`brand-bible.md`, `editorial-standards.md`, and `data-model.md` were retired and
-deleted; Rev 09 of the foundation doc absorbed what was worth keeping. One rule
-did not survive consolidation and is recorded here rather than lost:
+No em dashes anywhere. Not in copy, not in comments, not in commit messages.
+American English.
 
-- No em dashes anywhere, including code comments. American English.
-
-Confirm or drop it. Until Enzo rules, follow it.
+Confirmed by Enzo on 2026-08-01. It is the one rule from the retired
+`editorial-standards.md` that Rev 09 of the foundation doc did not restate, so
+it is recorded here instead.
