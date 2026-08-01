@@ -1,6 +1,6 @@
 # Burn Rate — Foundation
 
-**Doc** BR-FOUND · **Rev** 12 · **Updated** 2026-08-01 · **Drawn** E. CARVALHO
+**Doc** BR-FOUND · **Rev** 13 · **Updated** 2026-08-01 · **Drawn** E. CARVALHO
 
 **This is the single source of truth.** As of Rev 09 it absorbs everything worth keeping from `editorial-standards.md` and `data-model.md`, both of which are retired. If those files still exist anywhere, they are stale copies and this document wins.
 
@@ -141,6 +141,8 @@ Navigation is mono at the `label` token, uppercase and letterspaced, muted, with
 
 Inside an article, H2 is `head` and H3 is `subhead`. A heading that divides an article is a section head. `subhead` sits below it for the divisions inside a section, and nothing in an article body goes below `subhead`. If a piece needs a fourth level, the piece is structured wrong.
 
+**The article's own title is `title`, not `head`.** It is the name of the piece rather than a division within it, and it takes the same step as the Articles lead.
+
 **Figures in prose are set at `0.94em`.** Cascadia sets larger on the body than Selawik at the same nominal size, so a figure dropped into a sentence at `1em` looks shouted. At `0.94em` the digits land near the sans x-height.
 
 **Tabular figures always. Ligatures off always.** A number must not shift position when it updates, and a publication about numbers must never render a programming ligature.
@@ -209,7 +211,7 @@ The lockup's internal geometry belongs to `BR-LOGO`, not to the type and space s
 Settled and built as a mock covering Home, Articles, four domain pages, an article page, and Contact.
 
 - **Home** is not the articles page. It carries large running statistics, the latest article only, interactive modules, and slots for more.
-- **The money band is two by two, not four across.** Four columns cannot hold a `stat-xl` figure at the page bound, and the two-by-two arrangement is better for a second reason: four figures in a row invite reading as a set, and the four domains are explicitly not summable. Two rows of two make them four separate statements. Below 760px the band goes to a single column.
+- **The money band is four full-width rows, one per domain, hairline separated.** A running total only whirls if it is shown to about twelve significant digits, because the money moves near thousands per second. Twelve digits with a currency mark and separators is roughly eighteen characters, and eighteen characters at `stat-xl` is wider than half the page bound. No two-column arrangement fits, so the band is a ledger: four rows of equal weight, which also stops four non-summable domains from reading as a set. Below 760px the figure steps from `stat-xl` to `stat-l`.
 - **Articles** is a single lead at large scale followed by a hairline-separated list. It looks correct with one piece and with two hundred, and it expresses judgment rather than inventory. Card grids were rejected: equal weight hides judgment and the layout visibly breaks at low volume.
 - **Article pages** are a single centered measure at 64 characters. The measure is centered, so full-width breakout charts can be added later as a variant without restructuring.
 - **Domain pages** share one template distinguished by the domain color: large serif title, a thick color bar, three domain statistics, a domain-specific module slot, then a filtered list.
@@ -566,6 +568,7 @@ Base awards total `$1.292B`. With the unexercised Blue Origin option, `$1.573B`.
 
 | Rev | Date | Change |
 |---|---|---|
+| 13 | 2026-08-01 | Money band corrected to four full-width rows after two by two failed to fit at every measured width. The constraint is the figure, not the layout: a visibly whirling total needs about twelve significant digits, and eighteen characters at `stat-xl` exceeds half the page bound. Mobile steps the figure to `stat-l`. Article page titles take `title`, not `head`. |
 | 12 | 2026-08-01 | Corrections surfaced by the token migration. Navigation moves from sans to mono at the `label` token, superseding the roles assignment in Rev 06: the masthead was built in mono and the built version is right. Article H2 is `head` and H3 is `subhead`, stated explicitly because the migration had no rule and dropped H2 by 16px. Equidistant spacing values round up, recording a convention the migration imposed rather than inherited. The lockup's internal geometry is exempt from both scales and belongs to `BR-LOGO`. The money band is two by two rather than four across: four `stat-xl` figures do not fit the page bound, and two rows of two also stop four non-summable domains from reading as a set. |
 | 11 | 2026-08-01 | **Type, space, and the mark color correction.** Type scale settled: fourteen steps, serif at 400 only, body at 17, figures in prose at `0.94em`, tabular figures and no ligatures, three confidence bands with dotted heavier than solid, mobile compression on the display steps only. Space scale added: four-pixel base, ten steps, closed, with assignments and the three column widths. **The confidence marks no longer carry color.** Line style alone carries confidence, the rule is jet in all three styles, and the numeral takes its color from context. Supersedes the color assignments in Rev 05: color coding the marks smuggled a hierarchy into a system that has none, and made every derived figure look like a link. Motion, 3D, and other renderings added: scope deliberately open, mark geometry specified for non-CSS media, motion that encodes a value is a claim, reduced motion may not remove information. Issued as `BR-TYPE` Rev 02. |
 | 10 | 2026-08-01 | Confirmed Truth in numbers. as Burn Rate's slogan, replacing the "no slogans" framing. Recorded the lockup's bracketed rendering as a typographic treatment of the logotype rather than the text of the slogan itself. |
