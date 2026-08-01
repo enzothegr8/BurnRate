@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArticleRow } from "@/components/articles/article-row";
 import { DomainTags } from "@/components/brand/domain-tag";
-import { ARTICLES } from "@/lib/site";
+import { ARTICLES } from "@/lib/articles";
 
 export const metadata: Metadata = { title: "Articles" };
 
@@ -18,9 +18,9 @@ export default function ArticlesPage() {
       <Link href={`/articles/${lead.slug}`}>
         <h1 className="lead-h">{lead.title}</h1>
       </Link>
-      <p className="lead-d">{lead.dek}</p>
+      <p className="lead-d">{lead.standfirst}</p>
       <p className="meta">
-        {lead.date} · Rev {lead.rev} · Sources {lead.sources}
+        {lead.date} · Rev {lead.rev}
       </p>
 
       <div style={{ height: 44 }} />

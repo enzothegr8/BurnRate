@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArticleRow } from "@/components/articles/article-row";
 import { Figure } from "@/components/facts/figure";
+import { articlesInDomain } from "@/lib/articles";
 import {
   DOMAINS,
   DOMAIN_LABEL,
   DOMAIN_MODULE_DESC,
   DOMAIN_STATS,
-  articlesInDomain,
   type Domain,
 } from "@/lib/site";
 
@@ -64,7 +64,7 @@ export default async function DomainPage({
         {stats.map((s) => (
           <div key={s.value + s.caption} className="dom-stat">
             <span className="b">
-              <Figure value={s.value} confidence={s.confidence} />
+              <Figure placeholder={s.value} confidence={s.confidence} />
             </span>
             <p className="c">{s.caption}</p>
           </div>
@@ -79,7 +79,7 @@ export default async function DomainPage({
       <p className="sechead">In {label}</p>
       <div className="list" style={{ paddingTop: 4 }}>
         {articles.map((a) => (
-          <ArticleRow key={a.slug} article={a} showDek={false} />
+          <ArticleRow key={a.slug} article={a} showStandfirst={false} />
         ))}
       </div>
     </section>

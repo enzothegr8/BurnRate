@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { DomainTags } from "@/components/brand/domain-tag";
 import { MoneyBand } from "@/components/home/money-band";
-import { ARTICLES } from "@/lib/site";
+import { ARTICLES } from "@/lib/articles";
 
 // Home is not the articles page. It carries the running statistics, the latest
 // piece only at full lead scale, and slots for the interactive work that is
@@ -23,9 +23,9 @@ export default function Home() {
             <Link href={`/articles/${lead.slug}`}>
               <h1 className="lead-h">{lead.title}</h1>
             </Link>
-            <p className="lead-d">{lead.dek}</p>
+            <p className="lead-d">{lead.standfirst}</p>
             <p className="meta">
-              {lead.date} · Rev {lead.rev} · Sources {lead.sources}
+              {lead.date} · Rev {lead.rev}
             </p>
           </div>
         </div>

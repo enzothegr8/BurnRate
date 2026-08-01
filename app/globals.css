@@ -282,6 +282,17 @@
     color: var(--color-blue-bright);
   }
 
+  /* Stale figures render flagged, never hidden. The mark says the verification
+     aged, not that the number is wrong. */
+  .stale-flag {
+    color: var(--color-crimson);
+    font-family: var(--font-mono);
+    font-size: 0.75em;
+    vertical-align: super;
+    line-height: 0;
+    margin-left: 1px;
+  }
+
   .sechead {
     font-family: var(--font-mono);
     font-size: 10px;
