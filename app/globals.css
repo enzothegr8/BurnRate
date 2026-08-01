@@ -718,6 +718,20 @@
   .site-footer .meta {
     font-size: 9px;
   }
+
+  /* Hand-built inline SVG, no icon library. Inherits the metadata line's muted
+     ink and darkens to jet on hover, the same mechanism the nav links use for
+     their active state. Never blue bright: that color is reserved for links and
+     derived marks at 12px and above, and this glyph sits below that floor. */
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    color: var(--color-muted);
+    vertical-align: -1px;
+  }
+  .social-link:hover {
+    color: var(--color-jet);
+  }
 }
 
 @media (max-width: 900px) {
