@@ -43,9 +43,9 @@ size or a spacing value in a component; read the token.
 ## Type
 
 Serif is Gelasio: headlines, display, standfirsts. Sans is Selawik: running
-copy, navigation, UI. Mono is Cascadia Mono: every figure, unit, label, tag,
-timestamp, and source line. Never Inter. Ligatures stay off in mono, because a
-publication about numbers must not render programming ligatures.
+copy, UI. Mono is Cascadia Mono: every figure, unit, label, tag, timestamp,
+source line, and navigation. Never Inter. Ligatures stay off in mono, because
+a publication about numbers must not render programming ligatures.
 
 ## The domains
 
