@@ -436,6 +436,11 @@
     justify-content: flex-end;
   }
   .lead-cover-text .kick {
+    /* Crimson kickers read fine on the page but wash out against this scrim,
+       especially where the artwork's own crimson ring sits behind them. Page
+       color matches the headline in hue; case, size, and letter-spacing still
+       carry the hierarchy between the two. */
+    color: var(--color-page);
     margin-bottom: 8px;
   }
   .lead-cover-text .lead-h {
