@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Footer } from "@/components/layout/footer";
 import { Masthead } from "@/components/layout/masthead";
 import { PlaceholderBar } from "@/components/layout/placeholder-bar";
+import { Shell } from "@/components/layout/shell";
 import { fontVariables } from "./fonts";
 import "./globals.css";
 
@@ -46,11 +47,11 @@ export default function RootLayout({
     <html lang="en" className={fontVariables}>
       <body>
         <PlaceholderBar />
-        <div className="shell">
+        <Shell>
           <Masthead />
           {children}
           <Footer />
-        </div>
+        </Shell>
       </body>
     </html>
   );

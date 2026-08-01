@@ -180,10 +180,27 @@
 
   /* Three column widths. The article measure, a breakout for full-width
      charts and modules inside an article, and the page bound for Home,
-     Articles, and the domain pages. */
+     Articles, the domain pages, and Contact. Rev 14: article routes bound at
+     --width-breakout; every other route bounds at --width-page. */
   --measure-article: 64ch;
   --width-breakout: 1120px;
   --width-page: 1180px;
+}
+
+/* The page gutter is a token, not a space-scale step: 28px desktop, 20px
+   mobile, deliberately off the scale per the Space subsection of
+   docs/brand-foundation.md ("The page gutter is a token, not a scale step
+   ... it must not be snapped to the nearest step"). Rev 14 corrects a
+   Prompt 2A migration snap that mapped the original gutter literal to
+   --space-32 because the doc named the exception in prose and the migration
+   was matching values against the ten-step scale, not reading for this. */
+:root {
+  --gutter-page: 28px;
+}
+@media (max-width: 760px) {
+  :root {
+    --gutter-page: 20px;
+  }
 }
 
 /* Domain aliases. Not new colors, just the four assignments from the doc given
@@ -277,10 +294,19 @@
     color: var(--color-page);
   }
 
+  /* Rev 14: every route bounds at the page width by default; article routes
+     are the one exception, capped at the narrower breakout width via
+     .shell-article (applied in app/articles/[slug]/page.tsx, not
+     /articles, which is a page rather than a piece). The 1120 breakout used
+     for full-width charts inside an article body is unrelated and
+     unaffected: that one lives inside .measure, not here. */
   .shell {
-    max-width: var(--width-breakout);
+    max-width: var(--width-page);
     margin: 0 auto;
-    padding: 0 var(--space-32);
+    padding: 0 var(--gutter-page);
+  }
+  .shell-article {
+    max-width: var(--width-breakout);
   }
 
   /* masthead */
@@ -1257,21 +1283,12 @@
    No new color, size, or space value is introduced anywhere in this block.
    --------------------------------------------------------------------------- */
 @layer components {
-  /* Breaks out of the root layout's shared .shell (1120px, --width-breakout)
-     to reach the doc's page bound (1180px, --width-page), the value this
-     route exists to demonstrate. The offset is a formula, not a literal: the
-     shell's own padding plus half the gap between the two widths. It reads
-     .shell's padding by variable rather than assuming a number, so if that
-     padding is ever corrected to the doc's named 28/20 gutter exception
-     instead of the space-scale step it currently snaps to, this still holds. */
+  /* Rev 14: .shell now defaults to --width-page (1180px) on every route
+     except an article page, so /specimen reaches the full page bound
+     through the shell itself. No breakout rule needed here any more; this
+     class is kept only as a hook for section-specific spacing below. */
   .specimen {
-    width: var(--width-page);
-    margin-left: calc(
-      -1 * (var(--space-32) + (var(--width-page) - var(--width-breakout)) / 2)
-    );
-    margin-right: calc(
-      -1 * (var(--space-32) + (var(--width-page) - var(--width-breakout)) / 2)
-    );
+    width: 100%;
   }
 
   /* Section head above / below is 96 / 16 per the Space subsection; .sechead
@@ -1413,6 +1430,14 @@
   }
 
   .column-demo {
+    /* The page-bound box (1180) is now wider than .specimen's own content
+       area: /specimen reaches 1180 through .shell itself (Rev 14), so
+       anything nested inside it sits inside that width, gutter included,
+       and cannot also independently draw a box at the full 1180 without
+       overflowing. Capped rather than left to overflow; the breakout and
+       measure boxes below it are still shown at their true relative
+       proportion to each other. */
+    max-width: 100%;
     border: 1px solid var(--color-rule);
     background: var(--color-panel);
     padding: var(--space-4);
