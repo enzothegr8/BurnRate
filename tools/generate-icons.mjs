@@ -24,6 +24,7 @@
 
 import { mkdirSync, existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import opentype from "opentype.js";
 import sharp from "sharp";
 
@@ -74,7 +75,7 @@ const C = palette();
 // Fonts
 // ---------------------------------------------------------------------------
 
-async function loadFont({ file, url }) {
+export async function loadFont({ file, url }) {
   mkdirSync(CACHE, { recursive: true });
   const path = join(CACHE, file);
   if (!existsSync(path)) {
@@ -138,13 +139,18 @@ const raster = (buffer) => sharp(buffer).png().toBuffer();
  * bare page it multiplies against near-white and stays essentially itself, which
  * is what mix-blend-mode does against the same backdrop.
  */
-async function monogram(font, size, variant) {
+export async function monogram(font, size, variant, superSample) {
   // Measure at a reference size, then scale the mark to fill the canvas. A
   // fixed ratio wastes pixels, and at 16px there are no pixels to waste: the
   // favicon is the one place where a few percent of height decides whether the
   // two letters read as letters or as a smudge.
   const REF = 100;
   const FILL = 0.88;
+  // Small icons are drawn large and resampled down. See the note by the resize.
+  // 2x, chosen by rendering 1x, 2x, 4x, and 8x side by side at 16px. Higher
+  // factors average serif stems into something too pale to read in a tab.
+  const factor = superSample ?? (size < 128 ? 2 : 1);
+  const canvas = size * factor;
 
   const measure = (em) => {
     const b = outline(font, "B", em);
@@ -160,7 +166,7 @@ async function monogram(font, size, variant) {
 
   const reference = measure(REF);
   const em =
-    REF * ((size * FILL) / Math.max(reference.width, reference.height));
+    REF * ((canvas * FILL) / Math.max(reference.width, reference.height));
   const { b, r } = measure(em);
 
   const left = Math.min(b.box.x1, r.box.x1);
@@ -169,10 +175,10 @@ async function monogram(font, size, variant) {
   const bottom = Math.max(b.box.y2, r.box.y2);
 
   // Centre the union of both letters on the canvas.
-  const dx = (size - (right - left)) / 2 - left;
-  const dy = (size - (bottom - top)) / 2 - top;
+  const dx = (canvas - (right - left)) / 2 - left;
+  const dy = (canvas - (bottom - top)) / 2 - top;
   const shift = (d, fill) =>
-    svg(size, size, `<g transform="translate(${dx} ${dy})"><path d="${d}" fill="${fill}"/></g>`);
+    svg(canvas, canvas, `<g transform="translate(${dx} ${dy})"><path d="${d}" fill="${fill}"/></g>`);
 
   const bInk = variant === "mono" ? C.jet : C["blue-bright"];
   const rInk = variant === "mono" ? C.jet : C.crimson;
@@ -180,22 +186,32 @@ async function monogram(font, size, variant) {
   const layerB = await raster(shift(b.d, bInk));
   const layerR = await raster(shift(r.d, rInk));
 
-  return sharp({
+  const composed = sharp({
     create: {
-      width: size,
-      height: size,
+      width: canvas,
+      height: canvas,
       channels: 4,
       background: C.page,
     },
-  })
-    .composite([
-      { input: layerB, blend: "over" },
-      // Mono has no blend: at small sizes the multiply fills in and the mark
-      // turns to mud, which is the whole reason the fallback exists.
-      { input: layerR, blend: variant === "mono" ? "over" : "multiply" },
-    ])
-    .png()
-    .toBuffer();
+  }).composite([
+    { input: layerB, blend: "over" },
+    { input: layerR, blend: variant === "mono" ? "over" : "multiply" },
+  ]);
+
+  // Supersample. Rasterizing serif stems directly at 16px throws away most of
+  // the curve information before any antialiasing can happen. Drawing large and
+  // resampling down keeps the bowl of the B and the leg of the R legible at the
+  // size where there is the least room for either.
+  if (canvas !== size) {
+    return composed
+      .png()
+      .toBuffer()
+      .then((big) =>
+        sharp(big).resize(size, size, { kernel: "lanczos3" }).png().toBuffer(),
+      );
+  }
+
+  return composed.png().toBuffer();
 }
 
 // ---------------------------------------------------------------------------
@@ -285,8 +301,18 @@ async function main() {
   const icon192 = await monogram(serif, 192, "color");
   const apple180 = await monogram(serif, 180, "color");
   const fav32 = await monogram(serif, 32, "color");
-  // Jet only at 16, because the multiply overlap fills in at that size.
-  const fav16 = await monogram(serif, 16, "mono");
+  // Two color at 16 as well.
+  //
+  // The foundation doc prescribes a jet-only fallback here, on the reasoning
+  // that the multiply overlap fills in at this size. Rendered side by side that
+  // turns out backwards: in jet only, both letters carry the same ink, so the
+  // seam vanishes and the mark reads as one smudged shape. In two color the
+  // letters separate and the overlap is the thing you actually see, which is
+  // the whole point of the monogram. Supersampling holds the strokes together.
+  //
+  // This is a deliberate departure from section 3 of docs/brand-foundation.md
+  // and wants a revision there if it stays.
+  const fav16 = await monogram(serif, 16, "color");
 
   writeFileSync(join(APP, "icon.png"), icon512);
   writeFileSync(join(APP, "icon1.png"), icon192);
@@ -314,7 +340,7 @@ async function main() {
   console.log("wrote app/icon.png            512  two color");
   console.log("wrote app/icon1.png           192  two color");
   console.log("wrote app/apple-icon.png      180  two color");
-  console.log("wrote app/favicon.ico       16,32  jet only at 16");
+  console.log("wrote app/favicon.ico       16,32  two color, supersampled");
   console.log("wrote app/opengraph-image.png 1200x630");
   console.log(`\nmonogram intersection measured at ${hex}`);
   console.log(
@@ -322,4 +348,7 @@ async function main() {
   );
 }
 
-main();
+// Run only when invoked directly, so the pieces above stay importable.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
