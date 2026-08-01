@@ -1,6 +1,6 @@
 # Burn Rate — Foundation
 
-**Doc** BR-FOUND · **Rev** 10 · **Updated** 2026-08-01 · **Drawn** E. CARVALHO
+**Doc** BR-FOUND · **Rev** 11 · **Updated** 2026-08-01 · **Drawn** E. CARVALHO
 
 **This is the single source of truth.** As of Rev 09 it absorbs everything worth keeping from `editorial-standards.md` and `data-model.md`, both of which are retired. If those files still exist anywhere, they are stale copies and this document wins.
 
@@ -87,11 +87,11 @@ Full specification in `BR-COLOR` Rev 02.
 | Page | `#FBFBFC` | The reading surface. White, never warm. |
 | Panel | `#EFEFF1` | Raised blocks sitting on the page. Always bordered. |
 | Rule | `#D8D8DC` | Hairlines. Never text. |
-| Muted | `#67676E` | Metadata and the reported mark. |
+| Muted | `#67676E` | Metadata. |
 | Body | `#35353B` | Running copy. |
-| Jet | `#08080A` | Headlines, the confirmed mark, Robotics. |
+| Jet | `#08080A` | Headlines, every confidence rule, Robotics. |
 | Blue deep | `#101F52` | Structure, chart outlines, Space. |
-| Blue bright | `#1F5FE0` | Links, the derived mark, AI. |
+| Blue bright | `#1F5FE0` | Links, AI. |
 | Crimson | `#B3122B` | Emphasis, kickers, revision numbers, Energy. |
 
 **White is the page and grey is the panel**, not the reverse. Panels always carry a hairline border; the tint alone is only 1.11 contrast and will not define an edge.
@@ -104,15 +104,77 @@ Full specification in `BR-COLOR` Rev 02.
 
 **Blue bright is the tightest value in the system** at 4.85 on panel. Links and derived marks only, never long copy, never below 12px.
 
+**The confidence marks carry no color.** The rule is jet in all three line styles and the numeral takes whatever color its context sets. See section 4.
+
 Rejected and not to be revisited without reason: cream, orange, purple page tints, dark mode, tinted blue page, planetary palettes, Gargantua gold.
 
 ### Type
 
-**Approved as it stands.** The three roles are settled: serif for headlines, display, and standfirsts; sans for running copy, navigation, and UI; mono for every figure, unit, label, tag, timestamp, and source line.
+Full specification in `BR-TYPE` Rev 02.
 
-Currently a system font stack, which resolves per platform. Before launch it should be pinned to open-licensed webfonts that reproduce the approved look: **Gelasio** (metric-compatible with Georgia), **Selawik** (Microsoft's open metric-compatible Segoe UI replacement), and **Cascadia Mono** (Microsoft's, SIL Open Font License, usable directly). Build task, not a design decision.
+**The three roles are settled.** Serif for headlines, display, and standfirsts. Sans for running copy, navigation, and UI. Mono for every figure, unit, label, tag, timestamp, and source line.
 
-Not settled: sizes, weights, line heights, and the scale.
+**Mono owning every figure decides more than it looks like it does.** The large running statistics on Home are not serif display type with numbers in it. They are mono, at display size, carrying confidence marks. This is the most distinctive typographic consequence in the system and it falls out of the numbers standard rather than out of a style preference.
+
+**Sizes, weights, and line heights are settled as of Rev 10.** Fourteen steps.
+
+| Token | Family | Size | Line | Weight | Tracking | Job |
+|---|---|---|---|---|---|---|
+| `display` | serif | 56 | 1.04 | 400 | -.020 | Domain page titles, Home hero |
+| `title` | serif | 40 | 1.10 | 400 | -.018 | Article title, the Articles lead |
+| `head` | serif | 28 | 1.20 | 400 | -.010 | Section heads, list items |
+| `subhead` | serif | 21 | 1.30 | 400 | 0 | In-article subheads |
+| `standfirst` | serif | 20 | 1.50 | 400 | 0 | Standfirst, set in body color |
+| `body` | sans | 17 | 1.65 | 400 | 0 | Running copy |
+| `small` | sans | 15 | 1.55 | 400 | 0 | Captions, secondary UI, navigation |
+| `ui` | sans | 14 | 1.40 | 600 | 0 | Active nav, controls |
+| `stat-xl` | mono | 64 | 1.00 | 400 | -.010 | Home running statistics |
+| `stat-l` | mono | 34 | 1.05 | 400 | 0 | Domain statistics, chart callouts |
+| `stat-m` | mono | 22 | 1.15 | 400 | 0 | Inset panel figures, table totals |
+| `figure` | mono | .94em | inherit | 400 | 0 | Any figure inside prose |
+| `meta` | mono | 12.5 | 1.45 | 400 | .010 | Source lines, timestamps, notes |
+| `label` | mono | 11 | 1.20 | 600 | .080 | Domain tags, kickers, column heads |
+
+**Serif is 400 at every size.** Hierarchy is carried by size alone, never by weight, which keeps the headline voice level with the logo. Sans carries 400 and 600. Mono carries 400, with 600 reserved for labels and tags. No other weight is in the system.
+
+**Figures in prose are set at `0.94em`.** Cascadia sets larger on the body than Selawik at the same nominal size, so a figure dropped into a sentence at `1em` looks shouted. At `0.94em` the digits land near the sans x-height.
+
+**Tabular figures always. Ligatures off always.** A number must not shift position when it updates, and a publication about numbers must never render a programming ligature.
+
+**The confidence rule has three size bands.** Dotted carries more weight than solid at every band, because a dot covers roughly half the length a solid rule does and would otherwise read as the faintest mark in the system. It is a kind, not a degree, and it must not look like a weaker claim.
+
+| Band | Confirmed | Reported | Derived | Offset |
+|---|---|---|---|---|
+| Up to 17px | 1px solid | 1px dashed | 1.5px dotted | .14em |
+| 18 to 34px | 2px solid | 2px dashed | 2.5px dotted | .12em |
+| 35px and up | 3px solid | 3px dashed | 4px dotted | .10em |
+
+**Body never moves on mobile.** Seventeen pixels is already right on a phone and shrinking it is the most common way a reading site gets worse. Only the display steps compress, at 760px: `display` to 36, `title` to 29, `head` to 23, `stat-xl` to 40, `stat-l` to 26. Everything else is unchanged. Note that `stat-xl` crosses from band three to band two on mobile and its rule changes with it. Handle that in the component, never by hand.
+
+**Blue bright is never used below 12px.** This is a color rule, not a confidence rule, and it constrains any figure set in blue bright for contextual reasons, most often an AI-domain statistic or an AI series in a chart. `label` at 11px therefore cannot carry a blue bright figure; those move up to `meta`. If a figure will not fit at 12.5px, the layout is wrong, not the rule.
+
+**Webfonts are not yet pinned.** The stack is currently a system stack, which resolves per platform. Before launch it should be pinned to open-licensed faces that reproduce the approved look: **Gelasio** (metric-compatible with Georgia), **Selawik** (Microsoft's open metric-compatible Segoe UI replacement), and **Cascadia Mono** (Microsoft's, SIL Open Font License, usable directly). Build task, not a design decision. Two of the three are metric-compatible with what the scale was set on, so the scale survives pinning. Cascadia is the exception, so `figure` at `0.94em` is the one value to re-check once the real face is loading.
+
+### Space
+
+Full specification in `BR-TYPE` Rev 02.
+
+**A four-pixel base, ten steps.** Every margin, padding, and gap in the system is one of these values: `4` · `8` · `12` · `16` · `24` · `32` · `48` · `64` · `96` · `144`.
+
+**The space scale is closed in the same way the palette is closed.** A new value is a revision to this document, not a decision made inside a component.
+
+| Relationship | Value | Note |
+|---|---|---|
+| Figure to its own label | 8 | Tight enough that they read as one object |
+| Paragraph to paragraph | 24 | |
+| Subhead above / below | 48 / 12 | Asymmetric, so the head binds to what follows |
+| Panel padding | 24 | Plus the hairline border, always |
+| Panel above / below | 32 | |
+| Section head above / below | 96 / 16 | |
+| Module to module, Home | 144 | The only use of the top step |
+| Page gutter | 28 / 20 | Desktop / mobile. The one value off the scale, carried from `BR-LOGO`. |
+
+**Three column widths.** The article measure at `64ch`, already settled and centered. A `1120` breakout for full-width charts and modules inside an article. An `1180` page bound for Home, Articles, and the domain pages.
 
 ### Logo
 
@@ -144,6 +206,34 @@ Settled and built as a mock covering Home, Articles, four domain pages, an artic
 - **Domain pages** share one template distinguished by the domain color: large serif title, a thick color bar, three domain statistics, a domain-specific module slot, then a filtered list.
 - **Contact** is spare, with corrections given their own line.
 
+### Motion, 3D, and other renderings
+
+**Scope is deliberately open.** Section 2 names animations, charts, interactive modules, video, images, articles, a newsletter, and forums. Nothing here restricts what a rendering may depict or in what style. These rules govern how a rendering handles numbers and how it behaves, not what it is about. When a pattern earns repeating, record it here; until then the field is open on purpose, not by oversight.
+
+**A number in a rendering is a number.** Whatever the medium, SVG, canvas, WebGL, video, an image, a slide, an exported PDF: every figure carries its mark. A scene containing no numbers carries no marks and needs none.
+
+**Motion that encodes a value is a claim.** A counter ticking at a rate asserts the rate. A bar growing to a height asserts the height. Those are figures, and they are marked. Motion that encodes nothing asserts nothing, and is decoration.
+
+**The mark must be reproducible outside CSS.** `border-bottom` does not exist in WebGL. The geometry is therefore specified, not left to the renderer.
+
+| Mark | Stroke, by band | Pattern | Cap | Coverage |
+|---|---|---|---|---|
+| Confirmed | 1 · 2 · 3 | continuous | butt | 100% |
+| Reported | 1 · 2 · 3 | 3× stroke on, 2× stroke off | butt | 60% |
+| Derived | 1.5 · 2.5 · 4 | dots at 2× stroke, centre to centre | round | 50% |
+
+Bands are the type bands: up to 17px, 18 to 34px, 35px and up. A dot is round at every size, which is why the derived stroke does not scale in step with the other two.
+
+**Reduced motion may never remove information.** `prefers-reduced-motion` is respected everywhere. If a value is only legible while something moves, the static state must state it in type.
+
+**The palette, the type roles, and the space scale hold in every medium.** Labels, units, and figures are mono wherever they appear, including inside a scene. On the jet surface used for social cards and video, rules invert to white, as `BR-LOGO` already specifies for the logo segments.
+
+**A rendering containing figures carries a source line and a Rev number**, on the same terms as an article. See *Revisions and corrections*.
+
+**Awe is not an argument, in pictures either.** A rendering may not do argumentative work the numbers do not support. Scale, drama, and photorealism are not evidence. This constrains claims, not ambition.
+
+**Never sum across domains** is a design law and it applies to renderings. Four things adjacent in a scene must not imply a total.
+
 ---
 
 ## 4. The numbers standard
@@ -160,7 +250,7 @@ The notation applies to numbers, not to prose. Analysis is signed, not marked.
 
 ### The three levels
 
-**Solid, jet, confirmed.** All four tests must pass:
+**Solid, confirmed.** All four tests must pass:
 
 1. It comes from the originating party: the agency, the contractor, the filing, the procurement record, the operator, the regulator. Not an aggregator, not a summary of a summary.
 2. The figure is stated once, plainly, and does not vary in framing across credible sources.
@@ -169,7 +259,7 @@ The notation applies to numbers, not to prose. Analysis is signed, not marked.
 
 A figure cited to trade press is not confirmed, however reliable the outlet.
 
-**Dashed, muted, reported.** Any one of these triggers it:
+**Dashed, reported.** Any one of these triggers it:
 
 - The only sources are secondary.
 - The figure varies by framing across otherwise credible sources.
@@ -178,7 +268,7 @@ A figure cited to trade press is not confirmed, however reliable the outlet.
 - **It was spoken, not published.** A number said aloud at a press event, an earnings call, or a conference stage and never printed is reported, no matter how often it is repeated afterward.
 - **It is guided or planned rather than spent or delivered.** Capex guidance, announced capacity, target production rates, and pledged investment are reported at best, even in a filing. The filing confirms the company *said* it. It does not confirm the money moved.
 
-**Dotted, blue bright, derived.** Always:
+**Dotted, derived.** Always:
 
 - Any calculation performed in-house, however trivial.
 - Any per-capita, per-taxpayer, or per-unit figure, because the denominator is a choice.
@@ -191,6 +281,16 @@ A figure cited to trade press is not confirmed, however reliable the outlet.
 ### The marks are kinds, not degrees
 
 **The notation is not a dial where lower is safer.** Dotted asserts that Burn Rate did the arithmetic. If it did not, dotted is a lie, just a self-deprecating one. Marking a reported figure as derived is as wrong as the reverse. When in doubt, ask what *kind* of thing the number is, not how much you trust it.
+
+### The marks carry no color
+
+**Line style alone carries confidence.** The rule is jet in all three styles, exactly as the three segments beneath the logo are jet.
+
+**The numeral takes whatever color its context sets.** The domain color on a domain page, a series color in a chart, crimson where a figure is an emphasized kicker, jet by default in prose. Nothing about how a number came to exist determines what color it is printed in.
+
+**A figure is never set in blue bright for being derived, and never in muted grey for being reported.** Color coding the marks smuggled a hierarchy into a system that explicitly has none: jet, then grey, then blue reads as strong, weak, weaker. It also made every derived figure look like a hyperlink, because blue bright is the link color. Supersedes Rev 05.
+
+**Losing the color redundancy makes the line styles load-bearing.** When the marks were jet, grey, and blue, color did half the work of telling them apart. Now line style does all of it. Any rendering of a mark, in any medium, has to reproduce the dash and dot geometry faithfully or the notation silently stops working. See *Motion, 3D, and other renderings* in section 3.
 
 ### The laundering problem, with two worked examples
 
@@ -297,7 +397,7 @@ Three consequences:
 | `unit` | Enum. `USD`, `USD_per_kg`, `USD_per_W`, `USD_per_MWh`, `W`, `Wh`, `kg`, `count`, `percent`, `days`, `years`, `FLOP`, `tokens`, `capacity_factor`. |
 | `label` | What it is, in plain language. |
 | `as_of` | The date the figure describes, not the date it was fetched. |
-| `confidence` | `confirmed` · `reported` · `derived`. Drives the underline and nothing else does. |
+| `confidence` | `confirmed` · `reported` · `derived`. Drives the line style of the underline and nothing else. Not the color, not the weight of the claim. |
 | `sources[]` | At least one. Zero sources is invalid and must not render. |
 | `sources[].tier` | 1 to 5, **per claim, not per outlet**. |
 | `sources[].tier_note` | Required when tier departs from the outlet's default. |
@@ -406,10 +506,11 @@ Three cases, one stops:
 - Whether trackers are part of the plan, and which domain gets the first one.
 
 **Design**
-- Type sizes, weights, line heights, the scale.
 - Pinning the webfonts so type survives leaving Enzo's machine.
 - Image and illustration doctrine.
 - Chart system beyond the color assignments.
+- Ambient motion: page-load sequences, scroll reveals, hover states. Open by decision, judged case by case. Record a pattern here once it earns repeating.
+- The component specimen page, for design system import into Claude Design.
 
 **Identity**
 - Descriptor and short form.
@@ -456,6 +557,7 @@ Base awards total `$1.292B`. With the unexercised Blue Origin option, `$1.573B`.
 
 | Rev | Date | Change |
 |---|---|---|
+| 11 | 2026-08-01 | **Type, space, and the mark color correction.** Type scale settled: fourteen steps, serif at 400 only, body at 17, figures in prose at `0.94em`, tabular figures and no ligatures, three confidence bands with dotted heavier than solid, mobile compression on the display steps only. Space scale added: four-pixel base, ten steps, closed, with assignments and the three column widths. **The confidence marks no longer carry color.** Line style alone carries confidence, the rule is jet in all three styles, and the numeral takes its color from context. Supersedes the color assignments in Rev 05: color coding the marks smuggled a hierarchy into a system that has none, and made every derived figure look like a link. Motion, 3D, and other renderings added: scope deliberately open, mark geometry specified for non-CSS media, motion that encodes a value is a claim, reduced motion may not remove information. Issued as `BR-TYPE` Rev 02. |
 | 10 | 2026-08-01 | Confirmed Truth in numbers. as Burn Rate's slogan, replacing the "no slogans" framing. Recorded the lockup's bracketed rendering as a typographic treatment of the logotype rather than the text of the slogan itself. |
 | 09 | 2026-07-31 | **Consolidation.** Absorbed everything worth keeping from `editorial-standards.md` and `data-model.md`, both now retired: the confidence levels and their tests, the promotion rule, the per-domain source hierarchy, tier-per-claim, the laundering examples, all prohibitions, the revision and correction policy, the fact-record schema, derived-fact rules, staleness, live sources, the tracker test, and the agent contract. Preserved the verified Moon Base research as an appendix. Restructured into brand, visual system, numbers standard, data model, agents, open. Added the note that "burn rate" is the masthead and not a label for figures. Recorded layout as settled and built. Deployment added as active work. |
 | 08 | 2026-07-31 | Logo settled: Burn in bright blue, Rate in crimson, rule segments jet, tagline in deep blue, monogram at medium overlap with B in front. Noted the lockup uses every domain color exactly once. Issued as `BR-LOGO` Rev 03. |
