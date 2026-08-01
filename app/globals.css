@@ -387,6 +387,65 @@
     margin: 0 0 12px;
   }
 
+  /* Article cover image. The full-width breakout the article template's own
+     comment anticipates: it sits between two .measure blocks so it can run the
+     shell's full width while the reading text on either side stays at 64ch. A
+     hairline border, no shadow, no rounded corner standing in for one. */
+  .cover-image {
+    border: 1px solid var(--color-rule);
+    margin: 0 0 34px;
+  }
+  .cover-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* The home "Latest" lead when its piece carries a cover: tags, kicker,
+     headline, and standfirst sit directly on the image rather than in a
+     caption strip below it. The scrim is a single flat tint mixed from the jet
+     token, not its own hex and not a gradient. A hairline border closes the
+     card the same as every other panel here. */
+  .lead-cover {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border: 1px solid var(--color-rule);
+    text-decoration: none;
+    aspect-ratio: 16 / 9;
+  }
+  .lead-cover-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .lead-cover-scrim {
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--color-jet) 62%, transparent);
+  }
+  .lead-cover-text {
+    position: relative;
+    height: 100%;
+    padding: 26px 26px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .lead-cover-text .kick {
+    margin-bottom: 8px;
+  }
+  .lead-cover-text .lead-h {
+    color: var(--color-page);
+  }
+  .lead-cover-text .lead-d {
+    color: var(--color-rule);
+    margin-bottom: 0;
+  }
+
   /* money band */
   .moneybar {
     display: flex;

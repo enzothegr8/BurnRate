@@ -1,6 +1,6 @@
 # Burn Rate — Foundation
 
-**Doc** BR-FOUND · **Rev** 09 · **Updated** 2026-07-31 · **Drawn** E. CARVALHO
+**Doc** BR-FOUND · **Rev** 10 · **Updated** 2026-08-01 · **Drawn** E. CARVALHO
 
 **This is the single source of truth.** As of Rev 09 it absorbs everything worth keeping from `editorial-standards.md` and `data-model.md`, both of which are retired. If those files still exist anywhere, they are stale copies and this document wins.
 
@@ -62,9 +62,13 @@ Space will probably develop fastest, because that is where Enzo's existing inter
 
 **The intersections are the main point of the site.** Pieces carry tags for every domain they touch, and multi-domain tagging is the normal case rather than the exception. Datacenters in space is Space and AI, and Energy once the power system is part of the story. An autonomous robotic sport is Robotics and AI.
 
-### No slogans
+### The slogan
 
-Do not repeat catchphrases across documents or mockups. The one sanctioned line is the tagline, and it belongs to the logo rather than to the writing. It does not go in body copy, headlines, or captions as a phrase.
+**Burn Rate's slogan is Truth in numbers.** Confirmed by Enzo, 2026-08-01.
+
+In the lockup it renders as `[Truth in numbers].`, bracketed, with the final period in crimson. That is a typographic treatment of the logotype, not the text of the slogan itself. Quoted anywhere else, it is plain: Truth in numbers.
+
+It may be cited as the brand's slogan wherever the brand is being described: an about page, a bio, a meta description. It does not become a recurring device inside headlines, kickers, or captions, and it does not get a sibling. This is the one slogan. Inventing a second because some document felt like it needed one is the failure mode this section exists to prevent.
 
 ---
 
@@ -452,6 +456,7 @@ Base awards total `$1.292B`. With the unexercised Blue Origin option, `$1.573B`.
 
 | Rev | Date | Change |
 |---|---|---|
+| 10 | 2026-08-01 | Confirmed Truth in numbers. as Burn Rate's slogan, replacing the "no slogans" framing. Recorded the lockup's bracketed rendering as a typographic treatment of the logotype rather than the text of the slogan itself. |
 | 09 | 2026-07-31 | **Consolidation.** Absorbed everything worth keeping from `editorial-standards.md` and `data-model.md`, both now retired: the confidence levels and their tests, the promotion rule, the per-domain source hierarchy, tier-per-claim, the laundering examples, all prohibitions, the revision and correction policy, the fact-record schema, derived-fact rules, staleness, live sources, the tracker test, and the agent contract. Preserved the verified Moon Base research as an appendix. Restructured into brand, visual system, numbers standard, data model, agents, open. Added the note that "burn rate" is the masthead and not a label for figures. Recorded layout as settled and built. Deployment added as active work. |
 | 08 | 2026-07-31 | Logo settled: Burn in bright blue, Rate in crimson, rule segments jet, tagline in deep blue, monogram at medium overlap with B in front. Noted the lockup uses every domain color exactly once. Issued as `BR-LOGO` Rev 03. |
 | 07 | 2026-07-31 | Logo adopted from Enzo's design and rebuilt in live type. Tagline recorded as the single sanctioned line, scoped to the mark. |

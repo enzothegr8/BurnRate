@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <!--
+    Cover art for content/articles/orbital-datacenters-energy-bet.mdx.
+
+    Hand-built abstract vector, not a photograph and not a stock asset. This
+    repository is public and a sourced or photorealistic image would carry the
+    same risk a fabricated number does: it reads as documentation of something
+    real. An orbit ring and a server rack grid, in flat palette color and
+    nothing else, cannot be mistaken for a claim.
+
+    Colors are the closed palette from docs/brand-foundation.md, transcribed as
+    literal hex because an external SVG loaded by <img> cannot read this site's
+    CSS custom properties. No gradient, no blur, no shadow, no rounded
+    containers: the same rules that govern the UI govern this artwork.
+
+    page #FBFBFC · rule #D8D8DC · jet #08080A
+    blue-deep #101F52 · blue-bright #1F5FE0 · crimson #B3122B
+  -->
+  <rect x="0" y="0" width="1600" height="900" fill="#FBFBFC" />
+
+  <line x1="0" y1="770" x2="1600" y2="770" stroke="#D8D8DC" stroke-width="2" />
+
+  <circle cx="1180" cy="360" r="430" fill="none" stroke="#101F52" stroke-width="3" />
+  <circle cx="1180" cy="360" r="270" fill="none" stroke="#B3122B" stroke-width="2" />
+
+  <circle cx="1180" cy="-70" r="9" fill="#1F5FE0" />
+  <circle cx="1610" cy="360" r="9" fill="#B3122B" />
+  <circle cx="908" cy="530" r="9" fill="#1F5FE0" />
+  <circle cx="1180" cy="90" r="7" fill="#101F52" />
+
+  <g>
+    <rect x="96"  y="560" width="54" height="150" fill="#08080A" />
+    <rect x="164" y="560" width="54" height="150" fill="#1F5FE0" />
+    <rect x="232" y="560" width="54" height="150" fill="#08080A" />
+    <rect x="300" y="560" width="54" height="150" fill="#B3122B" />
+    <rect x="368" y="560" width="54" height="150" fill="#08080A" />
+    <rect x="436" y="560" width="54" height="150" fill="#1F5FE0" />
+
+    <rect x="96"  y="726" width="54" height="44" fill="#1F5FE0" />
+    <rect x="164" y="726" width="54" height="44" fill="#08080A" />
+    <rect x="232" y="726" width="54" height="44" fill="#B3122B" />
+    <rect x="300" y="726" width="54" height="44" fill="#08080A" />
+    <rect x="368" y="726" width="54" height="44" fill="#1F5FE0" />
+    <rect x="436" y="726" width="54" height="44" fill="#08080A" />
+  </g>
+</svg>

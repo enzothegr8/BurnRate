@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { DomainTags } from "@/components/brand/domain-tag";
+import { LeadTeaser } from "@/components/home/lead-teaser";
 import { MoneyBand } from "@/components/home/money-band";
 import { ARTICLES } from "@/lib/articles";
 
@@ -18,15 +17,7 @@ export default function Home() {
         <div>
           <p className="sechead">Latest</p>
           <div style={{ paddingTop: 22 }}>
-            <DomainTags domains={lead.domains} />
-            <p className="kick">{lead.kicker}</p>
-            <Link href={`/articles/${lead.slug}`}>
-              <h1 className="lead-h">{lead.title}</h1>
-            </Link>
-            <p className="lead-d">{lead.standfirst}</p>
-            <p className="meta">
-              {lead.date} · Rev {lead.rev}
-            </p>
+            <LeadTeaser article={lead} />
           </div>
         </div>
 

@@ -25,6 +25,11 @@ export type Article = {
   rev: string;
   doc_id: string;
   status: ArticleStatus;
+  /** Optional. A piece with no cover renders without one; there is no
+   *  placeholder graphic standing in for a missing one, the same way a missing
+   *  figure is an empty slot rather than an invented number. */
+  cover?: string;
+  coverAlt?: string;
 };
 
 const STATUSES: ArticleStatus[] = ["draft", "published", "placeholder"];
@@ -65,6 +70,20 @@ function parseFrontmatter(slug: string, raw: Record<string, unknown>): Article {
     fail(slug, `frontmatter "date" must be YYYY-MM-DD, got "${date}".`);
   }
 
+  // Cover is optional, but a cover with no alt text is an image nobody who
+  // reads with a screen reader can access, and that fails the build the same
+  // way a fact with no source does.
+  const cover = raw.cover;
+  const coverAlt = raw.coverAlt;
+  if (cover !== undefined) {
+    if (typeof cover !== "string" || cover.trim() === "") {
+      fail(slug, `frontmatter "cover" must be a non-empty string when present.`);
+    }
+    if (typeof coverAlt !== "string" || coverAlt.trim() === "") {
+      fail(slug, `frontmatter "cover" is set but "coverAlt" is missing.`);
+    }
+  }
+
   return {
     slug,
     title: text("title"),
@@ -76,6 +95,8 @@ function parseFrontmatter(slug: string, raw: Record<string, unknown>): Article {
     rev: text("rev"),
     doc_id: text("doc_id"),
     status: status as ArticleStatus,
+    cover: cover as string | undefined,
+    coverAlt: coverAlt as string | undefined,
   };
 }
 
