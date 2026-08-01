@@ -297,12 +297,11 @@
     line-height: 1;
     display: inline-block;
   }
-  /* The wordmark is the logo lockup, governed by BR-LOGO Rev 03, not the Type
-     scale. Size, tracking, and the tight line-height that stacks "Burn" over
-     "Rate" are logo geometry the same way the segment widths and the
-     monogram overlap are; snapping this to `head` (28px, line 1.20) would
-     open a gap between the two words the lockup does not have. Left literal;
-     flagged for Enzo to confirm. */
+  /* The wordmark's size, tracking, and line-height are lockup geometry,
+     exempt from the Type scale per the foundation doc's Logo subsection
+     (Rev 12): "the lockup's internal geometry belongs to BR-LOGO, not to
+     the type and space scales." Snapping this to `head` (28px, line 1.20)
+     would open a gap between "Burn" and "Rate" the lockup does not have. */
   .wm .word {
     font-family: var(--font-serif);
     font-size: 30px;
@@ -366,11 +365,11 @@
     color: var(--color-jet);
   }
 
-  /* The tagline. Same BR-LOGO reasoning as the wordmark: it is part of the
-     lockup, not running type. The foundation doc names the tracking
-     specifically as off-scale ("the tagline tracking"); size and line-height
-     are left literal alongside it for the same reason rather than snapped to
-     `label` and bolded, which would make the tagline read as a UI tag. */
+  /* The tagline is lockup geometry too, exempt from the Type scale for the
+     same reason as the wordmark above: BR-LOGO, not BR-TYPE. Size, line
+     height, and tracking all stay literal, not just the tracking, so this
+     is not snapped to `label` and bolded, which would make the tagline read
+     as a UI tag. */
   .lock .tl {
     font-size: 9.5px;
     letter-spacing: 0.19em;
@@ -996,11 +995,22 @@
     max-width: var(--measure-article);
     margin: 0 auto;
   }
-  /* Token: `subhead` (In-article subheads) - named for exactly this element.
-     Previously 37px, close to `title`'s 40, but the doc's own job label for
-     this element is unambiguous. This is the largest and most consequential
-     snap in the migration: 37px down to 21px. Flagged for a second look. */
+  /* Token: `head` (Section heads, list items) - Rev 12 states the article
+     heading map explicitly: inside an article, H2 is `head` and H3 is
+     `subhead`. An H2 divides the article into sections, so it is a section
+     head. */
   .art h2 {
+    font-family: var(--font-serif);
+    font-size: var(--text-head-size);
+    line-height: var(--text-head-line);
+    font-weight: var(--text-head-weight);
+    letter-spacing: var(--text-head-tracking);
+    margin: 0 0 var(--space-16);
+    color: var(--color-jet);
+  }
+  /* Token: `subhead` (In-article subheads) - the division inside a section
+     an H2 opens. Nothing in an article body goes below this. */
+  .art h3 {
     font-family: var(--font-serif);
     font-size: var(--text-subhead-size);
     line-height: var(--text-subhead-line);
@@ -1107,15 +1117,14 @@
     color: var(--color-muted);
     margin: 0 0 var(--space-4);
   }
-  /* Token: `ui` (Active nav, controls) - size already matched exactly before
-     this pass. A contact value that is also a link reads closest to a
-     control of anything on the scale; the weight moving from regular to 600
-     is the visible consequence, flagged. */
+  /* Token: `body` (Running copy) - Rev 12: an email address is not a
+     control. `ui` matched on size alone and picked up a 600 weight this
+     value never asked for; the label beside it stays at `label`. */
   .cline .v {
-    font-size: var(--text-ui-size);
-    line-height: var(--text-ui-line);
-    font-weight: var(--text-ui-weight);
-    letter-spacing: var(--text-ui-tracking);
+    font-size: var(--text-body-size);
+    line-height: var(--text-body-line);
+    font-weight: var(--text-body-weight);
+    letter-spacing: var(--text-body-tracking);
     color: var(--color-jet);
   }
   .cline .v a {
