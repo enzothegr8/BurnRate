@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import band from "@/data/money-band.json";
+import { Figure } from "@/components/facts/figure";
 import { DOMAINS, DOMAIN_LABEL, type Domain } from "@/lib/site";
 
 // The running total is year to date: the annual figure multiplied by the
@@ -14,9 +15,16 @@ import { DOMAINS, DOMAIN_LABEL, type Domain } from "@/lib/site";
 // these numbers somebody published and which one we computed is being misled by
 // the design.
 //
-// The four columns are never summed. The categories overlap, the overlap is not
-// quantified, and the caption under the band says so to the reader while a
-// validator says so to the code.
+// Two by two, not four across, per Rev 12 of the foundation doc: four columns
+// cannot hold a stat-xl figure at the page bound, and two rows of two also
+// keep the four domains from reading as a set the way a single row would. The
+// four are never summed regardless of arrangement. The categories overlap,
+// the overlap is not quantified, and the caption under the band says so to
+// the reader while a validator says so to the code.
+//
+// The running total renders through <Figure scale="stat-xl" />, so the mark's
+// band (three on desktop, two below 760px, where stat-xl's own size drops
+// from 64 to 40) is handled inside Figure rather than duplicated here.
 
 const ANNUAL = band.annual_usd as Record<Domain, number>;
 const SHARE = band.regional_share as Record<string, Record<Domain, number>>;
@@ -91,10 +99,14 @@ export function MoneyBand() {
             <div key={d} className={`stat d-${d}`}>
               <p className="dom">{DOMAIN_LABEL[d]}</p>
               <span className="ticker">
-                {money(annual * elapsedFraction)}
+                <Figure
+                  placeholder={money(annual * elapsedFraction)}
+                  confidence="derived"
+                  scale="stat-xl"
+                />
               </span>
               <br />
-              <span className="rate">
+              <span className="rate band-2">
                 {bounds ? rateLabel(annual / bounds.seconds) : "$0/sec"}
               </span>
               <p className="src">

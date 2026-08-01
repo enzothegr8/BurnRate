@@ -768,19 +768,30 @@
     color: var(--color-page);
   }
 
+  /* Two by two, not four across, per Rev 12: four columns cannot hold a
+     stat-xl figure at the 1180 page bound, and two rows of two also stop
+     four non-summable domains from reading as a set. Fixed order Space, AI,
+     Robotics, Energy, reading left to right then down; a two-column grid in
+     DOMAINS order produces that automatically, no reordering needed. Column
+     and row gap both come from the space scale, so no per-cell divider is
+     needed the way the old four-across border-right was. */
   .stats {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-48);
     border-top: 2px solid var(--color-jet);
     border-bottom: 1px solid var(--color-rule);
+    padding: var(--space-24) 0;
     margin: 0 0 var(--space-48);
   }
   .stat {
-    padding: var(--space-24);
-    border-right: 1px solid var(--color-rule);
-  }
-  .stat:last-child {
-    border-right: 0;
+    /* Grid items default to min-width: auto, which for a nowrap ticker
+       equals its unwrapped content width. Without this, a wide stat-xl
+       figure forces the track past its 1fr share instead of respecting it,
+       and the whole grid overflows the page. This does not change what
+       fits; it only stops the track from lying about it. */
+    min-width: 0;
+    padding: 0;
   }
   /* Token: `label`. */
   .stat .dom {
@@ -792,54 +803,49 @@
     margin: 0 0 var(--space-12);
     color: var(--color-muted);
   }
-  /* NOT MAPPED, reported rather than forced. `stat-l` (34px, Domain
-     statistics, chart callouts) is the named job match and its 1.05
-     line-height already matched this element exactly, which says the step is
-     right in principle. But the scale has no fluid mechanism above the 760px
-     step, and at 34px fixed the largest figures in this four-column grid
-     (up to fourteen characters, e.g. an Energy total) overflow the column and
-     the page gains horizontal scroll at ordinary desktop widths, well above
-     the mobile breakpoint. That is a layout capacity problem (four equal
-     columns cannot hold a stat-l figure at every width), not a token
-     question, and fixing it means changing the grid or allowing wrap, a
-     product decision outside this migration. Left as the original clamp
-     pending that decision. */
+  /* Token: `stat-xl` (Home running statistics), fixed by Rev 12. The
+     two-by-two layout is what makes this fit: a stat-xl figure needed the
+     grid to change, not a new value on a closed scale. The mark itself
+     (band 3 on desktop, band 2 below 760px, where stat-xl's own size drops
+     from 64 to 40) is rendered by Figure via components/home/money-band.tsx,
+     which passes scale="stat-xl" - this rule only supplies the size, since
+     .num's own default is the `figure` token's relative sizing, wrong for a
+     running statistic. */
   .stat .ticker {
-    font-size: clamp(15px, 1.85vw, 23px);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
     display: inline-block;
     margin: 0 0 var(--space-12);
     white-space: nowrap;
-    /* The confidence rule must never inherit its color. This had no color
-       named, so it inherited currentColor, the domain color set below, and
-       rendered a domain-colored rule. The rule is jet; only the numeral
-       (.d-* .ticker below) takes the domain color. */
-    border-bottom: 1.5px dotted var(--color-jet);
-    padding-bottom: 2px;
   }
-  /* Token: `meta`, on distance. No step targets a compact secondary stat
-     readout between `figure`'s relative sizing and `stat-m`'s 22px; flagged
-     as a possible gap in the scale. */
+  .stat .ticker .num {
+    font-size: var(--text-stat-xl-size);
+    line-height: var(--text-stat-xl-line);
+    font-weight: var(--text-stat-xl-weight);
+    letter-spacing: var(--text-stat-xl-tracking);
+  }
+  /* Token: `stat-m` (Inset panel figures, table totals), fixed by Rev 12.
+     Band 2, read from the same --mark-* custom properties .cf/.rp/.dv use,
+     rather than a second flat literal duplicating lib/marks.ts's numbers.
+     money-band.tsx applies `.band-2` alongside this class. */
   .stat .rate {
+    font-size: var(--text-stat-m-size);
+    line-height: var(--text-stat-m-line);
+    font-weight: var(--text-stat-m-weight);
+    letter-spacing: var(--text-stat-m-tracking);
+    display: inline-block;
+    margin: 0 0 var(--space-12);
+    border-bottom-style: dotted;
+    border-bottom-width: var(--mark-dotted-w, 2.5px);
+    border-bottom-color: var(--color-jet);
+    padding-bottom: var(--mark-offset, 0.12em);
+  }
+  /* Token: `meta` (Source lines, timestamps, notes) - the annual figure this
+     line reports is exactly that: a source line. */
+  .stat .src {
+    font-family: var(--font-sans);
     font-size: var(--text-meta-size);
     line-height: var(--text-meta-line);
     font-weight: var(--text-meta-weight);
     letter-spacing: var(--text-meta-tracking);
-    display: inline-block;
-    margin: 0 0 var(--space-12);
-    /* Same bug as .stat .ticker above: named explicitly so it cannot inherit
-       the domain color. */
-    border-bottom: 1.5px dotted var(--color-jet);
-    padding-bottom: 1px;
-  }
-  /* Token: `small` (Captions, secondary UI, navigation). */
-  .stat .src {
-    font-family: var(--font-sans);
-    font-size: var(--text-small-size);
-    line-height: var(--text-small-line);
-    font-weight: var(--text-small-weight);
-    letter-spacing: var(--text-small-tracking);
     color: var(--color-body);
     margin: 0;
   }
@@ -1164,9 +1170,6 @@
 }
 
 @media (max-width: 860px) {
-  .stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
   .modgrid {
     grid-template-columns: 1fr;
   }
@@ -1174,6 +1177,15 @@
     grid-template-columns: 1fr;
   }
   .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* The money band goes to a single column below 760px, the same width the
+   type scale's own mobile compression uses, since stat-xl's size step
+   changes at that width too. Same order: Space, AI, Robotics, Energy. */
+@media (max-width: 760px) {
+  .stats {
     grid-template-columns: 1fr;
   }
 }
