@@ -65,7 +65,11 @@ export default async function DomainPage({
         {stats.map((s) => (
           <div key={s.value + s.caption} className="dom-stat">
             <span className="b">
-              <Figure placeholder={s.value} confidence={s.confidence} />
+              <Figure
+                placeholder={s.value}
+                confidence={s.confidence}
+                scale="stat-m"
+              />
             </span>
             <p className="c">{s.caption}</p>
           </div>

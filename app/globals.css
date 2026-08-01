@@ -477,29 +477,73 @@
   }
 
   /* Confidence marks. The underline is driven by confidence and nothing else
-     drives an underline. Token: `figure` (Any figure inside prose) - this is
-     the generic mark, sized relative to whatever context it sits in. Widths,
-     offsets, and colors on .cf/.rp/.dv are Prompt 2B's job; untouched here. */
+     drives an underline, and the mark carries no color: see the numbers
+     standard in section 4. .cf/.rp/.dv set border-bottom-style only. The rule
+     is jet in all three styles, written explicitly, never inherited. Neither
+     class sets `color` - the numeral takes whatever color its context sets,
+     which is how a domain page gets a blue deep statistic and a chart gets a
+     series-colored one without the mark itself moving.
+
+     Token: `figure` (Any figure inside prose) is .num's default size, for a
+     number sitting in running text. Width and offset come from the band,
+     read from lib/marks.ts via the --mark-* custom properties the .band-*
+     classes below set; Figure (components/facts/figure.tsx) adds one of
+     those classes from its `scale` prop. Anything carrying .cf/.rp/.dv
+     without a band class falls back to the pre-band flat values. */
   .num {
     font-size: var(--text-figure-size);
     line-height: var(--text-figure-line);
     font-weight: var(--text-figure-weight);
     letter-spacing: var(--text-figure-tracking);
   }
+  .band-1 {
+    --mark-solid-w: 1px;
+    --mark-dashed-w: 1px;
+    --mark-dotted-w: 1.5px;
+    --mark-offset: 0.14em;
+  }
+  .band-2 {
+    --mark-solid-w: 2px;
+    --mark-dashed-w: 2px;
+    --mark-dotted-w: 2.5px;
+    --mark-offset: 0.12em;
+  }
+  .band-3 {
+    --mark-solid-w: 3px;
+    --mark-dashed-w: 3px;
+    --mark-dotted-w: 4px;
+    --mark-offset: 0.10em;
+  }
+  /* stat-xl drops from 64px to 40px at 760px, band 3 to band 2, and the rule
+     has to cross with it. This is the only step that crosses; every other
+     token stays in one band at every width. Figure applies `.mark-stat-xl`
+     alongside `.band-3` only when scale="stat-xl", so this query cannot catch
+     any other element. */
+  @media (max-width: 760px) {
+    .mark-stat-xl.band-3 {
+      --mark-solid-w: 2px;
+      --mark-dashed-w: 2px;
+      --mark-dotted-w: 2.5px;
+      --mark-offset: 0.12em;
+    }
+  }
   .cf {
-    border-bottom: 1.5px solid var(--color-jet);
-    padding-bottom: 1px;
-    color: var(--color-jet);
+    border-bottom-style: solid;
+    border-bottom-width: var(--mark-solid-w, 1.5px);
+    border-bottom-color: var(--color-jet);
+    padding-bottom: var(--mark-offset, 1px);
   }
   .rp {
-    border-bottom: 1.5px dashed var(--color-muted);
-    padding-bottom: 1px;
-    color: var(--color-body);
+    border-bottom-style: dashed;
+    border-bottom-width: var(--mark-dashed-w, 1.5px);
+    border-bottom-color: var(--color-jet);
+    padding-bottom: var(--mark-offset, 1px);
   }
   .dv {
-    border-bottom: 1.5px dotted var(--color-blue-bright);
-    padding-bottom: 1px;
-    color: var(--color-blue-bright);
+    border-bottom-style: dotted;
+    border-bottom-width: var(--mark-dotted-w, 1.5px);
+    border-bottom-color: var(--color-jet);
+    padding-bottom: var(--mark-offset, 1px);
   }
 
   /* Stale figures render flagged, never hidden. The mark says the verification
@@ -768,7 +812,11 @@
     display: inline-block;
     margin: 0 0 var(--space-12);
     white-space: nowrap;
-    border-bottom: 1.5px dotted;
+    /* The confidence rule must never inherit its color. This had no color
+       named, so it inherited currentColor, the domain color set below, and
+       rendered a domain-colored rule. The rule is jet; only the numeral
+       (.d-* .ticker below) takes the domain color. */
+    border-bottom: 1.5px dotted var(--color-jet);
     padding-bottom: 2px;
   }
   /* Token: `meta`, on distance. No step targets a compact secondary stat
@@ -781,7 +829,9 @@
     letter-spacing: var(--text-meta-tracking);
     display: inline-block;
     margin: 0 0 var(--space-12);
-    border-bottom: 1.5px dotted;
+    /* Same bug as .stat .ticker above: named explicitly so it cannot inherit
+       the domain color. */
+    border-bottom: 1.5px dotted var(--color-jet);
     padding-bottom: 1px;
   }
   /* Token: `small` (Captions, secondary UI, navigation). */
@@ -817,21 +867,20 @@
   .d-energy .rate {
     color: var(--domain-energy);
   }
+  /* The numeral takes the domain color; the confidence rule underneath it
+     (.rp, applied in money-band.tsx) stays jet. border-bottom-color used to
+     be set here too, which recolored the rule to match. */
   .d-space .src .an {
     color: var(--domain-space);
-    border-bottom-color: var(--domain-space);
   }
   .d-ai .src .an {
     color: var(--domain-ai);
-    border-bottom-color: var(--domain-ai);
   }
   .d-robotics .src .an {
     color: var(--domain-robotics);
-    border-bottom-color: var(--domain-robotics);
   }
   .d-energy .src .an {
     color: var(--domain-energy);
-    border-bottom-color: var(--domain-energy);
   }
 
   /* Module slots. Dashed border and a label, so they never read as finished
