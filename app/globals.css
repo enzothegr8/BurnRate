@@ -347,6 +347,13 @@
   .list .it:hover .row-h {
     color: var(--color-blue-bright);
   }
+  /* Sits in the same rhythm as a row, so the gap reads as part of the list
+     rather than as the list having ended early. */
+  .empty {
+    padding: 20px 0 24px;
+    border-bottom: 1px solid var(--color-rule);
+  }
+
   .row-d {
     font-size: 13.5px;
     color: var(--color-body);

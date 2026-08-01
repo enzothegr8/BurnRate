@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArticleRow } from "@/components/articles/article-row";
+import { EmptyList } from "@/components/articles/empty-list";
 import { Figure } from "@/components/facts/figure";
 import { articlesInDomain } from "@/lib/articles";
 import {
@@ -78,9 +79,13 @@ export default async function DomainPage({
 
       <p className="sechead">In {label}</p>
       <div className="list" style={{ paddingTop: 4 }}>
-        {articles.map((a) => (
-          <ArticleRow key={a.slug} article={a} showStandfirst={false} />
-        ))}
+        {articles.length > 0 ? (
+          articles.map((a) => (
+            <ArticleRow key={a.slug} article={a} showStandfirst={false} />
+          ))
+        ) : (
+          <EmptyList note={`No pieces in ${label} yet.`} />
+        )}
       </div>
     </section>
   );

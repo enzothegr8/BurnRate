@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArticleRow } from "@/components/articles/article-row";
+import { EmptyList } from "@/components/articles/empty-list";
 import { DomainTags } from "@/components/brand/domain-tag";
 import { ARTICLES } from "@/lib/articles";
 
@@ -27,9 +28,11 @@ export default function ArticlesPage() {
 
       <p className="sechead">All articles</p>
       <div className="list" style={{ paddingTop: 4 }}>
-        {rest.map((a) => (
-          <ArticleRow key={a.slug} article={a} />
-        ))}
+        {rest.length > 0 ? (
+          rest.map((a) => <ArticleRow key={a.slug} article={a} />)
+        ) : (
+          <EmptyList note="Nothing else yet. The lead above is the whole archive." />
+        )}
       </div>
     </section>
   );
