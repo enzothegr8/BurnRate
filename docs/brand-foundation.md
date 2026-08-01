@@ -1,6 +1,6 @@
 # Burn Rate — Foundation
 
-**Doc** BR-FOUND · **Rev** 13 · **Updated** 2026-08-01 · **Drawn** E. CARVALHO
+**Doc** BR-FOUND · **Rev** 14 · **Updated** 2026-08-01 · **Drawn** E. CARVALHO
 
 **This is the single source of truth.** As of Rev 09 it absorbs everything worth keeping from `editorial-standards.md` and `data-model.md`, both of which are retired. If those files still exist anywhere, they are stale copies and this document wins.
 
@@ -182,7 +182,11 @@ Equidistant values round up. A value falling exactly between two steps takes the
 | Module to module, Home | 144 | The only use of the top step |
 | Page gutter | 28 / 20 | Desktop / mobile. The one value off the scale, carried from `BR-LOGO`. |
 
-**Three column widths.** The article measure at `64ch`, already settled and centered. A `1120` breakout for full-width charts and modules inside an article. An `1180` page bound for Home, Articles, and the domain pages.
+Three column widths. The article measure at `64ch`, already settled and centered. A `1120` breakout for full-width charts and modules inside an article. An `1180` page bound for Home, Articles, the domain pages, and Contact.
+
+Article routes bound at `1120`; every other route bounds at `1180`. The breakout is the widest thing an article may contain, so it is also the article's outer bound. Everything else is a page rather than a piece and gets the page bound. A route capping at the wrong one is invisible until something is measured against it, which is how this was found.
+
+The page gutter is a token, not a scale step. At 28 desktop and 20 mobile it is deliberately off the space scale, and it must not be snapped to the nearest step. It carries its own token.
 
 ### Logo
 
@@ -205,6 +209,10 @@ Full specification in `BR-LOGO` Rev 03.
 **Below the small lockup size, drop the tagline rather than shrinking it.** At 16px the monogram's overlap fills in, so a jet-only version is the favicon fallback. Two-color at 32px and above. A technical fallback, not a second logo.
 
 The lockup's internal geometry belongs to `BR-LOGO`, not to the type and space scales. The wordmark size, the tagline size and line height, the tagline tracking, the segment widths and gaps, and the `-0.26em` monogram overlap are all proportions of one object and are exempt. The scales govern the page the lockup sits on, not the lockup.
+
+On the jet surface the lockup is monochrome page white. Wordmark, rule segments, and tagline all take `#FBFBFC`. The domain colors are not lifted, tinted, or substituted, because a lifted color is a new color and the palette is closed. This is the same kind of decision as the jet-only favicon: a technical fallback for a surface the color system was not built for, not a second logo. It applies to social cards and video only. The site is light and the lockup on the site is never monochrome.
+
+The masthead is the `md` lockup. Not a bespoke size. `BR-LOGO` names three, and the masthead takes the middle one.
 
 ### Layout
 
@@ -568,6 +576,7 @@ Base awards total `$1.292B`. With the unexercised Blue Origin option, `$1.573B`.
 
 | Rev | Date | Change |
 |---|---|---|
+| 14 | 2026-08-01 | The first specimen render. On the jet surface the lockup is monochrome page white, resolving a conflict with `BR-LOGO` Rev 03, which specified three lifted colors that are not in the closed palette. The masthead is the `md` lockup rather than a bespoke size. Article routes bound at `1120` and every other route at `1180`, which the unused page-bound token exposed. The page gutter is recorded as a token rather than a scale step, correcting a migration snap. Issued as `BR-LOGO` Rev 04. |
 | 13 | 2026-08-01 | Money band corrected to four full-width rows after two by two failed to fit at every measured width. The constraint is the figure, not the layout: a visibly whirling total needs about twelve significant digits, and eighteen characters at `stat-xl` exceeds half the page bound. Mobile steps the figure to `stat-l`. Article page titles take `title`, not `head`. |
 | 12 | 2026-08-01 | Corrections surfaced by the token migration. Navigation moves from sans to mono at the `label` token, superseding the roles assignment in Rev 06: the masthead was built in mono and the built version is right. Article H2 is `head` and H3 is `subhead`, stated explicitly because the migration had no rule and dropped H2 by 16px. Equidistant spacing values round up, recording a convention the migration imposed rather than inherited. The lockup's internal geometry is exempt from both scales and belongs to `BR-LOGO`. The money band is two by two rather than four across: four `stat-xl` figures do not fit the page bound, and two rows of two also stop four non-summable domains from reading as a set. |
 | 11 | 2026-08-01 | **Type, space, and the mark color correction.** Type scale settled: fourteen steps, serif at 400 only, body at 17, figures in prose at `0.94em`, tabular figures and no ligatures, three confidence bands with dotted heavier than solid, mobile compression on the display steps only. Space scale added: four-pixel base, ten steps, closed, with assignments and the three column widths. **The confidence marks no longer carry color.** Line style alone carries confidence, the rule is jet in all three styles, and the numeral takes its color from context. Supersedes the color assignments in Rev 05: color coding the marks smuggled a hierarchy into a system that has none, and made every derived figure look like a link. Motion, 3D, and other renderings added: scope deliberately open, mark geometry specified for non-CSS media, motion that encodes a value is a claim, reduced motion may not remove information. Issued as `BR-TYPE` Rev 02. |
