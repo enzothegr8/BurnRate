@@ -1,6 +1,6 @@
 # Burn Rate — Foundation
 
-**Doc** BR-FOUND · **Rev** 14 · **Updated** 2026-08-01 · **Drawn** E. CARVALHO
+**Doc** BR-FOUND · **Rev** 15 · **Updated** 2026-08-01 · **Drawn** E. CARVALHO
 
 **This is the single source of truth.** As of Rev 09 it absorbs everything worth keeping from `editorial-standards.md` and `data-model.md`, both of which are retired. If those files still exist anywhere, they are stale copies and this document wins.
 
@@ -513,7 +513,48 @@ Three cases, one stops:
 
 ---
 
-## 7. Open
+## 7. Downstream copies
+
+This document is the source. Everything below is a copy of some part of it, and
+a copy goes stale. This has already happened twice: the Claude Code prompt pack
+contradicted the mark color rule within a week of both being written, and the
+logo sheet carried three colors the closed palette forbids for longer than that.
+Neither was found by rereading. Both were found because something had to be
+built.
+
+| Copy | Carries | Lives in |
+|---|---|---|
+| `BR-LOGO`, `docs/brand/logo-sheet.html` | The lockup, the monogram, the surfaces | Repo |
+| `BR-TYPE`, `docs/brand/type-sheet.html` | Type, space, the mark bands | Repo |
+| The specimen export, `docs/brand/specimen/` | Every element, rendered | Repo |
+| `app/globals.css` | All three scales as tokens | Repo |
+| `lib/marks.ts` | The mark geometry, CSS and SVG | Repo |
+| The Claude Code prompt pack | Build instructions quoting all of it | Repo |
+| The design system statement | The visual system, written for an extractor | Uploaded |
+| The Claude Design system | The extraction built from the above | Outside the repo |
+
+**A revision touching color, type, space, the notation, the logo, layout, or
+motion obliges a re-sync of every copy in that table.** A revision touching only
+the numbers standard, the data model, or the agent contract does not.
+
+**Each copy records the `BR-FOUND` revision it was built from.** That is the
+whole mechanism. If a copy says Rev 15 and this document says Rev 19, the copy
+is stale and no further investigation is needed to know it.
+
+**The design system is the copy most likely to rot.** It lives outside the
+repository, nothing builds against it, and no acceptance check can fail on it.
+The others are at least in the blast radius of a build.
+
+**`/specimen` is the drift detector.** Every element the brand contains renders
+on one screen against its named token, so a wrong value is visible rather than
+buried in a route. Its first render found six real bugs, including a page bound
+that was defined, documented, and consumed by nothing, and an article title that
+had been rendering 12px too small. Check it after any revision in the list
+above, before checking anything else.
+
+---
+
+## 8. Open
 
 **Active**
 - Deployment: GitHub repo, Vercel, burnrate.news pointed at it.
@@ -576,6 +617,7 @@ Base awards total `$1.292B`. With the unexercised Blue Origin option, `$1.573B`.
 
 | Rev | Date | Change |
 |---|---|---|
+| 15 | 2026-08-01 | **Downstream copies recorded as section 7; Open becomes section 8.** Eight copies of this document's visual system now exist, one of them outside the repository entirely. A revision touching color, type, space, the notation, the logo, layout, or motion obliges a re-sync of all of them, and each copy records the `BR-FOUND` revision it was built from so staleness is visible without investigation. `/specimen` recorded as the drift detector after its first render found six bugs. |
 | 14 | 2026-08-01 | The first specimen render. On the jet surface the lockup is monochrome page white, resolving a conflict with `BR-LOGO` Rev 03, which specified three lifted colors that are not in the closed palette. The masthead is the `md` lockup rather than a bespoke size. Article routes bound at `1120` and every other route at `1180`, which the unused page-bound token exposed. The page gutter is recorded as a token rather than a scale step, correcting a migration snap. Issued as `BR-LOGO` Rev 04. |
 | 13 | 2026-08-01 | Money band corrected to four full-width rows after two by two failed to fit at every measured width. The constraint is the figure, not the layout: a visibly whirling total needs about twelve significant digits, and eighteen characters at `stat-xl` exceeds half the page bound. Mobile steps the figure to `stat-l`. Article page titles take `title`, not `head`. |
 | 12 | 2026-08-01 | Corrections surfaced by the token migration. Navigation moves from sans to mono at the `label` token, superseding the roles assignment in Rev 06: the masthead was built in mono and the built version is right. Article H2 is `head` and H3 is `subhead`, stated explicitly because the migration had no rule and dropped H2 by 16px. Equidistant spacing values round up, recording a convention the migration imposed rather than inherited. The lockup's internal geometry is exempt from both scales and belongs to `BR-LOGO`. The money band is two by two rather than four across: four `stat-xl` figures do not fit the page bound, and two rows of two also stop four non-summable domains from reading as a set. |
