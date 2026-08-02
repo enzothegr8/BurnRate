@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node tools/lint-mdx-numerals.mjs && vitest run",
+    "prebuild": "node tools/lint-mdx-numerals.mjs && node tools/lint-mdx-emdash.mjs && vitest run",
     "lint:numerals": "node tools/lint-mdx-numerals.mjs",
+    "lint:emdash": "node tools/lint-mdx-emdash.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",

@@ -14,7 +14,8 @@
 // Stripped: YAML frontmatter, MDX comments, import and export lines, fenced and
 // inline code, and JSX tags including their attributes. That last one matters
 // because fact ids, dates, and revision numbers all live in attributes and are
-// not prose.
+// not prose. The stripping itself lives in ./mdx-prose.mjs, shared with the em
+// dash lint so the two guards cannot drift on what prose is.
 //
 // Escape hatch: a line is exempt if it, or the line directly above it, carries
 // an MDX comment containing "numerals-ok". That is for digits that are
@@ -37,32 +38,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
-
-/** Replace a matched region with spaces, keeping newlines, so that line and
- *  column numbers in the masked text still match the original file. */
-function blank(match) {
-  return match.replace(/[^\n]/g, " ");
-}
-
-function mask(text, pattern) {
-  return text.replace(pattern, blank);
-}
-
-const STRIPPERS = [
-  // YAML frontmatter, only at the very top of the file.
-  { label: "frontmatter", pattern: /^---\r?\n[\s\S]*?\r?\n---/ },
-  // Fenced code, before anything else that might live inside it.
-  { label: "fenced code", pattern: /^```[\s\S]*?^```/gm },
-  // MDX comments. Multiline, and already read for numerals-ok by this point.
-  { label: "mdx comment", pattern: /\{\s*\/\*[\s\S]*?\*\/\s*\}/g },
-  // Inline code.
-  { label: "inline code", pattern: /`[^`\n]*`/g },
-  // Import and export lines.
-  { label: "import or export", pattern: /^[ \t]*(?:import|export)\b.*$/gm },
-  // JSX tags with their attributes, which may span lines. Fact ids, dates, and
-  // rev numbers live in attributes and are not prose.
-  { label: "jsx tag", pattern: /<[^<>]*>/g },
-];
+import { maskNonProse } from "./mdx-prose.mjs";
 
 /** Lines exempted by a numerals-ok comment on themselves or directly above. */
 function exemptLines(lines) {
@@ -80,10 +56,7 @@ export function findViolations(text) {
   const originalLines = text.split(/\r?\n/);
   const exempt = exemptLines(originalLines);
 
-  let masked = text;
-  for (const { pattern } of STRIPPERS) {
-    masked = mask(masked, pattern);
-  }
+  const masked = maskNonProse(text);
 
   const violations = [];
   masked.split(/\r?\n/).forEach((line, index) => {
@@ -100,9 +73,13 @@ export function findViolations(text) {
   return violations;
 }
 
+export function articleFiles(dir) {
+  return readdirSync(dir).filter((f) => f.endsWith(".mdx"));
+}
+
 export function lintDirectory(dir) {
   const failures = [];
-  for (const file of readdirSync(dir).filter((f) => f.endsWith(".mdx"))) {
+  for (const file of articleFiles(dir)) {
     const path = join(dir, file);
     // Reported relative to the project root and with forward slashes, so the
     // location is clickable in a terminal on any platform.
@@ -137,5 +114,5 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     process.exit(1);
   }
 
-  console.log(`Numeral lint clean across ${readdirSync(dir).length} files.`);
+  console.log(`Numeral lint clean across ${articleFiles(dir).length} files.`);
 }

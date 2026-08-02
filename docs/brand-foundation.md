@@ -1,6 +1,6 @@
-# Burn Rate — Foundation
+# Burn Rate · Foundation
 
-**Doc** BR-FOUND · **Rev** 15 · **Updated** 2026-08-01 · **Drawn** E. CARVALHO
+**Doc** BR-FOUND · **Rev** 16 · **Updated** 2026-08-01 · **Drawn** E. CARVALHO
 
 **This is the single source of truth.** As of Rev 09 it absorbs everything worth keeping from `editorial-standards.md` and `data-model.md`, both of which are retired. If those files still exist anywhere, they are stale copies and this document wins.
 
@@ -147,6 +147,12 @@ Inside an article, H2 is `head` and H3 is `subhead`. A heading that divides an a
 
 **Tabular figures always. Ligatures off always.** A number must not shift position when it updates, and a publication about numbers must never render a programming ligature.
 
+**No em dashes.** Not in body copy, headlines, standfirsts, captions, source
+lines, or any generated text. Use a comma, a colon, a period, or a restructured
+sentence. The middle dot is the separator convention in metadata lines and doc
+headers, and it is the only horizontal punctuation mark this publication uses
+decoratively. This governs agents identically to humans.
+
 **The confidence rule has three size bands.** Dotted carries more weight than solid at every band, because a dot covers roughly half the length a solid rule does and would otherwise read as the faintest mark in the system. It is a kind, not a degree, and it must not look like a weaker claim.
 
 | Band | Confirmed | Reported | Derived | Offset |
@@ -224,6 +230,41 @@ Settled and built as a mock covering Home, Articles, four domain pages, an artic
 - **Article pages** are a single centered measure at 64 characters. The measure is centered, so full-width breakout charts can be added later as a variant without restructuring.
 - **Domain pages** share one template distinguished by the domain color: large serif title, a thick color bar, three domain statistics, a domain-specific module slot, then a filtered list.
 - **Contact** is spare, with corrections given their own line.
+
+### Charts
+
+**The notation appears on value labels, not on geometry.** A number printed
+beside or inside a chart carries its underline exactly as it would in prose. A
+bar, a line, an area, or a point does not: no dashed bars for reported figures,
+no dotted lines for derived ones.
+
+The reason is a collision. In conventional data visualization a dashed line
+already means projected or estimated, and a reader who knows charts will read a
+dashed series as a forecast. Reported is not a forecast. It means the figure
+came from a secondary source, was spoken rather than published, or was guided
+rather than spent. Putting the notation on geometry would make the chart assert
+something the notation does not say, in a visual language readers already know.
+Marks stay in the type, where they mean what they mean.
+
+**A chart carrying figures must label them.** This follows directly. If the
+geometry carries no confidence and the values are unlabeled, the chart contains
+unmarked numbers, which nothing in this publication may do. Where labeling every
+point is impractical, the source line states the confidence of the dataset as a
+whole and says so plainly.
+
+**Every chart carries a source line and a Rev number**, in mono at `meta`, on
+the same terms as an article.
+
+**Construction.** Series order is `#101F52` · `#1F5FE0` · `#B3122B` · `#08080A`
+· `#67676E`, stopping at five. Beyond five categories the chart is wrong, not
+the palette. A chart about the four domains uses the domain colors and needs no
+legend, because the color is the label. Every figure, axis value, unit, and
+label is mono. Gridlines are hairlines in rule color, or absent where the chart
+reads without them. Square caps and corners. No gradients, no shadows, no
+rounded bars, no drop shadows on points.
+
+**Never compare capacity to capacity without stating the capacity factor**, and
+**never sum across domains**, hold in charts as they hold everywhere.
 
 ### Motion, 3D, and other renderings
 
@@ -568,7 +609,6 @@ above, before checking anything else.
 **Design**
 - Pinning the webfonts so type survives leaving Enzo's machine.
 - Image and illustration doctrine.
-- Chart system beyond the color assignments.
 - Ambient motion: page-load sequences, scroll reveals, hover states. Open by decision, judged case by case. Record a pattern here once it earns repeating.
 - The component specimen page, for design system import into Claude Design.
 
@@ -617,6 +657,7 @@ Base awards total `$1.292B`. With the unexercised Blue Origin option, `$1.573B`.
 
 | Rev | Date | Change |
 |---|---|---|
+| 16 | 2026-08-01 | **Chart system settled, and the em dash prohibited.** The confidence notation appears on chart value labels and never on geometry: dashed geometry already means forecast in conventional data visualization, which is a different claim than reported. A chart carrying figures must therefore label them, or state dataset confidence in the source line, since geometry that carries no mark cannot leave numbers unmarked. Construction rules recorded: series order, five maximum, no legend for domain charts, mono throughout, hairline gridlines, square caps. Em dashes prohibited in all copy, human or agent generated. |
 | 15 | 2026-08-01 | **Downstream copies recorded as section 7; Open becomes section 8.** Eight copies of this document's visual system now exist, one of them outside the repository entirely. A revision touching color, type, space, the notation, the logo, layout, or motion obliges a re-sync of all of them, and each copy records the `BR-FOUND` revision it was built from so staleness is visible without investigation. `/specimen` recorded as the drift detector after its first render found six bugs. |
 | 14 | 2026-08-01 | The first specimen render. On the jet surface the lockup is monochrome page white, resolving a conflict with `BR-LOGO` Rev 03, which specified three lifted colors that are not in the closed palette. The masthead is the `md` lockup rather than a bespoke size. Article routes bound at `1120` and every other route at `1180`, which the unused page-bound token exposed. The page gutter is recorded as a token rather than a scale step, correcting a migration snap. Issued as `BR-LOGO` Rev 04. |
 | 13 | 2026-08-01 | Money band corrected to four full-width rows after two by two failed to fit at every measured width. The constraint is the figure, not the layout: a visibly whirling total needs about twelve significant digits, and eighteen characters at `stat-xl` exceeds half the page bound. Mobile steps the figure to `stat-l`. Article page titles take `title`, not `head`. |

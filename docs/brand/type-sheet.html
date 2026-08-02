@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Burn Rate — Type and Space Specification</title>
+<title>Burn Rate · Type and Space Specification</title>
 <style>
   :root{
     --sans:ui-sans-serif,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
@@ -110,10 +110,10 @@
 <div class="wrap">
 
 <header>
-  <h1>Burn Rate — Type and Space Specification</h1>
+  <h1>Burn Rate · Type and Space Specification</h1>
   <p class="sub">Fourteen type steps across the three approved roles, a four-pixel space scale, the measure, and the mechanics of the confidence marks at every size. Set in the current system stack, because the pinned faces are metric-compatible and the scale carries over unchanged.</p>
-  <p class="doc">Doc BR-TYPE · Rev <b>03</b> · Updated 2026-08-01 · Drawn E. Carvalho · Derived from BR-FOUND Rev 15</p>
-  <p class="doc" style="margin-top:10px;color:var(--body);letter-spacing:0;text-transform:none;font-size:12.5px">Rev 03 · Navigation moves to mono at the <b>label</b> token, superseding the sans assignment. Article titles take <b>title</b>, in-article H2 takes <b>head</b>, H3 takes <b>subhead</b>. Equidistant spacing values round up. The lockup is exempt from both scales. Rev 02 remains in force: the marks carry no color, line style alone carries confidence, the rule is always jet, and the numeral takes whatever color the context sets.</p>
+  <p class="doc">Doc BR-TYPE · Rev <b>04</b> · Updated 2026-08-01 · Drawn E. Carvalho · Derived from BR-FOUND Rev 16</p>
+  <p class="doc" style="margin-top:10px;color:var(--body);letter-spacing:0;text-transform:none;font-size:12.5px">Rev 04 · The em dash is prohibited in every kind of copy, human or agent generated, and the middle dot is the separator convention. Rev 03 remains in force: navigation is mono at the <b>label</b> token, superseding the sans assignment; article titles take <b>title</b>, in-article H2 takes <b>head</b>, H3 takes <b>subhead</b>; equidistant spacing values round up; the lockup is exempt from both scales. Rev 02 remains in force: the marks carry no color, line style alone carries confidence, the rule is always jet, and the numeral takes whatever color the context sets.</p>
 </header>
 
 <h2>What the roles already decide for you</h2>
@@ -167,6 +167,7 @@
 
 <h2>Mono inside prose</h2>
 <p class="lead">Cascadia sets larger on the body than Selawik at the same nominal size, so a figure dropped into a sentence at <code>1em</code> looks shouted. The <code>figure</code> token is <code>0.94em</code>, which lands the digits at the sans x-height. Tabular figures always, so a number does not shift when it updates. Ligatures off, always: a publication about numbers must never render a programming ligature.</p>
+<p class="n" style="margin-bottom:14px"><strong>No em dashes.</strong> Not in body copy, headlines, standfirsts, captions, source lines, or any generated text. Use a comma, a colon, a period, or a restructured sentence. The middle dot is the separator convention in metadata lines and doc headers, and it is the only horizontal punctuation mark this publication uses decoratively. This governs agents identically to humans, and the build fails on an em dash in article prose.</p>
 <div class="stage">
   <p class="bodyc measure">The base awards total <span class="fig d">$1.292B</span>. With the unexercised Blue Origin option the figure becomes <span class="fig d">$1.573B</span>, and publishing <span class="fig r">$1.6B</span> without noting the option is unexercised is the exact imprecision this publication exists to correct. NASA's release states the award plainly: <span class="fig c">$188M</span> base, <span class="fig c">$280.4M</span> option.</p>
   <p class="meta" style="margin-top:16px">Body sans 17 · figures mono at .94em · marks at 1px, dotted at 1.5px</p>
@@ -281,7 +282,7 @@
   <tr><td class="t">head</td><td class="num">28</td><td class="num">23</td></tr>
   <tr><td class="t">stat-xl</td><td class="num">64</td><td class="num">40</td></tr>
   <tr><td class="t">stat-l</td><td class="num">34</td><td class="num">26</td></tr>
-  <tr><td class="t">everything else</td><td class="num">—</td><td class="num">unchanged</td></tr>
+  <tr><td class="t">everything else</td><td class="num"></td><td class="num">unchanged</td></tr>
 </table>
 <p class="n"><strong>Note the band shift.</strong> At mobile, <code>stat-l</code> drops to 26px and stays in band two, but <code>stat-xl</code> falls from band three to band two and its rule goes from 4px to 2.5px. Handle this in the component, not by hand.</p>
 
@@ -293,12 +294,13 @@
   <p><strong>Dotted heavier than solid.</strong> For visibility. A dot covers roughly half the length a solid rule does.</p>
   <p><strong>The marks carry no color.</strong> Line style alone. The rule is jet, the numeral is contextual, and the color assignments in BR-FOUND section 4 are superseded.</p>
   <p><strong>Navigation is mono at label.</strong> Rev 03. The masthead was built in mono and the built version won the argument with the doc.</p>
+  <p><strong>No em dashes.</strong> Rev 04. The middle dot is the separator, and the prohibition is enforced by the build rather than by memory.</p>
   <p><strong>The lockup is exempt from both scales.</strong> Wordmark size, tagline size and line height, tagline tracking, segment widths, and the -0.26em overlap are proportions of one object and belong to BR-LOGO.</p>
 </div>
 
 <div class="box">
   <h4>Still open after this</h4>
-  <p>Pinning the webfonts. Illustration doctrine. The chart system beyond the color assignments. Motion and 3D doctrine, which does not exist yet and is the next thing to write.</p>
+  <p>Pinning the webfonts. Illustration doctrine. Ambient motion: page-load sequences, scroll reveals, hover states, open by decision and judged case by case. The chart system closed in BR-FOUND Rev 16 and motion and 3D doctrine in Rev 11, so neither is open any longer.</p>
   <p><strong>The scale survives pinning.</strong> Gelasio is metric-compatible with Georgia and Selawik with Segoe UI, which is why those two were chosen. Cascadia is the exception, so <code>figure</code> at <code>0.94em</code> is the one value to re-check once the real face is loading.</p>
 </div>
 

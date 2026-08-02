@@ -1,6 +1,6 @@
 # Burn Rate · Design system statement
 
-**For** burnrate.news · **Rev** 01 · **Drawn** E. Carvalho, 2026-08-01 · **Derived from** BR-FOUND Rev 15
+**For** burnrate.news · **Rev** 02 · **Drawn** E. Carvalho, 2026-08-01 · **Derived from** BR-FOUND Rev 16
 
 Burn Rate is a publication about money in space, AI, robotics, and energy. Its defining feature is that every number it prints declares how it came to exist, visibly, in the type. That notation is the product. Everything below serves it.
 
@@ -56,6 +56,8 @@ Serif for headlines, display, and standfirsts. Sans for running copy and UI. Mon
 **Serif is weight 400 at every size.** Hierarchy comes from size alone, never from weight. Sans carries 400 and 600. Mono carries 400, with 600 reserved for labels and tags. No other weight is in the system.
 
 **Tabular figures always. Ligatures never.** A number must not shift position when it updates, and a publication about numbers must never render a programming ligature.
+
+**No em dashes.** Not in body copy, headlines, standfirsts, captions, source lines, or any generated text. Use a comma, a colon, a period, or a restructured sentence. The middle dot is the separator convention in metadata lines and doc headers, and it is the only horizontal punctuation mark this publication uses decoratively.
 
 An article's own title is `title`. A heading dividing an article body is `head`. A division inside a section is `subhead`. Nothing goes below `subhead`.
 
@@ -134,6 +136,22 @@ Three sizes, `xl`, `md`, and `sm`. The masthead is `md`. Below `sm`, drop the ta
 **On the jet surface used for social cards and video, the lockup is monochrome page white throughout.** The domain colors are not lifted or tinted to survive that surface, because a lifted color is a new color and the palette is closed.
 
 The monogram is `B` and `R` at medium overlap, B in front, joined by a multiply blend. The overlap value is a product of the two colors and must never be set by hand.
+
+---
+
+## Charts
+
+**The notation appears on value labels, not on geometry.** A number printed beside or inside a chart carries its underline exactly as it would in prose. A bar, a line, an area, or a point does not: no dashed bars for reported figures, no dotted lines for derived ones.
+
+The reason is a collision. In conventional data visualization a dashed line already means projected or estimated, and a reader who knows charts will read a dashed series as a forecast. Reported is not a forecast. It means the figure came from a secondary source, was spoken rather than published, or was guided rather than spent. Putting the notation on geometry would make the chart assert something the notation does not say, in a visual language readers already know. Marks stay in the type, where they mean what they mean.
+
+**A chart carrying figures must label them.** If the geometry carries no confidence and the values are unlabeled, the chart contains unmarked numbers, which nothing in this publication may do. Where labeling every point is impractical, the source line states the confidence of the dataset as a whole and says so plainly.
+
+**Every chart carries a source line and a Rev number**, in mono at `meta`, on the same terms as an article.
+
+**Construction.** Series order is `#101F52` · `#1F5FE0` · `#B3122B` · `#08080A` · `#67676E`, stopping at five. Beyond five categories the chart is wrong, not the palette. A chart about the four domains uses the domain colors and needs no legend, because the color is the label. Every figure, axis value, unit, and label is mono. Gridlines are hairlines in rule color, or absent where the chart reads without them. Square caps and corners. No gradients, no shadows, no rounded bars, no drop shadows on points.
+
+**Never compare capacity to capacity without stating the capacity factor**, and **never sum across domains**, hold in charts as they hold everywhere.
 
 ---
 

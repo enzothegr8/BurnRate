@@ -119,7 +119,7 @@ const SPACE_ASSIGNMENTS: Array<{ relation: string; value: string }> = [
   { relation: "Panel above / below", value: "32" },
   { relation: "Section head above / below", value: "96 / 16" },
   { relation: "Module to module, Home", value: "144" },
-  { relation: "Page gutter", value: "28 / 20, desktop / mobile — the one value off the scale, carried from BR-LOGO" },
+  { relation: "Page gutter", value: "28 / 20, desktop / mobile · the one value off the scale, carried from BR-LOGO" },
 ];
 
 // Representative tokens for the three confidence-rule bands. Any token
@@ -131,9 +131,9 @@ const BAND_DEMOS: Array<{
   family: "serif" | "sans" | "mono";
   label: string;
 }> = [
-  { band: "1", token: "meta", family: "mono", label: "Band 1, up to 17px — meta" },
-  { band: "2", token: "stat-m", family: "mono", label: "Band 2, 18 to 34px — stat-m" },
-  { band: "3", token: "title", family: "serif", label: "Band 3, 35px and up — title" },
+  { band: "1", token: "meta", family: "mono", label: "Band 1, up to 17px · meta" },
+  { band: "2", token: "stat-m", family: "mono", label: "Band 2, 18 to 34px · stat-m" },
+  { band: "3", token: "title", family: "serif", label: "Band 3, 35px and up · title" },
 ];
 
 const CONFIDENCES: Confidence[] = ["confirmed", "reported", "derived"];
@@ -150,7 +150,7 @@ export default async function SpecimenPage() {
       <section className="specimen-section">
         <p className="sechead">01 · The lockup</p>
         <p className="meta">
-          xl, md, sm — BR-LOGO Rev 03&apos;s own sizing table. The masthead
+          xl, md, sm · BR-LOGO Rev 03&apos;s own sizing table. The masthead
           you are looking at right now uses the real Logo component at
           size=&quot;md&quot;, the middle of these three, with no local size
           or tracking override left in the component.
@@ -418,23 +418,23 @@ export default async function SpecimenPage() {
       <section className="specimen-section">
         <p className="sechead">09 · Column widths</p>
         <p className="column-demo-label meta">
-          measure — var(--measure-article), 64ch — the article column
+          measure · var(--measure-article), 64ch · the article column
         </p>
         <div className="column-demo" style={{ width: "var(--measure-article)" }}>
           <div className="column-demo-inner" />
         </div>
         <p className="column-demo-label meta">
-          breakout — var(--width-breakout), 1120px — full-width charts and
+          breakout · var(--width-breakout), 1120px · full-width charts and
           modules inside an article
         </p>
         <div className="column-demo" style={{ width: "var(--width-breakout)" }}>
           <div className="column-demo-inner" />
         </div>
         <p className="column-demo-label meta">
-          page bound — var(--width-page), 1180px — Home, Articles, and the
-          domain pages. Not yet wired into the shared .shell every route
-          actually uses, which reads --width-breakout for all of them; see
-          the note at the top of this file.
+          page bound · var(--width-page), 1180px · Home, Articles, the domain
+          pages, and Contact. Article routes bound at breakout instead, via
+          .shell-article; every other route reads this by default through
+          .shell itself, as of Rev 14.
         </p>
         <div className="column-demo" style={{ width: "var(--width-page)" }}>
           <div className="column-demo-inner" />
