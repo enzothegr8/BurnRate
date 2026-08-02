@@ -16,13 +16,19 @@
 // The mono variant renders both letters in jet with no blend. At 16px the
 // overlap fills in and the two-color version turns to mud, so the favicon falls
 // back to this. It is a technical fallback, not a second logo.
+//
+// The inverted variant is the same idea for the jet surface: both letters
+// page white, mix-blend-mode normal rather than multiply, since multiplying
+// white over jet does nothing useful and the point on that surface is a flat,
+// legible mark rather than the color-product overlap. Not a lifted or tinted
+// color, per Rev 14. Social cards and video only.
 
 export function Monogram({
   size = 48,
   variant = "color",
 }: {
   size?: number;
-  variant?: "color" | "mono";
+  variant?: "color" | "mono" | "inverted";
 }) {
   return (
     <span

@@ -327,10 +327,13 @@
      exempt from the Type scale per the foundation doc's Logo subsection
      (Rev 12): "the lockup's internal geometry belongs to BR-LOGO, not to
      the type and space scales." Snapping this to `head` (28px, line 1.20)
-     would open a gap between "Burn" and "Rate" the lockup does not have. */
+     would open a gap between "Burn" and "Rate" the lockup does not have.
+     Font size carries no default: `size` is required on Logo, so a
+     `.wm-{size}` modifier is always present alongside `.wm` to supply it.
+     Rev 14 deleted the 30px this used to fall back to, a bespoke fourth
+     size that matched none of BR-LOGO's three approved variants. */
   .wm .word {
     font-family: var(--font-serif);
-    font-size: 30px;
     letter-spacing: -0.02em;
     line-height: 1;
     display: block;
@@ -340,6 +343,13 @@
   }
   .wm .word .r {
     color: var(--domain-energy);
+  }
+  /* On jet, per Rev 14: monochrome page white, not a lifted or tinted
+     color. Same reasoning as the jet-only monogram favicon, applied to the
+     whole lockup. */
+  .wm-inverted .word .b,
+  .wm-inverted .word .r {
+    color: var(--color-page);
   }
   /* Named size variants, BR-LOGO Rev 03's own table. Word size, segment
      width, and tagline size all scale together; only `sm` also changes the
@@ -394,11 +404,13 @@
      to right, in the same order as the marks. The order is load bearing and is
      never rearranged for visual balance. All three are jet, so line style alone
      distinguishes them and the wordmark carries the color. Segment width is
-     BR-LOGO geometry, left literal. */
+     BR-LOGO geometry, left literal. Width carries no default for the same
+     reason .wm .word's font-size does not: `size` is required, so a
+     `.wm-{size}` modifier always supplies it. Rev 14 deleted the 30px this
+     used to fall back to, which also matched none of the three variants. */
   .seg {
     display: inline-block;
     height: 0;
-    width: 30px;
   }
   .seg-s {
     border-bottom: 2px solid var(--color-jet);
@@ -408,6 +420,12 @@
   }
   .seg-t {
     border-bottom: 2px dotted var(--color-jet);
+  }
+  /* On jet, per Rev 14: monochrome page white, not a lifted or tinted color. */
+  .wm-inverted .seg-s,
+  .wm-inverted .seg-d,
+  .wm-inverted .seg-t {
+    border-bottom-color: var(--color-page);
   }
   /* Monogram. The overlap color is a product of the two letters, never a value
      typed in. Do not give .mg-b a z-index: painting it above .mg-r would cover
@@ -433,15 +451,26 @@
   .monogram-mono .mg-r {
     color: var(--color-jet);
   }
+  /* On jet, per Rev 14: page white, mix-blend-mode normal rather than
+     multiply, since multiplying white over jet does nothing and the point
+     on this surface is a flat, legible mark rather than the color-product
+     overlap. Not a lifted or tinted color. */
+  .monogram-inverted .mg-b,
+  .monogram-inverted .mg-r {
+    color: var(--color-page);
+    mix-blend-mode: normal;
+  }
 
   /* The tagline is lockup geometry too, exempt from the Type scale for the
-     same reason as the wordmark above: BR-LOGO, not BR-TYPE. Size, line
-     height, and tracking all stay literal, not just the tracking, so this
-     is not snapped to `label` and bolded, which would make the tagline read
-     as a UI tag. */
+     same reason as the wordmark above: BR-LOGO, not BR-TYPE. Line height and
+     tracking stay literal, not just the size, so this is not snapped to
+     `label` and bolded, which would make the tagline read as a UI tag.
+     Tracking is BR-LOGO Rev 03's own base value (0.2em); Rev 14 deleted the
+     0.19em this used to carry, which did not match the sheet at any size,
+     `sm`'s own 0.15em included. Size carries no default, for the same
+     reason as .wm .word and .seg above. */
   .lock .tl {
-    font-size: 9.5px;
-    letter-spacing: 0.19em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--domain-space);
     white-space: nowrap;
@@ -449,6 +478,11 @@
   .lock .tl b {
     color: var(--domain-energy);
     font-weight: 400;
+  }
+  /* On jet, per Rev 14: monochrome page white, not a lifted or tinted color. */
+  .wm-inverted .lock .tl,
+  .wm-inverted .lock .tl b {
+    color: var(--color-page);
   }
 
   .nav {
@@ -1320,18 +1354,6 @@
   }
   .specimen-surface-jet {
     background: var(--color-jet);
-  }
-  /* The wordmark's domain colors are not confidence marks and stay put on
-     jet. The confidence rule and the tagline are what BR-LOGO specifies
-     inverting to white on this surface. */
-  .specimen-surface-jet .seg-s,
-  .specimen-surface-jet .seg-d,
-  .specimen-surface-jet .seg-t {
-    border-bottom-color: var(--color-page);
-  }
-  .specimen-surface-jet .lock .tl,
-  .specimen-surface-jet .lock .tl b {
-    color: var(--color-page);
   }
 
   .swatch-row {

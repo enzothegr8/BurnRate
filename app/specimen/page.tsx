@@ -151,9 +151,9 @@ export default async function SpecimenPage() {
         <p className="sechead">01 · The lockup</p>
         <p className="meta">
           xl, md, sm — BR-LOGO Rev 03&apos;s own sizing table. The masthead
-          you are looking at right now uses none of these three: its wordmark
-          is fixed at 30px, between md&apos;s 36 and sm&apos;s 22, a fourth
-          size this table does not name. See the note under this section.
+          you are looking at right now uses the real Logo component at
+          size=&quot;md&quot;, the middle of these three, with no local size
+          or tracking override left in the component.
         </p>
         <div className="specimen-surface specimen-surface-page">
           <Logo href="/specimen" size="xl" />
@@ -166,21 +166,18 @@ export default async function SpecimenPage() {
           <Logo href="/specimen" size="sm" />
         </div>
         <div className="specimen-surface specimen-surface-jet">
-          <Logo href="/specimen" size="xl" />
-          <Logo href="/specimen" size="md" />
-          <Logo href="/specimen" size="sm" />
+          <Logo href="/specimen" size="xl" inverted />
+          <Logo href="/specimen" size="md" inverted />
+          <Logo href="/specimen" size="sm" inverted />
         </div>
         <p className="meta">
-          On jet, the rule segments and the tagline invert to page white, per
-          the foundation doc&apos;s Motion subsection. The wordmark&apos;s
-          own domain colors are not confidence marks and stay put. BR-LOGO
-          Rev 03&apos;s standalone sheet also shows the wordmark and tagline
-          switching to tinted colors on dark (#5B8CFF, #E4586E, #8FA3D6) that
-          are not in the closed nine-color palette and are not mentioned in
-          the foundation doc. That sheet predates Rev 09&apos;s consolidation
-          into a single source of truth; this page follows the doc, not the
-          sheet, and does not render those colors. Flagging the conflict
-          rather than picking a side.
+          On jet, per Rev 14: the whole lockup goes monochrome page white
+          through Logo&apos;s own `inverted` prop, rendered here with no
+          local color override on this page. BR-LOGO Rev 03&apos;s standalone
+          sheet originally specified three lifted colors here that were
+          never in the closed nine-color palette; Rev 04 of that sheet
+          withdrew them in favor of this. The site itself never shows this
+          surface: social cards and video only.
         </p>
       </section>
 
@@ -201,6 +198,14 @@ export default async function SpecimenPage() {
         <div className="specimen-surface specimen-surface-page">
           <Monogram size={32} variant="mono" />
           <Monogram size={16} variant="mono" />
+        </div>
+        <p className="meta">
+          Inverted, for jet: page white, mix-blend-mode normal rather than
+          multiply, the same reasoning as the lockup above.
+        </p>
+        <div className="specimen-surface specimen-surface-jet">
+          <Monogram size={32} variant="inverted" />
+          <Monogram size={16} variant="inverted" />
         </div>
       </section>
 

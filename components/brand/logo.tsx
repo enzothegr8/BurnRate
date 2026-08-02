@@ -14,22 +14,28 @@
 import Link from "next/link";
 
 // Named size variants from BR-LOGO Rev 03's own sizing table
-// (docs/brand/logo-sheet.html), added for the specimen page. They are
-// additive: no size prop renders exactly what the masthead has always
-// shipped, a fixed 30/30/9.5 that predates this table and does not match
-// any of the three approved variants (xl 64/56/13, md 36/32/9.5, sm
-// 22/19/7). See app/specimen/page.tsx for that finding in full.
+// (docs/brand/logo-sheet.html). The masthead takes `md`; BR-LOGO names three
+// sizes and a component-local fourth one is not one of them, per Rev 14.
+//
+// `inverted` is the jet-surface treatment Rev 14 settled on: monochrome page
+// white throughout, wordmark and rule and tagline alike. Not a lifted or
+// tinted color, because a lifted color is a new color and the palette is
+// closed; the same reasoning as the jet-only monogram favicon, applied to
+// the whole lockup. Social cards and video only. The site is light and the
+// lockup on the site is never inverted.
 export function Logo({
   href = "/",
   size,
+  inverted = false,
 }: {
   href?: string;
-  size?: "xl" | "md" | "sm";
+  size: "xl" | "md" | "sm";
+  inverted?: boolean;
 }) {
   return (
     <Link
       href={href}
-      className={size ? `wm wm-${size}` : "wm"}
+      className={`wm wm-${size}${inverted ? " wm-inverted" : ""}`}
       aria-label="Burn Rate, home"
     >
       <span className="word">

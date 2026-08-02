@@ -27,7 +27,7 @@ export function Masthead() {
 
   return (
     <div className="mast">
-      <Logo />
+      <Logo size="md" />
       <nav className="nav">
         {NAV.map((item, i) =>
           "sep" in item ? (
