@@ -80,12 +80,21 @@ Other commands:
 | `npm run lint` | ESLint |
 | `npm run lint:numerals` | The numeral tripwire on its own |
 | `npm run icons` | Regenerates the icons and the Open Graph image |
+| `npm run export:specimen` | Regenerates `docs/brand/specimen/` from the live `/specimen` route |
 
 `npm run icons` derives every icon from the monogram and the lockup, reading the
 palette out of `app/globals.css` so nothing carries a duplicate hex value. The
 monogram overlap is produced by actually compositing the two letters with a
 multiply, never by typing the resulting color in. It fetches two fonts on first
 run and caches them under `.cache/`, which is ignored.
+
+`npm run export:specimen` builds the app, serves it on a scratch port, and takes
+a static snapshot of `/specimen` after hydration resolves its self-verifying
+readouts, with the stylesheet, fonts, and icons localized into the export.
+Run it after any `BR-FOUND` revision that touches color, type, space, the
+notation, the logo, layout, or motion, per section 7 of
+`docs/brand-foundation.md`: the specimen is a snapshot of a live route and the
+one downstream copy that can go stale without anyone editing it.
 
 ## Deploying
 

@@ -526,11 +526,11 @@ built.
 |---|---|---|
 | `BR-LOGO`, `docs/brand/logo-sheet.html` | The lockup, the monogram, the surfaces | Repo |
 | `BR-TYPE`, `docs/brand/type-sheet.html` | Type, space, the mark bands | Repo |
-| The specimen export, `docs/brand/specimen/` | Every element, rendered | Repo |
+| The specimen export, `docs/brand/specimen/` | Every element, rendered. Regenerated with `npm run export:specimen`, never edited by hand. | Repo |
 | `app/globals.css` | All three scales as tokens | Repo |
 | `lib/marks.ts` | The mark geometry, CSS and SVG | Repo |
 | The Claude Code prompt pack | Build instructions quoting all of it | Repo |
-| The design system statement | The visual system, written for an extractor | Uploaded |
+| The design system statement, `docs/brand/burnrate-design-system-statement.md` | The visual system, written for an extractor | Repo and uploaded |
 | The Claude Design system | The extraction built from the above | Outside the repo |
 
 **A revision touching color, type, space, the notation, the logo, layout, or

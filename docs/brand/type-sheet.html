@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Burn Rate — Type and Space Specification</title>
+<style>
+  :root{
+    --sans:ui-sans-serif,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:ui-serif,Georgia,"Times New Roman",serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace;
+    --page:#FBFBFC; --panel:#EFEFF1; --rule:#D8D8DC; --muted:#67676E;
+    --ink:#08080A; --body:#35353B;
+    --sp:#101F52; --ai:#1F5FE0; --en:#B3122B;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--page);color:var(--ink);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1000px;margin:0 auto;padding:56px 28px 96px}
+  header{border-bottom:1px solid var(--rule);padding-bottom:26px}
+  h1{font-family:var(--serif);font-weight:400;font-size:38px;margin:0 0 8px;letter-spacing:-.015em}
+  .sub{color:var(--body);font-size:15px;max-width:78ch;margin:0 0 16px}
+  .doc{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+  .doc b{font-weight:400;color:var(--en)}
+  h2{font-family:var(--serif);font-weight:400;font-size:25px;margin:60px 0 4px}
+  h3{font-family:var(--serif);font-weight:400;font-size:19px;margin:34px 0 6px}
+  .lead{color:var(--body);font-size:14.5px;max-width:84ch;margin:0 0 20px}
+  p.n{color:var(--body);font-size:14.5px;max-width:84ch}
+
+  .stage{border:1px solid var(--rule);background:var(--page);padding:34px 30px}
+  .stage + .caps{margin-top:9px}
+  .caps{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:9px 0 0}
+
+  table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13px;background:var(--panel)}
+  th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--rule);vertical-align:top}
+  th{font-family:var(--mono);font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:400}
+  td.t{font-family:var(--mono);font-size:12px}
+  td.num{font-family:var(--mono);font-size:12px;font-variant-numeric:tabular-nums}
+  code{font-family:var(--mono);font-size:12.5px}
+
+  .box{margin-top:26px;padding:22px 24px;background:var(--panel);border:1px solid var(--rule);border-left:3px solid var(--sp)}
+  .box h4{font-family:var(--serif);font-weight:400;font-size:20px;margin:0 0 10px}
+  .box p{font-size:14.5px;color:var(--body);max-width:86ch;margin:0 0 10px}
+  .box p:last-child{margin-bottom:0}
+  .box strong{color:var(--ink)}
+  .box.warn{border-left-color:var(--en)}
+  .box.q{border-left-color:var(--ai)}
+
+  /* ---- the scale itself ---- */
+  .display   {font-family:var(--serif);font-weight:400;font-size:56px;line-height:1.04;letter-spacing:-.02em;margin:0}
+  .title     {font-family:var(--serif);font-weight:400;font-size:40px;line-height:1.10;letter-spacing:-.018em;margin:0}
+  .head      {font-family:var(--serif);font-weight:400;font-size:28px;line-height:1.20;letter-spacing:-.01em;margin:0}
+  .subhead   {font-family:var(--serif);font-weight:400;font-size:21px;line-height:1.30;margin:0}
+  .standfirst{font-family:var(--serif);font-weight:400;font-size:20px;line-height:1.50;color:var(--body);margin:0}
+  .bodyc     {font-family:var(--sans);font-weight:400;font-size:17px;line-height:1.65;color:var(--body);margin:0}
+  .small     {font-family:var(--sans);font-weight:400;font-size:15px;line-height:1.55;color:var(--body);margin:0}
+  .ui        {font-family:var(--sans);font-weight:600;font-size:14px;line-height:1.40;margin:0}
+  .statxl    {font-family:var(--mono);font-weight:400;font-size:64px;line-height:1.00;letter-spacing:-.01em;font-variant-numeric:tabular-nums;margin:0}
+  .statl     {font-family:var(--mono);font-weight:400;font-size:34px;line-height:1.05;font-variant-numeric:tabular-nums;margin:0}
+  .statm     {font-family:var(--mono);font-weight:400;font-size:22px;line-height:1.15;font-variant-numeric:tabular-nums;margin:0}
+  .meta      {font-family:var(--mono);font-weight:400;font-size:12.5px;line-height:1.45;letter-spacing:.01em;color:var(--muted);margin:0}
+  .label     {font-family:var(--mono);font-weight:600;font-size:11px;line-height:1.2;letter-spacing:.08em;text-transform:uppercase;margin:0}
+  .fig       {font-family:var(--mono);font-size:.94em;font-variant-numeric:tabular-nums;font-variant-ligatures:none}
+
+  .row{display:flex;gap:26px;align-items:baseline;flex-wrap:wrap}
+  .spec{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);white-space:nowrap;min-width:150px}
+  .specimen{border-bottom:1px solid var(--rule);padding:20px 0}
+  .specimen:last-child{border-bottom:0}
+
+  /* ---- confidence marks ---- */
+  .c,.r,.d{font-variant-numeric:tabular-nums;font-variant-ligatures:none}
+  /* The rule is always jet. The numeral color is inherited from context. */
+  .c{border-bottom:1px solid var(--ink);padding-bottom:.14em}
+  .r{border-bottom:1px dashed var(--ink);padding-bottom:.14em}
+  .d{border-bottom:1.5px dotted var(--ink);padding-bottom:.14em}
+  .m .c{border-bottom-width:2px;padding-bottom:.12em}
+  .m .r{border-bottom-width:2px;padding-bottom:.12em}
+  .m .d{border-bottom-width:2.5px;padding-bottom:.12em}
+  .l .c{border-bottom-width:3px;padding-bottom:.10em}
+  .l .r{border-bottom-width:3px;padding-bottom:.10em}
+  .l .d{border-bottom-width:4px;padding-bottom:.10em}
+
+  .k-jet{color:var(--ink)} .k-space{color:var(--sp)} .k-ai{color:var(--ai)}
+  .k-en{color:var(--en)} .k-muted{color:var(--muted)}
+
+  .tag{font-family:var(--mono);font-weight:600;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#fff;padding:3px 7px 2px;display:inline-block}
+  .tag.space{background:var(--sp)} .tag.ai{background:var(--ai)}
+  .tag.rob{background:var(--ink)} .tag.en{background:var(--en)}
+
+  .measure{max-width:64ch}
+  .ruler{height:10px;border-left:1px solid var(--rule);border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);margin-top:6px}
+
+  .sp-row{display:flex;align-items:center;gap:16px;padding:5px 0}
+  .sp-bar{height:11px;background:var(--sp)}
+  .sp-name{font-family:var(--mono);font-size:11px;color:var(--muted);min-width:120px;letter-spacing:.06em;text-transform:uppercase}
+  .sp-val{font-family:var(--mono);font-size:11px;color:var(--ink);font-variant-numeric:tabular-nums}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  @media (max-width:760px){.grid2{grid-template-columns:1fr}
+    .display{font-size:36px}.title{font-size:29px}.head{font-size:23px}
+    .statxl{font-size:40px}.statl{font-size:26px}}
+  @media print{
+    body{background:#fff}
+    .wrap{max-width:none;padding:0 12mm}
+    h2{page-break-after:avoid}
+    .stage,.box,table{page-break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Burn Rate — Type and Space Specification</h1>
+  <p class="sub">Fourteen type steps across the three approved roles, a four-pixel space scale, the measure, and the mechanics of the confidence marks at every size. Set in the current system stack, because the pinned faces are metric-compatible and the scale carries over unchanged.</p>
+  <p class="doc">Doc BR-TYPE · Rev <b>03</b> · Updated 2026-08-01 · Drawn E. Carvalho · Derived from BR-FOUND Rev 15</p>
+  <p class="doc" style="margin-top:10px;color:var(--body);letter-spacing:0;text-transform:none;font-size:12.5px">Rev 03 · Navigation moves to mono at the <b>label</b> token, superseding the sans assignment. Article titles take <b>title</b>, in-article H2 takes <b>head</b>, H3 takes <b>subhead</b>. Equidistant spacing values round up. The lockup is exempt from both scales. Rev 02 remains in force: the marks carry no color, line style alone carries confidence, the rule is always jet, and the numeral takes whatever color the context sets.</p>
+</header>
+
+<h2>What the roles already decide for you</h2>
+<p class="lead">The three roles were settled in <code>BR-FOUND</code> Rev 06 and they are more consequential than they look. Mono owns <em>every figure</em>. So the large running statistics on Home are not serif display type with numbers in them. They are mono, at display size, carrying confidence marks. That is unusual, it is a direct consequence of a rule already made, and it is the most distinctive typographic thing about this publication.</p>
+
+<div class="stage">
+  <p class="label" style="color:var(--muted);margin-bottom:14px">Lunar surface awards · base only</p>
+  <p class="statxl l k-space"><span class="d">$1.292B</span></p>
+  <p class="meta" style="margin-top:14px">Derived · sum of seven separately reported awards · as of 2026-07-17</p>
+</div>
+<p class="caps">Home running statistic · mono 64 · blue deep because the subject is Space · dotted because Burn Rate did the arithmetic · 4px jet rule at this size</p>
+
+<h2>The scale</h2>
+<p class="lead">Fourteen steps. Serif is 400 at every size and hierarchy is carried by size alone, never by weight, which keeps the headline voice level with the logo. Sans carries 400 and 600. Mono carries 400, with 600 reserved for labels and tags.</p>
+<p class="n" style="margin-bottom:14px"><strong>Navigation is mono at the <code>label</code> token</strong>, uppercase and letterspaced, muted, with the active item in jet. It is a row of labels rather than a row of words, and setting it in sans would leave it as the only element in the masthead not speaking the system's language.</p>
+<p class="n" style="margin-bottom:14px"><strong>Headings map by job, not by pixel distance.</strong> An article's own title is <code>title</code>. A heading that divides an article body is <code>head</code>. A division inside a section is <code>subhead</code>. Nothing in an article body goes below <code>subhead</code>; if a piece needs a fourth level, the piece is structured wrong.</p>
+
+<table>
+  <tr><th>Token</th><th>Family</th><th>Size</th><th>Line</th><th>Weight</th><th>Tracking</th><th>Job</th></tr>
+  <tr><td class="t">display</td><td>serif</td><td class="num">56</td><td class="num">1.04</td><td class="num">400</td><td class="num">-.020</td><td>Domain page titles, Home hero</td></tr>
+  <tr><td class="t">title</td><td>serif</td><td class="num">40</td><td class="num">1.10</td><td class="num">400</td><td class="num">-.018</td><td>Article title, the Articles lead</td></tr>
+  <tr><td class="t">head</td><td>serif</td><td class="num">28</td><td class="num">1.20</td><td class="num">400</td><td class="num">-.010</td><td>Section heads, list items</td></tr>
+  <tr><td class="t">subhead</td><td>serif</td><td class="num">21</td><td class="num">1.30</td><td class="num">400</td><td class="num">0</td><td>In-article subheads</td></tr>
+  <tr><td class="t">standfirst</td><td>serif</td><td class="num">20</td><td class="num">1.50</td><td class="num">400</td><td class="num">0</td><td>Standfirst, set in body color</td></tr>
+  <tr><td class="t">body</td><td>sans</td><td class="num">17</td><td class="num">1.65</td><td class="num">400</td><td class="num">0</td><td>Running copy</td></tr>
+  <tr><td class="t">small</td><td>sans</td><td class="num">15</td><td class="num">1.55</td><td class="num">400</td><td class="num">0</td><td>Captions, secondary UI</td></tr>
+  <tr><td class="t">ui</td><td>sans</td><td class="num">14</td><td class="num">1.40</td><td class="num">600</td><td class="num">0</td><td>Controls, form labels</td></tr>
+  <tr><td class="t">stat-xl</td><td>mono</td><td class="num">64</td><td class="num">1.00</td><td class="num">400</td><td class="num">-.010</td><td>Home running statistics</td></tr>
+  <tr><td class="t">stat-l</td><td>mono</td><td class="num">34</td><td class="num">1.05</td><td class="num">400</td><td class="num">0</td><td>Domain statistics, chart callouts</td></tr>
+  <tr><td class="t">stat-m</td><td>mono</td><td class="num">22</td><td class="num">1.15</td><td class="num">400</td><td class="num">0</td><td>Inset panel figures, table totals</td></tr>
+  <tr><td class="t">figure</td><td>mono</td><td class="num">.94em</td><td>inherit</td><td class="num">400</td><td class="num">0</td><td>Any figure inside prose</td></tr>
+  <tr><td class="t">meta</td><td>mono</td><td class="num">12.5</td><td class="num">1.45</td><td class="num">400</td><td class="num">.010</td><td>Source lines, timestamps, notes</td></tr>
+  <tr><td class="t">label</td><td>mono</td><td class="num">11</td><td class="num">1.20</td><td class="num">600</td><td class="num">.080</td><td>Domain tags, kickers, column heads, navigation</td></tr>
+</table>
+
+<h2>The steps in situ</h2>
+<div class="stage">
+  <div class="specimen"><div class="row"><span class="spec">display · serif 56</span><p class="display">The power problem nobody priced</p></div></div>
+  <div class="specimen"><div class="row"><span class="spec">title · serif 40</span><p class="title">Seven awards, one unexercised option</p></div></div>
+  <div class="specimen"><div class="row"><span class="spec">head · serif 28</span><p class="head">What the filing actually confirms</p></div></div>
+  <div class="specimen"><div class="row"><span class="spec">subhead · serif 21</span><p class="subhead">The denominator is a choice</p></div></div>
+  <div class="specimen"><div class="row"><span class="spec">standfirst · serif 20</span><p class="standfirst measure">NASA's written record prices the Moon Base nowhere, and the figure everyone repeats was spoken from a podium.</p></div></div>
+  <div class="specimen"><div class="row"><span class="spec">body · sans 17</span><p class="bodyc measure">Announced capacity is not contracted capacity is not energized capacity. Three numbers wear one word, and which one an operator means is usually the whole story.</p></div></div>
+  <div class="specimen"><div class="row"><span class="spec">small · sans 15</span><p class="small measure">Figures update when their sources do. Every piece carries a revision number.</p></div></div>
+  <div class="specimen"><div class="row"><span class="spec">ui · sans 14 · 600</span><p class="ui">Articles</p></div></div>
+  <div class="specimen"><div class="row"><span class="spec">stat-l · mono 34</span><p class="statl m"><span class="r">$280.4M</span></p></div></div>
+  <div class="specimen"><div class="row"><span class="spec">stat-m · mono 22</span><p class="statm m"><span class="c">$188M</span></p></div></div>
+  <div class="specimen"><div class="row"><span class="spec">meta · mono 12.5</span><p class="meta">NASA · 2026-05-26 · retrieved 2026-07-17</p></div></div>
+  <div class="specimen"><div class="row"><span class="spec">label · mono 11 · 600</span><p><span class="tag space">Space</span> <span class="tag ai">AI</span> <span class="tag rob">Robotics</span> <span class="tag en">Energy</span></p></div></div>
+</div>
+
+<h2>Mono inside prose</h2>
+<p class="lead">Cascadia sets larger on the body than Selawik at the same nominal size, so a figure dropped into a sentence at <code>1em</code> looks shouted. The <code>figure</code> token is <code>0.94em</code>, which lands the digits at the sans x-height. Tabular figures always, so a number does not shift when it updates. Ligatures off, always: a publication about numbers must never render a programming ligature.</p>
+<div class="stage">
+  <p class="bodyc measure">The base awards total <span class="fig d">$1.292B</span>. With the unexercised Blue Origin option the figure becomes <span class="fig d">$1.573B</span>, and publishing <span class="fig r">$1.6B</span> without noting the option is unexercised is the exact imprecision this publication exists to correct. NASA's release states the award plainly: <span class="fig c">$188M</span> base, <span class="fig c">$280.4M</span> option.</p>
+  <p class="meta" style="margin-top:16px">Body sans 17 · figures mono at .94em · marks at 1px, dotted at 1.5px</p>
+</div>
+
+<h2>The marks at every size</h2>
+<p class="lead">The notation is the promise, so it has to survive the whole scale. Three bands, and the rule is jet in all three styles. Dotted always carries more weight than solid at the same size, because a dot covers roughly half the length a solid rule does and would otherwise read as the faintest mark in the system. It is a kind, not a degree, and it must not look like a weaker claim.</p>
+
+<table>
+  <tr><th>Band</th><th>Confirmed</th><th>Reported</th><th>Derived</th><th>Offset</th></tr>
+  <tr><td>Up to 17px</td><td class="t">1px solid</td><td class="t">1px dashed</td><td class="t">1.5px dotted</td><td class="t">.14em</td></tr>
+  <tr><td>18 to 34px</td><td class="t">2px solid</td><td class="t">2px dashed</td><td class="t">2.5px dotted</td><td class="t">.12em</td></tr>
+  <tr><td>35px and up</td><td class="t">3px solid</td><td class="t">3px dashed</td><td class="t">4px dotted</td><td class="t">.10em</td></tr>
+</table>
+
+<div class="stage">
+  <div class="grid2">
+    <div>
+      <p class="statl m"><span class="c">$188M</span> <span class="r">$220M</span> <span class="d">$1.292B</span></p>
+      <p class="caps">stat-l · mono 34 · band two</p>
+    </div>
+    <div>
+      <p class="statm m"><span class="c">$188M</span> <span class="r">$220M</span> <span class="d">$1.292B</span></p>
+      <p class="caps">stat-m · mono 22 · band two</p>
+    </div>
+    <div>
+      <p class="bodyc"><span class="fig c">$188M</span> &nbsp; <span class="fig r">$220M</span> &nbsp; <span class="fig d">$1.292B</span></p>
+      <p class="caps">in prose · band one</p>
+    </div>
+    <div>
+      <p class="meta" style="color:var(--body)"><span class="c">341,800,000</span> &nbsp; <span class="r">7 years</span> &nbsp; <span class="d">$4.61</span></p>
+      <p class="caps">meta · mono 12.5 · band one · the floor</p>
+    </div>
+  </div>
+</div>
+
+<h2>Color is not part of the mark</h2>
+<p class="lead">The rule is jet in all three styles, exactly as the three segments under the logo are jet. Line style alone carries confidence. The color of the numeral is set by the context it appears in and has nothing to do with how the number came to exist. Every figure below is the same confirmed award, and every one of them is correct.</p>
+
+<div class="stage">
+  <div class="grid2">
+    <div><p class="statl m k-jet"><span class="c">$188M</span></p><p class="caps">Default · in prose, in a table, anywhere unmarked by context</p></div>
+    <div><p class="statl m k-space"><span class="c">$188M</span></p><p class="caps">On the Space domain page · blue deep</p></div>
+    <div><p class="statl m k-en"><span class="c">$188M</span></p><p class="caps">As a kicker or an emphasized figure · crimson</p></div>
+    <div><p class="statl m k-ai"><span class="c">$188M</span></p><p class="caps">In an AI-domain chart · blue bright · never below 12px</p></div>
+  </div>
+</div>
+
+<p class="n" style="margin-top:20px"><strong>Two rules follow.</strong> A figure never takes blue bright merely for being derived, because blue bright is the link color and a dotted blue figure reads as a hyperlink. And muted grey is no longer the reported color, because grey made reported look like a hedge. Reported is a kind, not a weaker claim, and it is set in whatever color its context calls for like everything else.</p>
+
+<div class="box warn">
+  <h4>Losing the color redundancy raises the bar on the line styles</h4>
+  <p>When the three marks were jet, grey, and blue, color did half the work of telling them apart and line style only had to do the rest. Now line style does all of it. <strong>That makes the weight bump on dotted structural rather than cosmetic</strong>, and it means any future rendering of a mark, in a chart, in an SVG, in a 3D scene, in an export, has to reproduce the dash and dot geometry faithfully or the notation stops working.</p>
+  <p>The one place a jet rule cannot go is the jet background used for social cards and video. There the rules invert to white, which BR-LOGO already specifies for the logo segments. Same rule, same reason.</p>
+</div>
+
+<div class="box">
+  <h4>The 12px floor, restated</h4>
+  <p><strong>Blue bright is never used below 12px.</strong> This is now a color rule rather than a confidence rule: it constrains any figure set in blue bright for contextual reasons, most often an AI-domain statistic or an AI series in a chart.</p>
+  <p><code>label</code> at 11px therefore cannot carry a blue bright figure. Those go up to <code>meta</code> at 12.5px. <strong>If a figure will not fit at 12.5px, the layout is wrong, not the rule.</strong></p>
+</div>
+
+<h2>Space</h2>
+<p class="lead">A four-pixel base with ten steps. Every margin, padding, and gap in the system is one of these. The scale is closed in the same way the palette is closed: a new value is a revision to this document, not a decision made inside a component. <strong>Equidistant values round up:</strong> a value falling exactly between two steps takes the larger, so the same input always produces the same output whoever is doing the mapping.</p>
+
+<div class="stage">
+  <div class="sp-row"><span class="sp-name">space-1</span><span class="sp-bar" style="width:4px"></span><span class="sp-val">4</span></div>
+  <div class="sp-row"><span class="sp-name">space-2</span><span class="sp-bar" style="width:8px"></span><span class="sp-val">8</span></div>
+  <div class="sp-row"><span class="sp-name">space-3</span><span class="sp-bar" style="width:12px"></span><span class="sp-val">12</span></div>
+  <div class="sp-row"><span class="sp-name">space-4</span><span class="sp-bar" style="width:16px"></span><span class="sp-val">16</span></div>
+  <div class="sp-row"><span class="sp-name">space-5</span><span class="sp-bar" style="width:24px"></span><span class="sp-val">24</span></div>
+  <div class="sp-row"><span class="sp-name">space-6</span><span class="sp-bar" style="width:32px"></span><span class="sp-val">32</span></div>
+  <div class="sp-row"><span class="sp-name">space-7</span><span class="sp-bar" style="width:48px"></span><span class="sp-val">48</span></div>
+  <div class="sp-row"><span class="sp-name">space-8</span><span class="sp-bar" style="width:64px"></span><span class="sp-val">64</span></div>
+  <div class="sp-row"><span class="sp-name">space-9</span><span class="sp-bar" style="width:96px"></span><span class="sp-val">96</span></div>
+  <div class="sp-row"><span class="sp-name">space-10</span><span class="sp-bar" style="width:144px"></span><span class="sp-val">144</span></div>
+</div>
+
+<h3>Assignments</h3>
+<table>
+  <tr><th>Relationship</th><th>Value</th><th>Note</th></tr>
+  <tr><td>Figure to its own label</td><td class="num">8</td><td>Tight enough that they read as one object</td></tr>
+  <tr><td>Paragraph to paragraph</td><td class="num">24</td><td></td></tr>
+  <tr><td>Subhead above / below</td><td class="num">48 / 12</td><td>Asymmetric, so the head binds to what follows</td></tr>
+  <tr><td>Panel padding</td><td class="num">24</td><td>Plus the hairline border, always</td></tr>
+  <tr><td>Panel above / below</td><td class="num">32</td><td></td></tr>
+  <tr><td>Section head above / below</td><td class="num">96 / 16</td><td></td></tr>
+  <tr><td>Module to module, Home</td><td class="num">144</td><td>The only use of space-10</td></tr>
+  <tr><td>Page gutter</td><td class="num">28 / 20</td><td>Desktop / mobile. The one value off the scale, carried from BR-LOGO.</td></tr>
+</table>
+
+<h2>Measure and columns</h2>
+<p class="lead">The article measure was settled at 64 characters and centered. Everything else is built around it.</p>
+<div class="stage">
+  <p class="bodyc measure">Sixty-four characters at seventeen pixels lands near five hundred and fifty pixels of running copy. This is that measure, set in the body token, so the line breaks you see here are the line breaks a reader gets.</p>
+  <div class="ruler measure"></div>
+  <p class="caps">64ch · the article column</p>
+</div>
+<table>
+  <tr><th>Column</th><th>Width</th><th>Used by</th></tr>
+  <tr><td>Measure</td><td class="num">64ch</td><td>Article body, standfirst, in-article panels</td></tr>
+  <tr><td>Breakout</td><td class="num">1120</td><td>Full-width charts and modules inside an article</td></tr>
+  <tr><td>Page</td><td class="num">1180</td><td>Home, Articles, domain pages, outer bound</td></tr>
+</table>
+
+<h2>Mobile</h2>
+<p class="lead">Body never moves. Seventeen pixels is already right on a phone and shrinking it is the most common way a reading site gets worse. Only the display steps compress, at 760px.</p>
+<table>
+  <tr><th>Token</th><th>Desktop</th><th>Mobile</th></tr>
+  <tr><td class="t">display</td><td class="num">56</td><td class="num">36</td></tr>
+  <tr><td class="t">title</td><td class="num">40</td><td class="num">29</td></tr>
+  <tr><td class="t">head</td><td class="num">28</td><td class="num">23</td></tr>
+  <tr><td class="t">stat-xl</td><td class="num">64</td><td class="num">40</td></tr>
+  <tr><td class="t">stat-l</td><td class="num">34</td><td class="num">26</td></tr>
+  <tr><td class="t">everything else</td><td class="num">—</td><td class="num">unchanged</td></tr>
+</table>
+<p class="n"><strong>Note the band shift.</strong> At mobile, <code>stat-l</code> drops to 26px and stays in band two, but <code>stat-xl</code> falls from band three to band two and its rule goes from 4px to 2.5px. Handle this in the component, not by hand.</p>
+
+<div class="box q">
+  <h4>Ratified 2026-08-01</h4>
+  <p><strong>Body at 17.</strong> Not 18. The register is a record, not a magazine.</p>
+  <p><strong>Serif at one weight.</strong> 400 at every size. Hierarchy is carried by size alone, and the headline voice stays level with the logo.</p>
+  <p><strong>stat-xl at 64.</strong> Large enough to carry the Home hero without a graphic.</p>
+  <p><strong>Dotted heavier than solid.</strong> For visibility. A dot covers roughly half the length a solid rule does.</p>
+  <p><strong>The marks carry no color.</strong> Line style alone. The rule is jet, the numeral is contextual, and the color assignments in BR-FOUND section 4 are superseded.</p>
+  <p><strong>Navigation is mono at label.</strong> Rev 03. The masthead was built in mono and the built version won the argument with the doc.</p>
+  <p><strong>The lockup is exempt from both scales.</strong> Wordmark size, tagline size and line height, tagline tracking, segment widths, and the -0.26em overlap are proportions of one object and belong to BR-LOGO.</p>
+</div>
+
+<div class="box">
+  <h4>Still open after this</h4>
+  <p>Pinning the webfonts. Illustration doctrine. The chart system beyond the color assignments. Motion and 3D doctrine, which does not exist yet and is the next thing to write.</p>
+  <p><strong>The scale survives pinning.</strong> Gelasio is metric-compatible with Georgia and Selawik with Segoe UI, which is why those two were chosen. Cascadia is the exception, so <code>figure</code> at <code>0.94em</code> is the one value to re-check once the real face is loading.</p>
+</div>
+
+</div>
+</body>
+</html>
