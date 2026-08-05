@@ -30,6 +30,14 @@ export type Article = {
    *  figure is an empty slot rather than an invented number. */
   cover?: string;
   coverAlt?: string;
+  /** Optional mirror of an entry's related[]. Entry ids this piece points at.
+   *
+   *  Shape is checked here; whether the targets exist is checked in
+   *  lib/encyclopedia/validate.ts, which is the module that knows what entries
+   *  are. This file must not import the encyclopedia: that store reads this one,
+   *  and a cycle between them would make the build order decide which validator
+   *  ran first. */
+  encyclopedia?: string[];
 };
 
 const STATUSES: ArticleStatus[] = ["draft", "published", "placeholder"];
@@ -84,6 +92,16 @@ function parseFrontmatter(slug: string, raw: Record<string, unknown>): Article {
     }
   }
 
+  const encyclopedia = raw.encyclopedia;
+  if (encyclopedia !== undefined) {
+    if (
+      !Array.isArray(encyclopedia) ||
+      encyclopedia.some((v) => typeof v !== "string")
+    ) {
+      fail(slug, `frontmatter "encyclopedia" must be an array of entry ids.`);
+    }
+  }
+
   return {
     slug,
     title: text("title"),
@@ -97,6 +115,7 @@ function parseFrontmatter(slug: string, raw: Record<string, unknown>): Article {
     status: status as ArticleStatus,
     cover: cover as string | undefined,
     coverAlt: coverAlt as string | undefined,
+    encyclopedia: encyclopedia as string[] | undefined,
   };
 }
 

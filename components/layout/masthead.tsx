@@ -4,11 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Logo } from "@/components/brand/logo";
 
-// Home, Articles, separator, the four domains in their fixed order, separator,
-// Contact.
+// Home, Articles, Encyclopedia, separator, the four domains in their fixed
+// order, separator, Contact. Encyclopedia sits directly after Articles, per the
+// Layout section of the foundation doc.
 const NAV = [
   { href: "/", label: "Home" },
   { href: "/articles", label: "Articles" },
+  { href: "/encyclopedia", label: "Encyclopedia" },
   { sep: true },
   { href: "/space", label: "Space" },
   { href: "/ai", label: "AI" },
@@ -21,7 +23,8 @@ const NAV = [
 export function Masthead() {
   const pathname = usePathname();
 
-  // An article sits under Articles, so the section stays lit while reading one.
+  // An article sits under Articles and an entry under Encyclopedia, so the
+  // section stays lit while reading one.
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 

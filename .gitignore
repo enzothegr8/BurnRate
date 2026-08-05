@@ -54,3 +54,11 @@ pyvenv.cfg
 
 # Build-time font cache for tools/generate-icons.mjs
 .cache/
+
+# The private research queue. Open questions are working state, not content.
+#
+# This repository is public, so everything in content/ is published twice, on
+# the site and on GitHub. A list of what has not been researched yet, what looks
+# wrong, and which figures are not standing up is exactly the material that must
+# not ship with the archive it is about.
+notes/

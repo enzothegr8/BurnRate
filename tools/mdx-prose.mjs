@@ -13,6 +13,14 @@
 // the same length, newlines kept, so line and column numbers in the masked
 // text still point at the right place in the original file.
 
+// Which directories the guards read, for the same reason the masking lives
+// here: two lints answering "what is content?" separately would drift, and a
+// new content directory would silently be covered by one and not the other.
+// Encyclopedia entries are records in the article pipeline, so both guards
+// apply to them unchanged. An entry can no more contain a bare digit or an em
+// dash than an article can.
+export const CONTENT_DIRS = ["content/articles", "content/encyclopedia"];
+
 /** Replace a matched region with spaces, keeping newlines, so that line and
  *  column numbers in the masked text still match the original file. */
 export function blank(match) {

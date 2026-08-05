@@ -35,7 +35,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
-import { maskNonProse } from "./mdx-prose.mjs";
+import { CONTENT_DIRS, maskNonProse } from "./mdx-prose.mjs";
 
 const EM_DASH = "\u2014";
 
@@ -81,11 +81,12 @@ export function lintDirectory(dir) {
 
 // Run only when invoked directly, so the functions above stay testable.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const dir = join(process.cwd(), "content", "articles");
-  const failures = lintDirectory(dir);
+  const dirs = CONTENT_DIRS.map((d) => join(process.cwd(), d));
+  const failures = dirs.flatMap((dir) => lintDirectory(dir));
+  const count = dirs.reduce((n, dir) => n + articleFiles(dir).length, 0);
 
   if (failures.length > 0) {
-    console.error(`\nEm dashes in article prose (${failures.length}):\n`);
+    console.error(`\nEm dashes in prose (${failures.length}):\n`);
     for (const f of failures) {
       console.error(`  ${f.file}:${f.line}:${f.column}`);
       console.error(`    ${f.text}`);
@@ -100,5 +101,5 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     process.exit(1);
   }
 
-  console.log(`Em dash lint clean across ${articleFiles(dir).length} files.`);
+  console.log(`Em dash lint clean across ${count} files.`);
 }

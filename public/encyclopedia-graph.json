@@ -1,0 +1,50 @@
+{
+  "nodes": [
+    {
+      "id": "enc.kardashev-scale",
+      "type": "entry",
+      "title": "The Kardashev scale",
+      "standfirst": "A civilization ranked by the power it can command, which is why the scale keeps getting borrowed by people arguing about datacenters.",
+      "domains": [
+        "space",
+        "energy"
+      ],
+      "lenses": [
+        "economics",
+        "science"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "enc.starmind",
+      "type": "entry",
+      "title": "Starmind",
+      "standfirst": "",
+      "domains": [
+        "ai"
+      ],
+      "lenses": [
+        "science"
+      ],
+      "status": "stub"
+    }
+  ],
+  "edges": [
+    {
+      "kind": "related",
+      "source": "enc.kardashev-scale",
+      "target": "enc.starmind",
+      "weight": 3
+    }
+  ],
+  "taxonomy": [
+    {
+      "kind": "taxonomy",
+      "source": "enc.kardashev-scale",
+      "target": "enc.starmind",
+      "weight": 1,
+      "via": "lens",
+      "key": "science"
+    }
+  ]
+}

@@ -118,6 +118,39 @@ export const FIXTURE_FACTS: Fact[] = [
       "Fixture record. Exercises the stale flag: retrieved decades ago against a 30-day fast window, so it stays stale regardless of when this is read.",
     stale_after: "fast",
   },
+  {
+    // The one fixture that renders on a public route rather than only on
+    // /specimen, because the encyclopedia seed needs a real record to exercise
+    // fact discovery and the graph's fact edges against.
+    //
+    // Its value is zero on purpose. Every other fixture here formats to a
+    // plausible-looking number, which is fine on /specimen and is not fine on a
+    // content page in a public repository: a realistic fake figure in a
+    // publication whose premise is marking its numbers is the worst thing this
+    // repo could ship. A record-backed figure cannot use the visibly-fake
+    // placeholder strings, because its value goes through format(), so zero is
+    // the closest a real record gets to unmistakably not being a claim.
+    id: "fixture.energy.civilization.output",
+    domain: "energy",
+    value: 0,
+    unit: "W",
+    label: "FIXTURE, placeholder civilization power output",
+    as_of: "2026-06-30",
+    confidence: "reported",
+    sources: [
+      {
+        name: "FIXTURE originating record",
+        url: "https://example.com/fixture/civilization-output",
+        tier: 1,
+        states_value: true,
+        traces_to: null,
+        retrieved_at: "2026-07-15",
+      },
+    ],
+    notes:
+      "Fixture record. Zero is the value, deliberately. It exists so an encyclopedia entry can cite a record without publishing a plausible number.",
+    stale_after: "quarterly",
+  },
 ];
 
 export const FIXTURE_DERIVED: DerivedFact[] = [
