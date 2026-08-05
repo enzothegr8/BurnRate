@@ -1,6 +1,6 @@
 # Burn Rate · Foundation
 
-**Doc** BR-FOUND · **Rev** 16 · **Updated** 2026-08-01 · **Drawn** E. CARVALHO
+**Doc** BR-FOUND · **Rev** 17 · **Updated** 2026-08-05 · **Drawn** E. CARVALHO
 
 **This is the single source of truth.** As of Rev 09 it absorbs everything worth keeping from `editorial-standards.md` and `data-model.md`, both of which are retired. If those files still exist anywhere, they are stale copies and this document wins.
 
@@ -229,6 +229,7 @@ Settled and built as a mock covering Home, Articles, four domain pages, an artic
 - **Articles** is a single lead at large scale followed by a hairline-separated list. It looks correct with one piece and with two hundred, and it expresses judgment rather than inventory. Card grids were rejected: equal weight hides judgment and the layout visibly breaks at low volume.
 - **Article pages** are a single centered measure at 64 characters. The measure is centered, so full-width breakout charts can be added later as a variant without restructuring.
 - **Domain pages** share one template distinguished by the domain color: large serif title, a thick color bar, three domain statistics, a domain-specific module slot, then a filtered list.
+- **Encyclopedia** is the research archive: an index organized by domain and lens, entries on the article measure at 64 characters. It sits in the nav directly after Articles, so the order is Home, Articles, Encyclopedia, separator, the four domains, separator, Contact. Full specification in section 5, *The encyclopedia*.
 - **Contact** is spare, with corrections given their own line.
 
 ### Charts
@@ -526,6 +527,35 @@ A tracker is a maintained ledger of who committed what, in one domain, assembled
 
 **Design a tracker around its absences first.** Every domain has one: the campus with no announced power source, the robotics roadmap with no unit economics, the buildout with no disclosed financing.
 
+### The encyclopedia
+
+**The encyclopedia is the public research archive.** Everything Burn Rate has researched, organized and navigable at `/encyclopedia`. It is proof of research for readers, a "read more" layer behind articles, and the canonical memory of the operation. A finding is known when it lives in an entry or the fact store, and nowhere else. An agent's recollection of a past research dump is not knowledge; the entry is. This is the same principle as the promotion rule, applied to prose.
+
+**Entries are records in the article pipeline.** One MDX file per entry in `content/encyclopedia/`. The numeral lint, the `<Figure />` component, and the fact store apply unchanged: an entry can no more contain a bare number than an article can.
+
+| Field | Notes |
+|---|---|
+| `id` | `enc.` prefix, dot-namespaced, stable, human-readable. Never reused. |
+| `title` | |
+| `standfirst` | Authored, mandatory at `published`. Doubles as the hover preview in the graph view. Never an auto-truncated body excerpt. |
+| `domains[]` | Subset of the four. |
+| `lenses[]` | `economics` · `politics` · `science`. Fixed enum, from section 1. |
+| `related[]` | Entry ids and `article:` slugs. A dangling target fails the build. Articles carry a mirror field so linking runs both directions. |
+| `status` | `stub` · `draft` · `published`. Stubs render, visibly as stubs. A dim node is a feature: the shape of what is not yet known. |
+| `rev` / `updated` | Same revision discipline as articles. |
+
+At least one domain or one lens is required.
+
+**Granularity is mixed, governed by the split test: an entry splits when you want to link to part of it.** When a section keeps being referenced on its own, or accumulates its own facts, it becomes its own entry and the parent links to it. Ids are never reused, so a split mints new ids and updates links; it never renames.
+
+**Facts are discovered, not declared.** The facts an entry uses are found at build time by scanning the body for `<Figure />` references. There is no hand-maintained list to go stale, and the scan feeds the graph.
+
+**The graph is derived data.** The build emits nodes and weighted edges from three signals, strongest first: the `related` array, shared fact records, shared domains and lenses. The traditional view ignores the graph. The 3D view consumes it and adds nothing to it. One data model, two renderings, and the graph can never disagree with the pages because it is computed from them.
+
+**Open questions are private and never ship.** The research queue lives in `notes/research-queue.md`, gitignored, organized by entry id. The repo is public, so anything in `content/` is published twice, on the site and on GitHub. A question about what to research next is working state, not content.
+
+**Validation, all build-failing:** unknown fact id, dangling `related` target, published entry without a standfirst, entry with no domain and no lens, plus the numeral lint.
+
 ---
 
 ## 6. Working with agents
@@ -600,6 +630,7 @@ above, before checking anything else.
 **Active**
 - Deployment: GitHub repo, Vercel, burnrate.news pointed at it.
 - The first few pieces of content.
+- The encyclopedia: traditional view first, then the graph build step. Schema settled in section 5.
 
 **Editorial**
 - What makes something a Burn Rate story and what does not.
@@ -611,6 +642,7 @@ above, before checking anything else.
 - Image and illustration doctrine.
 - Ambient motion: page-load sequences, scroll reveals, hover states. Open by decision, judged case by case. Record a pattern here once it earns repeating.
 - The component specimen page, for design system import into Claude Design.
+- The encyclopedia 3D graph view: a navigable, rotatable rendering of the build-time graph, hover previews from standfirsts. The data model is settled; the rendering is open, and it is governed by *Motion, 3D, and other renderings* in section 3, including reduced motion and the rule that awe is not an argument.
 
 **Identity**
 - Descriptor and short form.
@@ -657,6 +689,7 @@ Base awards total `$1.292B`. With the unexercised Blue Origin option, `$1.573B`.
 
 | Rev | Date | Change |
 |---|---|---|
+| 17 | 2026-08-05 | **The encyclopedia, merged from the forked Rev 12.** Public research archive at `/encyclopedia`, nav directly after Articles. Entries as MDX records in the article pipeline: `enc.` ids never reused, authored standfirsts doubling as graph previews, domains plus a fixed lens enum of economics, politics, science, typed `related` links failing the build when dangling, and a renderable `stub` status. Mixed granularity governed by the split test: an entry splits when you want to link to part of it. Facts discovered by build-time scan, never declared by hand. The graph emitted as derived data from three edge signals: explicit links, shared facts, shared taxonomy. Open questions ruled private, living in a gitignored `notes/research-queue.md`, because the public repo publishes everything in `content/` twice. The 3D graph view recorded as open design work under section 3's rendering rules. Originates from a Rev 12 drafted on a branch off Rev 11 that never carried Revs 12 through 16; this merge lands its content on the canonical line and that branch is superseded. |
 | 16 | 2026-08-01 | **Chart system settled, and the em dash prohibited.** The confidence notation appears on chart value labels and never on geometry: dashed geometry already means forecast in conventional data visualization, which is a different claim than reported. A chart carrying figures must therefore label them, or state dataset confidence in the source line, since geometry that carries no mark cannot leave numbers unmarked. Construction rules recorded: series order, five maximum, no legend for domain charts, mono throughout, hairline gridlines, square caps. Em dashes prohibited in all copy, human or agent generated. |
 | 15 | 2026-08-01 | **Downstream copies recorded as section 7; Open becomes section 8.** Eight copies of this document's visual system now exist, one of them outside the repository entirely. A revision touching color, type, space, the notation, the logo, layout, or motion obliges a re-sync of all of them, and each copy records the `BR-FOUND` revision it was built from so staleness is visible without investigation. `/specimen` recorded as the drift detector after its first render found six bugs. |
 | 14 | 2026-08-01 | The first specimen render. On the jet surface the lockup is monochrome page white, resolving a conflict with `BR-LOGO` Rev 03, which specified three lifted colors that are not in the closed palette. The masthead is the `md` lockup rather than a bespoke size. Article routes bound at `1120` and every other route at `1180`, which the unused page-bound token exposed. The page gutter is recorded as a token rather than a scale step, correcting a migration snap. Issued as `BR-LOGO` Rev 04. |
